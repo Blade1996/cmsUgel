@@ -18,7 +18,7 @@ class SliderController extends Controller
     public function index()
     {
         Session::put('page', 'slider');
-        $sliders = Article::where('show_slider', true)->orderBy('order')->get();
+        $sliders = Article::where('section_id', 5)->orderBy('order')->get();
         $company = new Company;
         $companyData = getCompanyData();
         return view('admin.slider.slider')->with(compact('sliders', 'companyData'));
@@ -34,7 +34,7 @@ class SliderController extends Controller
         }
     }
 
-    public function addSlider(Request $request)
+    /*     public function addSlider(Request $request)
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -77,14 +77,44 @@ class SliderController extends Controller
         $company = new Company;
         $companyData = getCompanyData();
         return view('admin.slider.add_slider', compact('companyData'));
-    }
-
+    } */
 
     public function editSlider(Request $request, $id = null)
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            /*echo "<pre>"; print_r($data); die;*/
+
+            // Upload Image
+            if ($request->hasFile('sliderImage')) {
+                $image_tmp = $request->file('sliderImage');
+                if ($image_tmp->isValid()) {
+                    // Upload Images after Resize
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    $fileName = rand(111, 99999) . '.' . $extension;
+                    $large_image_path = 'images/admin_images/articles/' . $fileName;
+                    Image::make($image_tmp)->save($large_image_path);
+                    $completePath = env('URL_DOMAIN') . '/' . $large_image_path;
+                }
+            } else if (!empty($data['currentSliderImage'])) {
+                $fileName = $data['currentSliderImage'];
+            } else {
+                $fileName = '';
+            }
+
+            Article::where('id', $id)->update(['slider_image' => $completePath]);
+            Session::flash('success_message', 'El slider se actualizo Correctamente');
+            return redirect()->route('dashboard.slider.index');
+        }
+        $companyData = getCompanyData();
+        $sliderDetails = Article::where('id', $id)->first();
+        return view('admin.slider.edit_slider')->with(compact('sliderDetails', 'companyData'));
+    }
+
+
+    /*    public function editSlider(Request $request, $id = null)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
 
             // Upload Image
             if ($request->hasFile('sliderImage')) {
@@ -111,7 +141,7 @@ class SliderController extends Controller
         $companyData = getCompanyData();
         $sliderDetails = Slider::where('id', $id)->first();
         return view('admin.slider.edit_slider')->with(compact('sliderDetails', 'companyData'));
-    }
+    } */
 
     public function deleteSlider($id)
     {

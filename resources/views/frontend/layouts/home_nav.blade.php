@@ -12,13 +12,14 @@
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 @foreach ($sections as $section)
-                @if (count($section->subCategories) > 0)
+                @if (count($section->articles) > 0)
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown"
                         aria-expanded="false">{{ $section->name }}</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                        @foreach ($section->subCategories as $subCategory)
-                        <li><a class="dropdown-item" href="https://ugel.hostingonlineperu.com/nosotros">{{ $subCategory->name
+                        @foreach ($section->articles as $article)
+                        <li><a class="dropdown-item" href="{{ route('home.article.detail', $article->slug) }}">{{
+                                $article->title
                                 }}</a></li>
                         @endforeach
                     </ul>

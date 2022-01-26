@@ -3,7 +3,9 @@
 @section('content')
 
 <!--chat whatsapp-->
-<div class="chatbot"><a href="https://api.whatsapp.com/send?phone=[51][993652872]&amp;text=Buen día, ¿en qúe podemos ayudarle?..."><img src="https://toldospalomino.com/WhatsApp_Icon.png" alt=""></a></div>
+<div class="chatbot"><a
+        href="https://api.whatsapp.com/send?phone=[51][993652872]&amp;text=Buen día, ¿en qúe podemos ayudarle?..."><img
+            src="https://toldospalomino.com/WhatsApp_Icon.png" alt=""></a></div>
 <!--fin chat whatsapp-->
 
 
@@ -24,7 +26,7 @@
             @php
             $i++
             @endphp
-            <img src="{{ $slider->page_image }}" alt="...">
+            <img src="{{ $slider->slider_image }}" alt="...">
             <div class="container">
                 <div class="carousel-caption text-start my-5">
                     <h1>{{ $slider->title }}</h1>
@@ -56,8 +58,7 @@
             @foreach ($linksArray->chunk(3) as $links)
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                 @foreach ($links as $link)
-                <a href="{{ $link->url_redirect }}" target="_blank"><img src="{{ $link->url_icon }}" width="20"
-                        alt="">{{
+                <a href="{{ $link->url_redirect }}" target="_blank"><i class="nav-icon fas fa-link"></i>{{
                     $link->title }}<i class="fas fa-chevron-right"></i></a>
                 @endforeach
             </div>
@@ -221,7 +222,8 @@
 
             <div class="card-header">
                 Convocatorias CAS
-                <a class="pull-right" href="https://ugel.hostingonlineperu.com/convocatorias">Ver todo&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                <a class="pull-right" href="https://ugel.hostingonlineperu.com/convocatorias">Ver todo&nbsp;&nbsp;<i
+                        class="fas fa-angle-right"></i></a>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-xs-12">
@@ -257,17 +259,17 @@
             <!-- NOTICIAS-->
             <div class="card-header mt-4">
                 Normatividad
-                <a class="pull-right" href="{{route('home.normativity')}}">Ver todo&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                <a class="pull-right" href="{{route('home.normativity')}}">Ver todo&nbsp;&nbsp;<i
+                        class="fas fa-angle-right"></i></a>
             </div>
             <div class="row">
-                  @foreach ($articles as $article)
+                @foreach ($documents as $document)
                 <div class="col-lg-4 col-md-6 col-xs-12">
                     <div class="card-body">
-                        <div class="small text-muted">{{ $article->created_at }}</div>
-                        <h2 class="card-title h4">{{ $article->title }}</h2>
+                        <div class="small text-muted">{{ $document->created_at }}</div>
+                        <h2 class="card-title h4">{{ $document->title }}</h2>
                         <p class="card-text">28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
-                        <a href="https://cdn.www.gob.pe/uploads/document/file/695454/resolucion-ministerial-n-265-2020-minsa.pdf"
-                            class="stretched-link"><i class="bi bi-app"></i>
+                        <a href="{{ $document->url_file }}" class="stretched-link"><i class="bi bi-app"></i>
                             Ver/Descargar&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
                     </div>
                 </div>
@@ -277,10 +279,11 @@
             <!-- NORMATIVIDAD-->
             <div class="card-header mt-4">
                 Noticias
-                <a class="pull-right" href="{{route('home.articles')}}">Ver todo&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                <a class="pull-right" href="{{route('home.articles')}}">Ver todo&nbsp;&nbsp;<i
+                        class="fas fa-angle-right"></i></a>
             </div>
             <div class="row">
-                @foreach ($documents as $document)
+                @foreach ($articles as $document)
                 <div class="col-lg-4 col-md-6 col-xs-12">
                     <div class="card-body">
                         <div class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative mb-4 pt-2">
@@ -289,11 +292,11 @@
                                     alt="..." />
                             </div>
                             <div class="col d-flex flex-column position-static">
-                                <div class="mb-1 text-muted">10/11/21</div>
-                                <h4 class="card-title h4">{{ $document->title }}</h4>
+                                <div class="mb-1 text-muted">{{ $article->created_at }}</div>
+                                <h4 class="card-title h4">{{ $article->title }}</h4>
 
-                                <p class="card-text">{{ $document->description }}</p>
-                                <a href="{{ $document->url_file }}" class="stretched-link">Ver/Descargar&nbsp;&nbsp;<i
+                                <p class="card-text">{{ $document->subtitle }}</p>
+                                <a href="" class="stretched-link">Ver/Descargar&nbsp;&nbsp;<i
                                         class="fas fa-angle-right"></i></a>
                             </div>
                         </div>
@@ -311,9 +314,9 @@
                 <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link.jpg') }}" width="700">
                 <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link1.jpg') }}" width="700">
                 <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link2.jpg') }}" width="700">
-            
+
             </div>
-<!--            <a class="btn btn-outline-primary w-100 mb-5" href="filtro-noticias.html">Ver todas las noticias →</a>-->
+            <!--            <a class="btn btn-outline-primary w-100 mb-5" href="filtro-noticias.html">Ver todas las noticias →</a>-->
         </div>
     </div>
 </div>

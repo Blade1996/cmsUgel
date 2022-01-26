@@ -27,7 +27,7 @@ Route::get('/contacto', 'HomeController@indexContact')->name('home.contact');
 
 Route::get('/noticias', 'HomeController@indexArticles')->name('home.articles');
 Route::get('/normatividad', 'HomeController@indexNormativity')->name('home.normativity');
-Route::get('/noticias/{slug}', 'HomeController@articleDetail')->name('home.article.detail');
+Route::get('/articulo/{slug}', 'HomeController@articleDetail')->name('home.article.detail');
 
 
 
@@ -63,7 +63,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::match(['get', 'post'], 'dashboard/articles/create', 'ArticleController@addArticle')->name('dashboard.articles.create');
         Route::match(['get', 'post'], 'dashboard/articles/edit/{id?}', 'ArticleController@editArticle')->name('dashboard.articles.edit');
         Route::get('dashboard/article/delete/{id}', 'ArticleController@deleteArticle')->name('dashboard.articles.delete');
-        
         Route::get('dashboard/articles/section/{id}', 'SectionController@sectionDetails');
 
 

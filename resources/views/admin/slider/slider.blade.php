@@ -62,10 +62,10 @@
                         <div class="tools">
                             <a href="{{ route('dashboard.slider.edit',$slider->id)}}" data-toggle="tooltip"
                                 title="Editar"><i class="fas fa-edit"></i></a>
-                            <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;" record="slider"
-                                recordId="{{ $slider->id }}" data-toggle="tooltip" title="Eliminar">
+                            {{-- <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;"
+                                record="slider" recordId="{{ $slider->id }}" data-toggle="tooltip" title="Eliminar">
                                 <i style="color: red;" class="fas fa-trash-alt"></i>
-                            </a>
+                            </a> --}}
                         </div>
                     </li>
                     @endforeach

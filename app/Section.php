@@ -11,7 +11,7 @@ class Section extends Model
 
     public function articles()
     {
-        return $this->hasMany('App\Article', 'section_id', 'id', 'name', 'description')->latest()->take(5)->select('id', 'title', 'subtitle', 'page_image', 'slug', 'text_link');
+        return $this->hasMany('App\Article', 'section_id', 'id', 'title', 'slug');
     }
 
     public function subCategories()

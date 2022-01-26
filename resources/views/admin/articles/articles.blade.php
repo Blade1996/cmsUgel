@@ -56,8 +56,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Título</th>
-                                        <th>Subtítulo</th>
-                                        <th>Sección</th>
+                                        <th>Seccion</th>
                                         <th>Imagen</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -67,7 +66,6 @@
                                     <tr>
                                         <td>{{ $article->id }}</td>
                                         <td>{{ $article->title }}</td>
-                                        <td>{{ $article->subtitle }}</td>
                                         <td>{{ $article->section->name }}</td>
                                         <td>
                                             <img src="{{$article->page_image}}" class="img-fluid" width=200 height=100

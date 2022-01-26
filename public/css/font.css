@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'Dinot Light';
+    src: url('../fonts/DINOT-Light.eot');
+    src: url('../fonts/DINOT-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/DINOT-Light.woff2') format('woff2'),
+        url('../fonts/DINOT-Light.woff') format('woff'),
+        url('../fonts/DINOT-Light.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Dinot Regular';
+    src: url('../fonts/DINOT-Regular.eot');
+    src: url('../fonts/DINOT-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/DINOT-Regular.woff2') format('woff2'),
+        url('../fonts/DINOT-Regular.woff') format('woff'),
+        url('../fonts/DINOT-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Dinot Medium';
+    src: url('../fonts/DINOT-Medium.eot');
+    src: url('../fonts/DINOT-Medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/DINOT-Medium.woff2') format('woff2'),
+        url('../fonts/DINOT-Medium.woff') format('woff'),
+        url('../fonts/DINOT-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Dinot Bold';
+    src: url('../fonts/DINOT-Bold.eot');
+    src: url('../fonts/DINOT-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/DINOT-Bold.woff2') format('woff2'),
+        url('../fonts/DINOT-Bold.woff') format('woff'),
+        url('../fonts/DINOT-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}

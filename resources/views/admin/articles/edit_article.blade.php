@@ -56,6 +56,16 @@
                                         value="{{$articleDetail->title}}" placeholder="Ingrese Titulo">
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputFile">Insertar Imagen para Slider</label>
+                                    <input type="file" class="form-control" onchange="preview_image3(event)"
+                                        name="sliderImage" id="sliderImage">
+                                    <input type="hidden" class="form-control" id="currentSliderImage"
+                                        name="currentSliderImage" value="{{$articleDetail->slider_image}}"
+                                        placeholder="Ingrese Titulo">
+                                    <img style="margin-top: 10px;" class="img-fluid" id="output_image3"
+                                        src="{{$articleDetail->slider_image }}" />
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Subtítulo</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1"
                                         name="articleSubTitle" value="{{$articleDetail->subtitle}}"
@@ -75,7 +85,8 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Mostrar en Slide</label>
                                     <div class="form-check">
-                                        <input  type="checkbox" value="1" name="showSlider" id="showSlider" <?php if($articleDetail->show_slider == 1) echo 'checked'; ?>>
+                                        <input type="checkbox" value="1" name="showSlider" id="showSlider" <?php
+                                            if($articleDetail->show_slider == 1) echo 'checked'; ?>>
                                         <label class="form-check-label" for="showSlider">
                                             Mostrar Banner de Articulo en Slider
                                         </label>
@@ -178,6 +189,19 @@
             output.src = reader.result;
             output.width = 400;
             output.width = 300
+
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        function preview_image3(event)
+        {
+            var reader = new FileReader();
+            reader.onload = function()
+            {
+            var output = document.getElementById('output_image3');
+            output.src = reader.result;
+            output.width = 400;
+            output.height = 300
 
             }
             reader.readAsDataURL(event.target.files[0]);

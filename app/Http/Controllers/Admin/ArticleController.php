@@ -92,8 +92,8 @@ class ArticleController extends Controller
                     $article->image_seo = env('URL_DOMAIN') . '/' . $large_image_path;
                 }
             }
-            
-            
+
+
             if ($request->hasFile('sliderImage')) {
                 $image_tmp = $request->file('sliderImage');
                 if ($image_tmp->isValid()) {
@@ -109,8 +109,8 @@ class ArticleController extends Controller
             if (empty($data['articleUrlVideo'])) {
                 $urlVideo = '';
             }
-            
-             if (!empty($data['subCategoryId'])) {
+
+            if (!empty($data['subCategoryId'])) {
                 $article->sub_category_id = $data['subCategoryId'];
             }
 
@@ -135,14 +135,10 @@ class ArticleController extends Controller
         }
 
         $sections = Section::get();
-
         $section_drop_down = "<option value='' selected disabled>Select</option>";
         foreach ($sections as $section) {
             $section_drop_down .= "<option value='" . $section->id . "'>" . $section->name . "</option>";
         }
-        $section_drop_down .= "<option value='100'>slider</option>";
-        $section_drop_down .= "<option value='200'>noticias</option>";
-        $section_drop_down .= "<option value='300'>enlaces de interes</option>";
         $company = new Company;
         $companyData = getCompanyData();
         return view('admin.articles.add_article')->with(compact('section_drop_down', 'companyData'));
@@ -154,10 +150,12 @@ class ArticleController extends Controller
         if ($request->isMethod('post')) {
 
             $data = $request->all();
-            // echo '<pre>'; print_r($data); die;
+            /*     echo '<pre>';
+            print_r($data);
+            die; */
             $rulesData = [
                 'articleSubTitle' => 'nullable|regex:/^[A-Za-zá-úÁ-ÚñÑ0-9\-! ,&\'\"\/@\.:\(\)]+$/',
-                'articleImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'articleImage' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'articleResume' => 'nullable|regex:/^[A-Za-zá-úÁ-ÚñÑ0-9\-! ,&\'\"\/@\.:\(\)]+$/',
                 'articleTextLink' => 'nullable|regex:/^[A-Za-zá-úÁ-ÚñÑ0-9\-! ,&\'\"\/@\.:\(\)]+$/',
                 'articleSeoTitle' => 'nullable|regex:/^[A-Za-zá-úÁ-ÚñÑ0-9\-! ,&\'\"\/@\.:\(\)]+$/',
@@ -219,21 +217,21 @@ class ArticleController extends Controller
             } else {
                 $completePathSeo = '';
             }
-            
-              if ($request->hasFile('sliderImage')) {
-                $image_tmp = $request->file('articleSeoImage');
+
+            if ($request->hasFile('sliderImage')) {
+                $image_tmp = $request->file('sliderImage');
                 if ($image_tmp->isValid()) {
                     // Upload Images after Resize
                     $extension = $image_tmp->getClientOriginalExtension();
                     $fileName = rand(111, 99999) . '.' . $extension;
                     $large_image_path = 'images/admin_images/articles/' . $fileName;
                     Image::make($image_tmp)->save($large_image_path);
-                    $completePathSeo = env('URL_DOMAIN') . '/' . $large_image_path;
+                    $completePathSlider = env('URL_DOMAIN') . '/' . $large_image_path;
                 }
             } else if (!empty($data['currentSliderImage'])) {
-                $completePathSeo = $data['currentSliderImage'];
+                $completePathSlider = $data['currentSliderImage'];
             } else {
-                $completePathSeo = '';
+                $completePathSlider = '';
             }
 
 
@@ -244,7 +242,7 @@ class ArticleController extends Controller
             }
 
 
-            Article::where(['id' => $id])->update(['title' => $data['articleTitle'], 'subtitle' => $data['articleSubTitle'], 'show_slider' => $data['showSlider'] ?? 0 , 'route' => $slug, 'slug' => $slug, 'content' => htmlspecialchars_decode(e($data['articleContent'])), 'section_id' => $data['sectionId'], 'page_image' => $completePath, 'resume' => $data['articleResume'], 'text_link' => $data['articleTextLink'], 'title_seo' => $data['articleSeoTitle'], 'content_seo' => $data['articleSeoDescription'], 'image_seo' => $completePathSeo, 'url_video' => $data['articleUrlVideo'], 'sub_category_id' => $subCatId, 'slider_image' => $data['sliderImage']]);
+            Article::where(['id' => $id])->update(['title' => $data['articleTitle'], 'subtitle' => $data['articleSubTitle'], 'show_slider' => $data['showSlider'] ?? 0, 'route' => $slug, 'slug' => $slug, 'content' => htmlspecialchars_decode(e($data['articleContent'])), 'section_id' => intval($data['sectionId']), 'page_image' => $completePath, 'resume' => $data['articleResume'], 'text_link' => $data['articleTextLink'], 'title_seo' => $data['articleSeoTitle'], 'content_seo' => $data['articleSeoDescription'], 'image_seo' => $completePathSeo, 'url_video' => $data['articleUrlVideo'], 'sub_category_id' => $subCatId, 'slider_image' => $completePathSlider]);
 
             Session::flash('success_message', 'El articulo se Actualizo Correctamente');
             return redirect()->route('dashboard.articles.index');
@@ -252,22 +250,6 @@ class ArticleController extends Controller
 
         $articleDetail = Article::where(['id' => $id])->first();
         $sections = Section::get();
-        $sectionClass = new SectionController;
-        $sectionDetail = $sectionClass->sectionDetails($articleDetail->section_id);
-        $subcat_drop_down = '';
-        if (!empty($sectionDetail->sub_categories) && count($sectionDetail->sub_categories) > 0) {
-            $subcat_drop_down = "<option value='' disabled>Select</option>";
-            foreach ($sectionDetail->sub_categories as $subCategory) {
-                if ($subCategory->id == $articleDetail->sub_category_id) {
-                    $selected = "selected";
-                } else {
-                    $selected = "";
-                }
-
-                $subcat_drop_down .= "<option value='" . $subCategory->id . "' " . $selected . ">" . $subCategory->name . "</option>";
-            }
-        }
-
         $section_drop_down = "<option value='' disabled>Select</option>";
         foreach ($sections as $section) {
             if ($section->id == $articleDetail->section_id) {
@@ -278,12 +260,9 @@ class ArticleController extends Controller
 
             $section_drop_down .= "<option value='" . $section->id . "' " . $selected . ">" . $section->name . "</option>";
         }
-        $section_drop_down .= "<option value='100'>slider</option>";
-        $section_drop_down .= "<option value='200'>noticias</option>";
-        $section_drop_down .= "<option value='300'>enlaces de interes</option>";
         $company = new Company;
         $companyData = getCompanyData();
-        return view('admin.articles.edit_article')->with(compact('articleDetail', 'section_drop_down', 'companyData', 'subcat_drop_down'));
+        return view('admin.articles.edit_article')->with(compact('articleDetail', 'section_drop_down', 'companyData'));
     }
 
     public function deleteArticle($id)

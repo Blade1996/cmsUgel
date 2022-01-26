@@ -55,10 +55,9 @@
                                         onchange="preview_image(event)">
                                     <br>
                                     <img class="img-fluid" style="margin-top: 10px;" width="300" id="output_image"
-                                        src="{{$sliderDetails->url_image}}" />
-                                    <input type="hidden" name="currentArticleImage"
-                                        value="{{$sliderDetails->url_image}}">
-                                    <input type="hidden" name="currentSlugImage" value="{{$sliderDetails->slug}}">
+                                        src="{{$sliderDetails->slider_image}}" />
+                                    <input type="hidden" name="currentSliderImage"
+                                        value="{{$sliderDetails->slider_image}}">
                                 </div>
                             </div>
                             <!-- /.card-body -->
