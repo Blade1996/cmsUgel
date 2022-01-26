@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href="https://pandora.pe/ugel/assets/img/faviconx72.png" />
     <!-- CSS ugel ILO-->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
-
+    <link rel="stylesheet" href="{{ asset('css/carrusel.css') }}">
     <link href="css/form-validation.css" rel="stylesheet">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
 
@@ -26,12 +26,14 @@
 
     <script src="https://kit.fontawesome.com/3809eab31a.js" crossorigin="anonymous"></script>
 </head>
-<style>.chatbot {
-    position: fixed;
-    z-index: 99999999;
-    bottom: 100px;
-    right: 10px;
-}</style>
+<style>
+    .chatbot {
+        position: fixed;
+        z-index: 99999999;
+        bottom: 100px;
+        right: 10px;
+    }
+</style>
 
 @include('frontend.layouts.home_header')
 
@@ -95,7 +97,11 @@
   })
     </script> --}}
 </body>
-
+<script src="{{ asset('js/functions.js') }}"></script>
+<script src="{{ asset('js/jquery.stellar.js') }}"></script>
+<script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('js/jRespond.min.js') }}"></script>
+<script src="{{ asset('js/jquery.fitvids.js') }}"></script>
 
 
 </html>

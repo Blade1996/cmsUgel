@@ -31,7 +31,8 @@
                 <div class="carousel-caption text-start my-5">
                     <h1>{{ $slider->title }}</h1>
                     <p>{{ $slider->subtitle }}</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">+ Información</a></p>
+                    <p><a class="btn btn-lg btn-primary" href="{{ route('home.article.detail', $slider->slug)}}">+
+                            Información</a></p>
                 </div>
             </div>
         </div>
@@ -67,6 +68,66 @@
     </div>
 </div>
 
+<!--slider logos-->
+
+<!--slider logos-->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="overflow: hidden;">
+
+
+            <div class="slider-clients">
+                <ul class="owl-carousel">
+                    <li>
+                        <div class="slide">
+                            <div class="client-single"><a href="#"><img
+                                        src="http://via.placeholder.com/120x40?text=Image" alt=""></a></div>
+                        </div><!-- .slide end -->
+                    </li>
+                    <li>
+                        <div class="slide">
+                            <div class="client-single"><a href="#"><img
+                                        src="http://via.placeholder.com/120x40?text=Image" alt=""></a></div>
+                        </div><!-- .slide end -->
+                    </li>
+                    <li>
+                        <div class="slide">
+                            <div class="client-single"><a href="#"><img
+                                        src="http://via.placeholder.com/120x40?text=Image" alt=""></a></div>
+                        </div><!-- .slide end -->
+                    </li>
+                    <li>
+                        <div class="slide">
+                            <div class="client-single"><a href="#"><img
+                                        src="http://via.placeholder.com/120x40?text=Image" alt=""></a></div>
+                        </div><!-- .slide end -->
+                    </li>
+                    <li>
+                        <div class="slide">
+                            <div class="client-single"><a href="#"><img
+                                        src="http://via.placeholder.com/120x40?text=Image" alt=""></a></div>
+                        </div><!-- .slide end -->
+                    </li>
+                    <li>
+                        <div class="slide">
+                            <div class="client-single"><a href="#"><img
+                                        src="http://via.placeholder.com/120x40?text=Image" alt=""></a></div>
+                        </div><!-- .slide end -->
+                    </li>
+                </ul>
+            </div><!-- .slider-clients end -->
+
+        </div><!-- .col-md-12 end -->
+
+        <!-- .col-sm-12 end -->
+
+    </div><!-- .row end -->
+</div>
+
+
+<!--fin slider logos-->
 
 
 <!--<section id="casos" class="" style="max-height: 170px;">
@@ -283,7 +344,7 @@
                         class="fas fa-angle-right"></i></a>
             </div>
             <div class="row">
-                @foreach ($articles as $document)
+                @foreach ($articles as $article)
                 <div class="col-lg-4 col-md-6 col-xs-12">
                     <div class="card-body">
                         <div class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative mb-4 pt-2">
@@ -295,7 +356,7 @@
                                 <div class="mb-1 text-muted">{{ $article->created_at }}</div>
                                 <h4 class="card-title h4">{{ $article->title }}</h4>
 
-                                <p class="card-text">{{ $document->subtitle }}</p>
+                                <p class="card-text">{{ $article->subtitle }}</p>
                                 <a href="" class="stretched-link">Ver/Descargar&nbsp;&nbsp;<i
                                         class="fas fa-angle-right"></i></a>
                             </div>
@@ -342,8 +403,7 @@
 <script src="{{ asset('js/owl.carousel.js') }}"></script>
 <script>
     $(document).ready(function() {
-
-        $('#casos .owl-carousel').owlCarousel({
+$('#casos .owl-carousel').owlCarousel({
       autoplay: false,
       autoplayHoverPause: true,
       items: 6,
