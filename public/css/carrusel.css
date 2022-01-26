@@ -1,0 +1,86 @@
+/* Slider Clients */
+.slider-clients {
+  padding-top: 10px;
+  width: 100%;
+  /* Next & Prev Buttons */
+  /* Dots Buttons */ }
+  .slider-clients .owl-carousel {
+    list-style: none; }
+    .slider-clients .owl-carousel .owl-stage-outer {
+      margin-top: -2px;
+      padding-top: 2px; }
+    .slider-clients .owl-carousel .owl-stage {
+      display: flex;
+      align-items: center; }
+    .slider-clients .owl-carousel > li {
+      display: block;
+      background-position: top center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-clip: content-box; }
+    .slider-clients .owl-carousel .slide {
+      position: relative; }
+    .slider-clients .owl-carousel > img {
+      width: 100%; }
+  .slider-clients .owl-nav {
+    margin: 0; }
+    .slider-clients .owl-nav [class*="owl-"] {
+      font-size: 25px;
+      width: 60px;
+      height: 60px;
+      line-height: 56px;
+      margin: 0;
+      padding: 0;
+      margin-top: -30px !important;
+      position: absolute;
+      top: 50%;
+      border-radius: 999px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+      color: #fff;
+      background-color: #44bfff; }
+      .slider-clients .owl-nav [class*="owl-"]:hover {
+        background-color: #222;
+        color: #fff; }
+    .slider-clients .owl-nav .owl-prev {
+      left: 0;
+      margin-left: 60px; }
+    .slider-clients .owl-nav .owl-next {
+      right: 0;
+      margin-right: 60px; }
+    .slider-clients .owl-nav .disabled {
+      opacity: 0.5;
+      cursor: default; }
+  .slider-clients:hover .owl-nav [class*="owl-"] {
+    opacity: 1;
+    visibility: visible; }
+  .slider-clients:hover .owl-nav .owl-prev {
+    margin-left: 40px; }
+    .slider-clients:hover .owl-nav .owl-prev:hover {
+      margin-left: 35px; }
+  .slider-clients:hover .owl-nav .owl-next {
+    margin-right: 40px; }
+    .slider-clients:hover .owl-nav .owl-next:hover {
+      margin-right: 35px; }
+  .slider-clients .owl-dots {
+    margin: 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 40px !important; }
+    .slider-clients .owl-dots .owl-dot {
+      margin: 0 2.5px;
+      border-radius: 100%; }
+      .slider-clients .owl-dots .owl-dot:hover span {
+        background-color: #aaa; }
+      .slider-clients .owl-dots .owl-dot.active span,
+      .slider-clients .owl-dots .owl-dot.active:hover span {
+        background-color: #44bfff; }
+      .slider-clients .owl-dots .owl-dot span {
+        width: 15px;
+        margin: 0;
+        border-radius: 100%;
+        height: 15px;
+        background-color: #d8d9d9;
+        transition: all .15s; }
