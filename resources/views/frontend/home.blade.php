@@ -145,33 +145,36 @@
     <div class="container">
 
         <div class="partner-slider owl-carousel owl-theme">
+            @foreach ($partners as $partner)
             <div class="partner-slider-item">
                 <a href="#">
-                    <img src="assets/img/partner/partner1.png" alt="logo">
+                    <img src="{{$partner->logo}}" href="{{$partner->url}}" alt="logo">
                 </a>
             </div>
-            <div class="partner-slider-item">
-                <a href="#">
-                    <img src="assets/img/partner/partner2.png" alt="logo">
-                </a>
-            </div>
-            <div class="partner-slider-item">
-                <a href="#">
-                    <img src="assets/img/partner/partner3.png" alt="logo">
-                </a>
-            </div>
-            <div class="partner-slider-item">
-                <a href="#">
-                    <img src="assets/img/partner/partner4.png" alt="logo">
-                </a>
-            </div>
-            <div class="partner-slider-item">
-                <a href="#">
-                    <img src="assets/img/partner/partner5.png" alt="logo">
-                </a>
-            </div>
+            @endforeach
+            <!-- <div class="partner-slider-item">
+                    <a href="#">
+                        <img src="assets/img/partner/partner2.png" alt="logo">
+                    </a>
+                </div>
+                <div class="partner-slider-item">
+                    <a href="#">
+                        <img src="assets/img/partner/partner3.png" alt="logo">
+                    </a>
+                </div>
+                <div class="partner-slider-item">
+                    <a href="#">
+                        <img src="assets/img/partner/partner4.png" alt="logo">
+                    </a>
+                </div>
+                <div class="partner-slider-item">
+                    <a href="#">
+                        <img src="assets/img/partner/partner5.png" alt="logo">
+                    </a>
+                </div> -->
         </div>
     </div>
+</div>
 </div>
 <!-- End Partner Slider Area -->
 

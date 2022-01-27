@@ -71,8 +71,8 @@ $(function(){
         var recordId = $(this).attr('recordId');
         var record = $(this).attr('record');
         Swal.fire({
-            title: 'Estas Seguro?',
-            text: "no se podra deshacer la accion!",
+            title: '¿Estás seguro?',
+            text: "¡No se podrá deshacer la acción!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
