@@ -7,6 +7,7 @@
     <title>UGEL | Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{$companyData->companyInfo->url_icon ?? ''}}" type="image/x-icon">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ url('plugins/fontawesome-free/css/all.min.css') }}">
@@ -23,7 +24,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/') }}"><b>Panel</b>Admin</a>
+            <a href="{{ url('/') }}"><img width="200" src="{{ $companyData->companyInfo->url_company }}" alt=""></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">

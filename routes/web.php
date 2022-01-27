@@ -22,7 +22,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/documentos', 'HomeController@indexDocuments')->name('home.document');
-// Route::get('/convocatorias', 'HomeController@indexAnnouncements')->name('home.announcements');
+Route::get('/convocatorias', 'HomeController@indexAnnouncements')->name('home.announcements');
 Route::get('/contacto', 'HomeController@indexContact')->name('home.contact');
 
 Route::get('/noticias', 'HomeController@indexArticles')->name('home.articles');

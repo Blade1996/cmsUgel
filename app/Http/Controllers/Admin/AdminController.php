@@ -67,7 +67,8 @@ class AdminController extends Controller
                 return redirect()->back();
             }
         }
-        return view('admin.admin_login');
+        $companyData = getCompanyData();
+        return view('admin.admin_login')->with(compact('companyData'));
     }
 
     public function logout()

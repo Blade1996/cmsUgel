@@ -46,25 +46,24 @@
                     <a class="btn btn-primary w-100 mt-2" href="#!">Aplicar</a>
             </div>
         </div>
-
         <!-- Derecha entradas-->
         <div id="resultado-filtro" class="col-lg-9">
             <h3>Documentos generales: Normatividad</h3>
             <hr>
             <div class="col-md-12 border p-3">
-                  @foreach ($documents as $document)
+                @foreach ($regulations as $regulation)
                 <div class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative">
                     <div class="col-auto d-none d-lg-block">
-                        <img class="card-img-top" src="{{ $document->page_image }}" alt="...">
+                        <img class="card-img-top" src="{{ $regulation->page_image }}" alt="...">
 
                     </div>
                     <div class="col p-4 d-flex flex-column position-static">
 
-                        <h3 class="mb-0">{{ $document->title }}</h3>
-                        <div class="mb-1 text-muted">Nov 12</div>
-                        <p class="card-text mb-auto">{{ $document->description }}</p>
-                        <a href="{{ route('home.article.detail', $document->slug) }}" class="stretched-link">Continuar
-                            leyendo</a>
+                        <h3 class="mb-0">{{ $regulation->title }}</h3>
+                        <div class="mb-1 text-muted">{{ $regulation->created_at->format('d/m/Y') }}</div>
+                        <p class="card-text mb-auto">{{ $regulation->description }}</p>
+                        <a href="{{ $regulation->url_file }}" class="stretched-link"><i class="bi bi-app"></i>
+                            Ver/Descargar&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
                     </div>
                 </div>
                 <hr>

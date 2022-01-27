@@ -39,19 +39,19 @@ class HomeController extends Controller
 
     public function indexDocuments()
     {
-        $documents = Documents::get();
+        $documents = Documents::where('category_id', 1)->latest()->paginate(4);
         $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
         $companyData = getCompanyData();
         return view('frontend.documents')->with(compact('documents', 'companyData', 'sections'));
     }
 
-    // public function indexAnnouncements()
-    // {
-    //     // $announcements = Announcement::get();
-    //     $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
-    //     $companyData = getCompanyData();
-    //     // return view('frontend.announcements')->with(compact('announcements', 'companyData', 'sections'));
-    // }
+    public function indexAnnouncements()
+    {
+        $announcements = Documents::where('category_id', 2)->get();
+        $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
+        $companyData = getCompanyData();
+        return view('frontend.announcements')->with(compact('announcements', 'companyData', 'sections'));
+    }
 
     public function indexContact()
     {
@@ -62,7 +62,7 @@ class HomeController extends Controller
 
     public function indexArticles()
     {
-        Article::where('section_id', 6)->paginate(4);
+        $articles = Article::where('section_id', 6)->latest()->paginate(4);
         $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
         $companyData = getCompanyData();
         return view('frontend.noticias')->with(compact('companyData', 'articles', 'sections'));
@@ -70,10 +70,10 @@ class HomeController extends Controller
 
     public function indexNormativity()
     {
-        $documents = Documents::paginate(4);
+        $regulations = Documents::where('category_id', 3)->latest()->paginate(4);
         $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
         $companyData = getCompanyData();
-        return view('frontend.normatividad')->with(compact('documents', 'companyData', 'sections'));
+        return view('frontend.normatividad')->with(compact('regulations', 'companyData', 'sections'));
     }
 
     public function articleDetail($slug)

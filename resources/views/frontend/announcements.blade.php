@@ -30,19 +30,36 @@
                     <p class="fs-6 mb-4">Praesent at lectus lorem. Nunc vitae varius erat, at tempus erat. Nullam ullamcorper gravida blandit. Pellentesque fermentum ipsum laoreet augue tristique sagittis. Nullam cursus nisl vitae condimentum suscipit. Ut congue lectus est, ac viverra mauris finibus eu. Fusce consectetur ante vitae semper tincidunt. Sed dignissim ante nec nisi fringilla, eu tincidunt arcu cursus. Duis vulputate dolor sed sapien bibendum eleifend. Etiam malesuada tortor faucibus felis ultricies posuere. Nam sed pellentesque mauris. Phasellus consectetur sem vel ipsum dignissim, at semper augue convallis. Pellentesque eu lacinia magna.</p>
 
 -->
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <table id="announcenentsTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Fecha</th>
                                 <th>Unidad / Referencia de la convocatoria</th>
                                 <th>Convocatoria / Bases</th>
                                 <th>Resultados Evaluación de CVs</th>
-                                <th>Resultados preeliminares</th>
                                 <th>Resultado final</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ( $announcements as $announcement)
                             <tr>
+                                <td>{{ $announcement->created_at->format('d/m/Y') }}</td>
+                                <td><b>{{ $announcement->title }}</b>
+                                    <br>
+                                    RESULTADOS FINALES ...
+                                </td>
+                                <td><a href="{{ $announcement->url_basis }}" target="_blank"><i
+                                            class="far fa-file-pdf"></i></a></td>
+                                <td><a href="{{ $announcement->result_cv }}" target="_blank"><i
+                                            class="far fa-file-pdf"></i></a></td>
+                                <td><a href="{{ $announcement->result_final }}" target="_blank"><i
+                                            class="far fa-file-pdf"></i></a></td>
+                                {{-- <td><a href="https://ugelilo.edu.pe/web/media/convocatoria/plaza-final-2912c.pdf"
+                                        target="_blank"><i class="far fa-file-pdf"></i></a></td>
+                                --}}
+                            </tr>
+                            @endforeach
+                            {{-- <tr>
                                 <td>28/10/2021</td>
                                 <td><b>CAS Nº.013-2021-UGEL ILO-AGA-PER</b>
                                     <br>
@@ -57,7 +74,7 @@
                                 <td><a href="https://ugelilo.edu.pe/web/media/convocatoria/plaza-final-2912c.pdf"
                                         target="_blank"><i class="far fa-file-pdf"></i></a></td>
 
-                            </tr>
+                            </tr> --}}
 
                         </tbody>
 
@@ -79,4 +96,9 @@
         </div>
     </div>
 </div>
+<script>
+    $(function(){
+
+    })
+</script>
 @endsection

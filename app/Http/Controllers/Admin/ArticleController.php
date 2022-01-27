@@ -242,9 +242,11 @@ class ArticleController extends Controller
             }
 
 
-            Article::where(['id' => $id])->update(['title' => $data['articleTitle'], 'subtitle' => $data['articleSubTitle'], 'show_slider' => $data['showSlider'] ?? 0, 'route' => $slug, 'slug' => $slug, 'content' => htmlspecialchars_decode(e($data['articleContent'])), 'section_id' => intval($data['sectionId']), 'page_image' => $completePath, 'resume' => $data['articleResume'], 'text_link' => $data['articleTextLink'], 'title_seo' => $data['articleSeoTitle'], 'content_seo' => $data['articleSeoDescription'], 'image_seo' => $completePathSeo, 'url_video' => $data['articleUrlVideo'], 
-            // 'sub_category_id' => $subCatId, 
-            'slider_image' => $completePathSlider]);
+            Article::where(['id' => $id])->update([
+                'title' => $data['articleTitle'], 'subtitle' => $data['articleSubTitle'], 'show_slider' => $data['showSlider'] ?? 0, 'route' => $slug, 'slug' => $slug, 'content' => htmlspecialchars_decode(e($data['articleContent'])), 'section_id' => intval($data['sectionId']), 'page_image' => $completePath, 'resume' => $data['articleResume'], 'text_link' => $data['articleTextLink'], 'title_seo' => $data['articleSeoTitle'], 'content_seo' => $data['articleSeoDescription'], 'image_seo' => $completePathSeo, 'url_video' => $data['articleUrlVideo'],
+                // 'sub_category_id' => $subCatId,
+                'slider_image' => $completePathSlider
+            ]);
 
             Session::flash('success_message', 'El articulo se Actualizo Correctamente');
             return redirect()->route('dashboard.articles.index');
