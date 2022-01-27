@@ -99,7 +99,8 @@
                         </p>
                     </a>
                 </li>
-                @if (Session::get('page') == 'list-documents' || Session::get('page') == 'category')
+                @if (Session::get('page') == 'list-documents' || Session::get('page') == 'announcements'||
+                Session::get('page') == 'regulations')
                 <?php $active = 'active'; $menuOpen = 'menu-open'; ?>
                 @else
                 <?php $active = ''; $menuOpen = ''; ?>
@@ -123,19 +124,30 @@
                             <a href="{{ route('dashboard.documents.index') }}" class="nav-link {{ $active }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
-                                    Lista de Documentos
+                                    Generales
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            @if (Session::get('page') == 'category')
+                            @if (Session::get('page') == 'announcements')
                             <?php $active = 'active'; ?>
                             @else
                             <?php $active = ''; ?>
                             @endif
-                            <a href="{{route('dashboard.categories.index')}}" class="nav-link {{ $active }}">
+                            <a href="{{route('dashboard.announcements.index')}}" class="nav-link {{ $active }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Categorias</p>
+                                <p>Convocatorias</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            @if (Session::get('page') == 'regulations')
+                            <?php $active = 'active'; ?>
+                            @else
+                            <?php $active = ''; ?>
+                            @endif
+                            <a href="{{route('dashboard.regulations.index')}}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Normativas</p>
                             </a>
                         </li>
                     </ul>

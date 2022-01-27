@@ -7,10 +7,119 @@
                     <div class="logo">
                         <img style="max-width: 70%" src="assets/img/logo-footer.png" alt="logo">
                     </div>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                        voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
-                        occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-                        mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum.</p>
+                    <p>La Nueva Ley de Educación Nº 28044, defina el concepto de educación, como un proceso de
+                        aprendizaje y enseñanza que se desarrolla a lo largo de toda la vida y que contribuye a la
+                        formación integral de las personas, al pleno desarrollo de sus potencialidades, a la creación de
+                        cultura, y al desarrollo de la familia y de la comunidad nacional, latinoamericana y mundial.
+                    </p>
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-6">
+                <div class="footer-widget">
+                    <h3>Menu Institucional</h3>
+
+                    <ul class="footer-text">
+                        <li>
+                            <a href="/sobre-nosotros">
+                                <i class="las la-star"></i>
+                                Sobre nosotros
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/directorio">
+                                <i class="las la-star"></i>
+                                Directorio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/marco-legal-ugel-ilo">
+                                <i class="las la-star"></i>
+                                Marco legal
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/organigrama">
+                                <i class="las la-star"></i>
+                                Organigrama
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/instituciones-educativas">
+                                <i class="las la-star"></i>
+                                Instituciones educativas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/jurisdiccion">
+                                <i class="las la-star"></i>
+                                Jurisdicción
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/convenios">
+                                <i class="las la-star"></i>
+                                Convenios
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-6">
+                <div class="footer-widget pl-50">
+                    <h3>Accesos rápidos</h3>
+
+                    <ul class="footer-text">
+                        <li>
+                            <a href="/comunidad-educativa">
+                                <i class="las la-star"></i>
+                                Comunidad educativa
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/convocatorias">
+                                <i class="las la-star"></i>
+                                Convocatorias
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/control-interno">
+                                <i class="las la-star"></i>
+                                Sistema de control interno
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/documentos-generales">
+                                <i class="las la-star"></i>
+                                Documentos generales
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="footer-widget">
+                    <h3>Contacto</h3>
+
+                    <ul class="info-list">
+                        <li>
+                            <i class="las la-phone"></i>
+                            <a href="tel:+0123456987">+054 555 5555</a>
+                        </li>
+                        <li>
+                            <i class="las la-envelope"></i>
+                            <a href="mailto:atorn@info.com">info@ugelilo.com</a>
+                        </li>
+                        <li>
+                            <i class="las la-map-marker-alt"></i>
+                            Jirón Lasalle 456, Ica - Perú
+                        </li>
+                    </ul>
 
                     <ul class="footer-socials">
                         <li>
@@ -24,139 +133,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" target="_blank">
-                                <i class="lab la-instagram"></i>
+                            <a href="https://api.whatsapp.com/send?phone=[51][993652872]&amp;text=Buen día, Se ha comunicado con la UGEL ICA ¿en qúe podemos ayudarle?..."
+                                target="_blank">
+                                <i class="lab la-whatsapp"></i>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" target="_blank">
-                                <i class="lab la-google-plus"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-2 col-sm-6">
-                <div class="footer-widget">
-                    <h3>Quick Links</h3>
-
-                    <ul class="footer-text">
-                        <li>
-                            <a href="index.html">
-                                <i class="las la-star"></i>
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="about.html">
-                                <i class="las la-star"></i>
-                                About Us
-                            </a>
-                        </li>
-                        <li>
-                            <a href="services.html">
-                                <i class="las la-star"></i>
-                                Our Services
-                            </a>
-                        </li>
-                        <li>
-                            <a href="case-study.html">
-                                <i class="las la-star"></i>
-                                Case Study
-                            </a>
-                        </li>
-                        <li>
-                            <a href="blog.html">
-                                <i class="las la-star"></i>
-                                Our Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="las la-star"></i>
-                                Clients Review
-                            </a>
-                        </li>
-                        <li>
-                            <a href="attorney.html">
-                                <i class="las la-star"></i>
-                                Our Attorneys
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-2 col-sm-6">
-                <div class="footer-widget pl-50">
-                    <h3>Services</h3>
-
-                    <ul class="footer-text">
-                        <li>
-                            <a href="#">
-                                <i class="las la-star"></i>
-                                Civil Law
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="las la-star"></i>
-                                Family Law
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="las la-star"></i>
-                                Cyber Law
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="las la-star"></i>
-                                Education Law
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="las la-star"></i>
-                                Business Law
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="las la-star"></i>
-                                Investment Law
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="las la-star"></i>
-                                Criminal Law
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-sm-6">
-                <div class="footer-widget">
-                    <h3>Contact Info</h3>
-
-                    <ul class="info-list">
-                        <li>
-                            <i class="las la-phone"></i>
-                            <a href="tel:+0123456987">+0123 456 987</a>
-                        </li>
-                        <li>
-                            <i class="las la-envelope"></i>
-                            <a href="mailto:atorn@info.com">atorn@info.com</a>
-                        </li>
-                        <li>
-                            <i class="las la-map-marker-alt"></i>
-                            Silven House, 4 Lower Gilmor Bank Edinburgh EH3 9QP, UK
-                        </li>
-                    </ul>
+                    </ul><br>
+                    <p>WhatsApp: de 9:00am hasta 6:00pm<br></p>
                 </div>
             </div>
         </div>

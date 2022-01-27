@@ -1,5 +1,5 @@
 @extends('layouts.admin_layout')
-@section('title', 'Agregar Menu Navegacion')
+@section('title', 'Editar Documento')
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -45,15 +45,23 @@
                         @endif
 
                         <!-- form start -->
-                        <form role="form" method="post" action="{{ route('dashboard.documents.edit', $documentDetail['id'] )}}"
+                        <form role="form" method="post"
+                            action="{{ route('dashboard.documents.edit', $documentDetail['id'] )}}"
                             name="updateDocument" id="updateDocument" enctype="multipart/form-data">@csrf
                             <div class="card-body">
-                                   <div class="form-group">
-                                <label>Seleccione Categoria</label>
-                                <select name="categoryId" class="form-control" style="width: 100%;">
-                                    <?php echo $category_drop_down; ?>
-                                </select>
-                            </div>
+                                <div class="form-group">
+                                    <label>Seleccione Categoria</label>
+                                    <select name="categoryId" id="categoryId" class="form-control" style="width: 100%;">
+                                        <option <?php if($documentDetail['category_id']===1) echo 'selected="selected"'
+                                            ; ?> value="1">Documentos Generales</option>
+                                        <option <?php if($documentDetail['category_id']===2) echo 'selected="selected"'
+                                            ; ?> value="2">Convocatorias</option>
+                                        <option <?php if($documentDetail['category_id']===3) echo 'selected="selected"'
+                                            ; ?> value="3">Normativas</option>
+                                    </select>
+                                    <input type="hidden" name="currentCategoryId"
+                                        value="{{ $documentDetail['category_id'] }}">
+                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Titulo Documento</label>
                                     <input type="text" class="form-control" placeholder="Ingrese Nombre"
@@ -65,15 +73,52 @@
                                         id="documentDescription" placeholder="Ingrese Descripcion"
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;">{!! $documentDetail['description'] !!}</textarea>
                                 </div>
-                                <div class="form-group">
+                                @if ($documentDetail['id'] == 2)
+                                <div class="col-md-6" id="announcement">
+                                    <div class="form-group">
+                                        <label class="control-label">Bases de Convocatoria</label>
+                                        <div class="controls">
+                                            <input type="file" name="documentBasis" id="documentBasis"
+                                                onchange="preview_image(event)">
+                                            <br>
+                                            <input type="hidden" name="currentDocumentBasis" id="currentDocumentBasis"
+                                                value="{{$documentDetail['url_basis']}}" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Resultados Evaluacion de CV</label>
+                                        <div class="controls">
+                                            <input type="file" name="documentResultCV" id="documentResultCV"
+                                                onchange="preview_image(event)">
+                                            <br>
+                                            <input type="hidden" name="currentDocumentResultCV"
+                                                id="currentDocumentResultCV" value="{{$documentDetail['result_cv']}}" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Resultado Final</label>
+                                        <div class="controls">
+                                            <input type="file" name="documentFinalResult" id="documentFinalResult"
+                                                onchange="preview_image(event)">
+                                            <br>
+                                            <input type="hidden" name="currentDocumentFinalResult"
+                                                id="currentDocumentFinalResult"
+                                                value="{{$documentDetail['result_final']}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="form-group" id="documentsFile" style="display: none">
                                     <label class="control-label">Subir Archivo</label>
                                     <div class="controls">
                                         <input type="file" name="documentFile" id="documentFile"
                                             onchange="preview_image(event)">
                                         <br>
-                                        <input type="hidden" name="currentDocumentFile" id="currentDocumentFile" value="{{$documentDetail['url_file']}}" />
+                                        <input type="hidden" name="currentDocumentFile" id="currentDocumentFile"
+                                            value="{{$documentDetail['url_file']}}" />
                                     </div>
                                 </div>
+                                @endif
                             </div>
                             <!-- /.card-body -->
 

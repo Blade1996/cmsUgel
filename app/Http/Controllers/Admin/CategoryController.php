@@ -21,9 +21,9 @@ class CategoryController extends Controller
         $companyData = getCompanyData();
         return view('admin.category.categories')->with(compact('categories', 'companyData'));
     }
-    
-    
-        public function addCategory(Request $request)
+
+
+    public function addCategory(Request $request)
     {
         if ($request->isMethod('post')) {
             $data = $request->all();

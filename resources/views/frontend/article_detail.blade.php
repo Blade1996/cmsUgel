@@ -1,31 +1,81 @@
 @extends('frontend.layouts.home_layout')
 @section('title', $articleDetail->title )
 @section('content')
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-8">
-            <!-- Post content-->
-            <article>
-                <!-- Post header-->
-                <header class="mb-4">
-                    <!-- Post title-->
-                    <h1 class="fw-bolder mb-1">{{ $articleDetail->title }}</h1>
-                    <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2">Publicado el {{ $articleDetail->created_at }}</div>
-                    <!-- Post categories-->
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">etiqueta</a>
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">etiqueta</a>
-                </header>
-                <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded"
-                        src="{{ $articleDetail->page_image }}" alt="..."></figure>
-                <!-- Post content-->
-                <section class="mb-5">
-                   {!!$articleDetail->content!!}
-                </section>
-            </article>
-
+<!-- Page banner Area -->
+<div class="page-banner bg-1">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-content">
+                    <h2>Noticias</h2>
+                    <ul>
+                        <li><a href="#">Inicio <i class="las la-angle-right"></i></a></li>
+                        <li>Noticias</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<!-- End Page banner Area -->
+
+<!-- Articulo -->
+<div class="services-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-sm-12">
+                <div class="services-details">
+                    <div class="img">
+                        <img src="{{ $articleDetail->page_image }}" alt="Image">
+                    </div>
+                    <div class="services-details-content">
+                        <h3>{{ $articleDetail->title }}</h3>
+                        <ul class="blog-list">
+                            <li>
+                                <i class="las la-calendar"></i>
+                                {{ $articleDetail->created_at }}
+                            </li>
+                            <li>
+                                <i class="las la-user-tie"></i>
+                                <a href="#">UGEL ILO</a>
+                            </li>
+                        </ul>
+                        <p>{!! $articleDetail->content !!}</p>
+                    </div>
+                    <div class="article-footer">
+                        <div class="article-tags">
+                            <span><i class="las la-tags"></i></span>
+                            <a href="#">Articulo</a>,
+                            <a href="#">Noticia</a>
+
+                        </div>
+
+                        <div class="article-share">
+                            <ul class="social">
+                                <li><span>Compartir:</span></li>
+                                <li><a href="#" class="facebook" target="_blank"><i class="lab la-facebook-f"></i></a>
+                                </li>
+                                <li><a href="#" class="twitter" target="_blank"><i class="lab la-twitter"></i></a></li>
+                                <li><a href="#" class="linkedin" target="_blank"><i class="lab la-linkedin-in"></i></a>
+                                </li>
+                                <li><a href="#" class="instagram" target="_blank"><i class="lab la-instagram"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-12">
+                <div class="side-bar">
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin de articulo -->
 @endsection

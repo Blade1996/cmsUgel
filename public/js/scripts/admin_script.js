@@ -110,4 +110,27 @@ $(function(){
             $("#selectSub").css('display', 'none');
         }
     })
+
+
+    let categoryDoc = $('#categoryId').val();
+
+    if((categoryDoc != null || categoryDoc != undefined) && categoryDoc === "2"){
+        $('#documentsFile').css('display', 'none');
+        $("#announcement").css('display', 'block');
+    }else{
+        $("#announcement").css('display', 'none');
+        $('#documentsFile').css('display', 'block');
+    }
+
+    $(document).on('change', "#categoryId", function(){
+        let categoryId = $(this).val();
+        console.log(categoryId);
+        if(categoryId === "2"){
+            $('#documentsFile').css('display', 'none');
+            $("#announcement").css('display', 'block');
+        }else{
+            $("#announcement").css('display', 'none');
+            $('#documentsFile').css('display', 'block');
+        }
+    })
 })

@@ -8,12 +8,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Secciones</h1>
+                    <h1>Documentos: {{ $title }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Documentos</li>
+                        <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
             </div>
@@ -44,8 +44,8 @@
                     <!--Elegido-->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Tabla de Documentos</h3>
-                            <a href="{{ route('dashboard.documents.create') }}"
+                            <h3 class="card-title">Tabla de {{ $title }}</h3>
+                            <a href="{{ route('dashboard.documents.create', $slug) }}"
                                 style="max-width: 150px; float: right; display:inline-block;"
                                 class="btn btn-block btn-success">Agregar Documento</a>
                         </div>
@@ -56,7 +56,6 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Titulo</th>
-                                        <th>Categoria</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -65,7 +64,6 @@
                                     <tr>
                                         <td>{{ $document->id }}</td>
                                         <td>{{ $document->title }}</td>
-                                        <td>{{ $document->category->name }}</td>
                                         <td>
                                             <a data-toggle="tooltip"
                                                 href="{{ route('dashboard.documents.edit', $document->id) }}"
@@ -73,7 +71,7 @@
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;"
-                                                record="section" recordId="{{ $document->id }}" data-toggle="tooltip"
+                                                record="documents" recordId="{{ $document->id }}" data-toggle="tooltip"
                                                 title="Eliminar">
                                                 <i style="color: red;" class="fas fa-trash-alt"></i>
                                             </a>

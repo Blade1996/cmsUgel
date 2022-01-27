@@ -1,5 +1,5 @@
 @extends('layouts.admin_layout')
-@section('title', 'Agregar Menu Navegacion')
+@section('title', 'Agregar Documento')
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -12,7 +12,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard.documents.index') }}">Documentos</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard.documents.index') }}">Documentos</a>
+                        </li>
                         <li class="breadcrumb-item active">Agregar Documento</li>
                     </ol>
                 </div><!-- /.col -->
@@ -49,11 +50,16 @@
                             name="addSection" id="addSection" enctype="multipart/form-data">@csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                <label>Seleccione Categoria</label>
-                                <select name="categoryId" class="form-control">
-                                    <?php echo $category_drop_down; ?>
-                                </select>
-                            </div>
+                                    <label>Seleccione Categoria</label>
+                                    <select name="categoryId" id="categoryId" class="form-control">
+                                        <option <?php if($slug=='documentos-generales' ) echo 'selected="selected"' ; ?>
+                                            value="1">Documentos Generales</option>
+                                        <option <?php if($slug=='convocatorias' ) echo 'selected="selected"' ; ?>
+                                            value="2">Convocatorias</option>
+                                        <option <?php if($slug=='normativas' ) echo 'selected="selected"' ; ?>
+                                            value="3">Normatividad</option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Titulo Documento</label>
                                     <input type="text" class="form-control" placeholder="Ingrese Nombre"
@@ -65,7 +71,38 @@
                                         id="documentDescription" placeholder="Ingrese Descripcion"
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
                                 </div>
-                                <div class="form-group">
+
+                                <div class="col-md-6" id="announcement" style="display: none">
+                                    <div class="form-group">
+                                        <label class="control-label">Bases de Convocatoria</label>
+                                        <div class="controls">
+                                            <input type="file" name="documentBasis" id="documentBasis"
+                                                onchange="preview_image(event)">
+                                            <br>
+                                            <img class="img-fluid" style="margin-top: 10px;" id="output_image" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Resultados Evaluacion de CV</label>
+                                        <div class="controls">
+                                            <input type="file" name="documentResultCV" id="documentResultCV"
+                                                onchange="preview_image(event)">
+                                            <br>
+                                            <img class="img-fluid" style="margin-top: 10px;" id="output_image" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Resultado Final</label>
+                                        <div class="controls">
+                                            <input type="file" name="documentFinalResult" id="documentFinalResult"
+                                                onchange="preview_image(event)">
+                                            <br>
+                                            <img class="img-fluid" style="margin-top: 10px;" id="output_image" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="documentsFile">
                                     <label class="control-label">Subir Archivo</label>
                                     <div class="controls">
                                         <input type="file" name="documentFile" id="documentFile"

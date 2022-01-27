@@ -58,8 +58,8 @@
             <div class="container">
                 <div class="atorn-responsive-menu">
                     <div class="logo">
-                        <a href="index.html">
-                            <img src="assets/img/logo.png" alt="logo">
+                        <a href="{{ route('home') }}">
+                            <img src="{{ $companyData->companyInfo->url_company }}" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -69,8 +69,8 @@
         <div class="atorn-nav">
             <div class="container">
                 <nav class="navbar navbar-expand-md navbar-light">
-                    <a class="navbar-brand" href="index.html">
-                        <img style="max-height: 60px;" src="assets/img/logo.png" alt="logo">
+                    <a class="navbar-brand" href="{{ route('home') }}">
+                        <img style="max-height: 60px;" src="{{ $companyData->companyInfo->url_company }}" alt="logo">
                     </a>
 
                     <!-- Navbar-->
@@ -83,17 +83,10 @@
                                 aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-
                             <div class="collapse navbar-collapse mean-menu">
                                 @foreach ($sections as $section)
-                                @if (count($section->subCategories) > 0)
                                 <ul class="navbar-nav ms-auto">
-                                    <!-- <li class="nav-item">
-                    <a href="#" class="nav-link active">
-                        {{ $section->name }} <i class="las la-angle-down"></i>
-                    </a>
-                </li> -->
-
+                                    @if (count($section->subCategories) > 0)
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">
                                             {{ $section->name }} <i class="las la-angle-down"></i>
@@ -101,41 +94,20 @@
                                         <ul class="dropdown-menu">
                                             @foreach ($section->subCategories as $subCategory)
                                             <li class="nav-item">
-                                                <a href="services.html" class="nav-link">{{ $subCategory->name }}</a>
+                                                <a href="{{ route('home.article.detail', $subCategory->slug)}}"
+                                                    class="nav-link">{{ $subCategory->name }}</a>
                                             </li>
                                             @endforeach
-                                            <!-- <li class="nav-item">
-                            <a href="service-details.html" class="nav-link">Directorio</a>
-                        </li>
-                            <li class="nav-item">
-                            <a href="service-details.html" class="nav-link">Marco legal</a>
-                        </li> -->
                                         </ul>
                                     </li>
                                     @else
-
-                                    <!-- <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        Servicios  <i class="las la-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="nav-item">
-                            <a href="case-study.html" class="nav-link">Guía de trámite</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="case-study-details.html" class="nav-link">TUPA</a>
-                        </li>
-                    </ul>
-                </li> -->
-
                                     <li class="nav-item">
-                                        <a href="contact.html" class="nav-link">{{ $section->name }}</a>
+                                        <a href="{{ route('home') }}" class="nav-link">{{ $section->name }}</a>
                                         @endif
                                     </li>
                                     @endforeach
                                     <li class="nav-item">
-                                        <a href="javascript:void(0)" class="nav-link search-box">Contacto
+                                        <a href="{{ route('home.contact') }}" class="nav-link search-box">Contacto
                                             <i class="las la-search"></i>
                                         </a>
                                     </li>
