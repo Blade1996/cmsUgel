@@ -7,6 +7,7 @@ use App\Documents;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use League\CommonMark\Block\Element\Document;
 
@@ -20,18 +21,20 @@ class DocumentController extends Controller
     public function index()
     {
         Session::put('page', 'list-documents');
-        $documents = Documents::get();
+        $documents = Documents::where('category_id', 1)->get();
+        $title = 'Documentos Generales';
+        $slug = 'documentos-generales';
         $companyData = getCompanyData();
-        return view('admin.documents.documents')->with(compact('documents', 'companyData'));
+        return view('admin.documents.documents')->with(compact('documents', 'companyData', 'title', 'slug'));
     }
 
-    public function addDocument(Request $request)
+    public function addDocument(Request $request, $type = null)
     {
 
         if ($request->isMethod('post')) {
             $data = $request->all();
 
-            $article = new Documents;
+            $document = new Documents;
 
             $rulesData = [
                 'categoryId' => 'nullable',
@@ -46,7 +49,7 @@ class DocumentController extends Controller
             ];
 
             $this->validate($request, $rulesData, $customMessage);
-            
+
             $slug = Str::slug($data['documentTitle']);
 
 
@@ -57,28 +60,38 @@ class DocumentController extends Controller
 
             // Upload Image
             if ($request->hasFile('documentFile')) {
-                $data['url_file'] = $this->loadFile($request, 'documentFile', 'documents', 'documents');
+                $documentFile = $this->loadFile($request, 'documentFile', 'documents', 'documents');
             }
 
+            if ($request->hasFile('documentBasis')) {
+                $documentBasis = $this->loadFile($request, 'documentBasis', 'documents', 'documents');
+            }
 
-            $article->title = $data['documentTitle'];
-            $article->section_id = $data['documentDescription'];
-            $article->url_file = !empty($data['url_file']) ? $data['url_file'] : '';
+            if ($request->hasFile('documentResultCV')) {
+                $documentResultCV = $this->loadFile($request, 'documentResultCV', 'documents', 'documents');
+            }
 
-            $article->save();
+            if ($request->hasFile('documentFinalResult')) {
+                $documentFinalResult = $this->loadFile($request, 'documentFinalResult', 'documents', 'documents');
+            }
+
+            $document->title = $data['documentTitle'];
+            $document->slug = $slug;
+            $document->route = $slug;
+            $document->category_id = $data['categoryId'];
+            $document->description = $data['documentDescription'];
+            $document->url_file = $documentFile ?? '';
+            $document->url_basis = $documentBasis ?? '';
+            $document->result_cv =  $documentResultCV ?? '';
+            $document->result_final =  $documentFinalResult ?? '';
+
+            $document->save();
             Session::flash('success_message', 'El documento se creo Correctamente');
             return redirect()->route('dashboard.documents.index');
         }
-
-        $categories = Category::get();
-
-        $category_drop_down = "<option value='' selected disabled>Select</option>";
-        foreach ($categories as $category) {
-            $category_drop_down .= "<option value='" . $category->id . "'>" . $category->name . "</option>";
-        }
-
+        $slug = $type;
         $companyData = getCompanyData();
-        return view('admin.documents.add_document')->with(compact('category_drop_down', 'companyData'));
+        return view('admin.documents.add_document')->with(compact('companyData', 'slug'));
     }
 
 
@@ -99,8 +112,6 @@ class DocumentController extends Controller
                 'documentTitle.required' => 'El campo titulo es requerido',
                 'documentTitle.regex' =>  'El campo titulo es invalido',
                 'documentDescription.regex' => 'El campo descripcion seo no es válido',
-                'articleImage.mimes' => 'Formato invalido, formatos soportados: jpeg, png, jpg, gif, svg',
-                'articleImage.max' => 'La imagen no debe pesar mas de 2MB',
             ];
 
             $this->validate($request, $rulesData, $customMessage);
@@ -118,26 +129,66 @@ class DocumentController extends Controller
                 $completePath = '';
             }
 
-            Documents::where(['id' => $id])->update(['title' => $data['documentTitle'], 'description' => $data['documentDescription'], 'url_file' => $completePath, 'slug' => $slug ]);
+            if ($request->hasFile('documentBasis')) {
+                $data['url_file'] = $this->loadFile($request, 'documentBasis', 'documents', 'documents');
+            } else if (!empty($data['currentDocumentBasis'])) {
+                $completePathBasis = $data['currentDocumentBasis'];
+            } else {
+                $completePathBasis = '';
+            }
+
+            if ($request->hasFile('documentResultCV')) {
+                $data['url_file'] = $this->loadFile($request, 'documentResultCV', 'documents', 'documents');
+            } else if (!empty($data['currentDocumentResultCV'])) {
+                $completePathCV = $data['currentDocumentResultCV'];
+            } else {
+                $completePathCV = '';
+            }
+
+            if ($request->hasFile('documentFinalResult')) {
+                $data['url_file'] = $this->loadFile($request, 'documentFinalResult', 'documents', 'documents');
+            } else if (!empty($data['currentDocumentFinalResult'])) {
+                $completePathFinal = $data['currentDocumentFinalResult'];
+            } else {
+                $completePathFinal = '';
+            }
+
+            if (!empty($data['categoryId'])) {
+                $categoryId = $data['categoryId'];
+            } else {
+                $categoryId = $data['currentCategoryId'];
+            }
+
+            Documents::where(['id' => $id])->update(['title' => $data['documentTitle'], 'description' => $data['documentDescription'], 'url_file' => $completePath, 'slug' => $slug, 'url_basis' => $completePathBasis ?? '', 'result_cv' => $completePathBasis ?? '', 'result_final' => $completePathFinal, 'category_id' => $categoryId]);
 
             Session::flash('success_message', 'El documento se Actualizo Correctamente');
             return redirect()->route('dashboard.documents.index');
         }
 
         $documentDetail = Documents::where(['id' => $id])->first();
-        $categories = Category::get();
-        $category_drop_down = "<option value='' disabled>Select</option>";
-        foreach ($categories as $category) {
-            if ($category->id == $documentDetail->category_id) {
-                $selected = "selected";
-            } else {
-                $selected = "";
-            }
-            $category_drop_down .= "<option value='" . $category->id . "' " . $selected . ">" . $category->name . "</option>";
-        }
-
         $companyData = getCompanyData();
-        return view('admin.documents.edit_document')->with(compact('documentDetail', 'category_drop_down', 'companyData'));
+        return view('admin.documents.edit_document')->with(compact('documentDetail', 'companyData'));
+    }
+
+
+    public function announcements()
+    {
+        Session::put('page', 'announcements');
+        $title = 'Convocatorias';
+        $slug = 'convocatorias';
+        $documents = Documents::where('category_id', 2)->get();
+        $companyData = getCompanyData();
+        return view('admin.documents.documents')->with(compact('documents', 'companyData', 'title', 'slug'));
+    }
+
+    public function regulations()
+    {
+        Session::put('page', 'regulations');
+        $title = 'Normativas';
+        $slug = 'normativas';
+        $documents = Documents::where('category_id', 3)->get();
+        $companyData = getCompanyData();
+        return view('admin.documents.documents')->with(compact('documents', 'companyData', 'title', 'slug'));
     }
 
     /**
@@ -201,7 +252,7 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteDocument($id)
     {
         Documents::find($id)->delete();
         $message = 'El documento se elimino correctamente';

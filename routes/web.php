@@ -35,7 +35,10 @@ Route::get('/articulo/{slug}', 'HomeController@articleDetail')->name('home.artic
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
 
+    // Route::method(url, controlador@metodo)
+
     Route::match(['get', 'post'], '/', 'AdminController@login')->name('admin.login')->middleware('guest:admin');
+
     Route::group(['middleware' => ['admin']], function () {
         Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
         Route::get('dashboard/settings', 'AdminController@settings')->name('dashboard.settings');
@@ -87,9 +90,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
         //Documents
         Route::get('dashboard/documents', 'DocumentController@index')->name('dashboard.documents.index');
-        Route::match(['get', 'post'], 'dashboard/documents/create', 'DocumentController@addDocument')->name('dashboard.documents.create');
+        Route::match(['get', 'post'], 'dashboard/documents/create/{slug?}', 'DocumentController@addDocument')->name('dashboard.documents.create');
         Route::match(['get', 'post'], 'dashboard/documents/edit/{id?}', 'DocumentController@editDocument')->name('dashboard.documents.edit');
         Route::get('dashboard/documents/delete/{id}', 'DocumentController@deleteDocument')->name('dashboard.documents.delete');
+        Route::get('dashboard/announcements', 'DocumentController@announcements')->name('dashboard.announcements.index');
+        Route::get('dashboard/regulations', 'DocumentController@regulations')->name('dashboard.regulations.index');
 
         //Category
         Route::get('dashboard/categories', 'CategoryController@index')->name('dashboard.categories.index');

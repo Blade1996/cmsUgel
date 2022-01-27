@@ -135,6 +135,7 @@ class AdminController extends Controller
 
 
             Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['adminName'], 'email' => $data['adminEmail']]);
+
             Session::flash('success_message', 'Los datos se actualizaron correctamente');
             return redirect()->back();
         }

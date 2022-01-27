@@ -11,12 +11,6 @@ class Documents extends Model
 
     protected $table = 'documents';
 
-
-    public function Category()
-    {
-        return $this->belongsTo('App\Category', 'category_id', 'id', 'name');
-    }
-
     protected $fillable = [
         'id',
         'title',
