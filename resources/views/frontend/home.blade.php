@@ -147,8 +147,8 @@
         <div class="partner-slider owl-carousel owl-theme">
             @foreach ($partners as $partner)
             <div class="partner-slider-item">
-                <a href="#">
-                    <img src="{{$partner->logo}}" href="{{$partner->url}}" alt="logo">
+                <a href="{{$partner->url}}" target="_blank">
+                    <img src="{{$partner->logo}}" alt="logo">
                 </a>
             </div>
             @endforeach
