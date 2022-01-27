@@ -78,7 +78,7 @@
 
 
 <!-- Enlaces de Interes -->
-<div class="about-area ptb-100">
+<div class="about-area pt-100">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-5">
@@ -295,7 +295,7 @@
         <div class="row">
             <div class="col-lg-4 col-sm-6">
                 <div class="our-service-card">
-                    <i class="las la-users"></i>
+                    <i class="las la-list-ul"></i>
                     <h3>10/11/21</h3>
                     <p>CAS Nº.013-2021-UGEL ILO-AGA-PER
                         28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
