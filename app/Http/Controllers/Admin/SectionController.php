@@ -97,7 +97,7 @@ class SectionController extends Controller
 
             $message = 'La Seccion se agrego correctamente';
             Session::flash('success_message', $message);
-            return redirect('/dashboard/sections');
+            return redirect('/admin/dashboard/sections');
         }
         $company = new Company;
         $companyData = getCompanyData();
@@ -172,6 +172,6 @@ class SectionController extends Controller
         Section::find($id)->delete();
         $message = 'La Seccion se elimino correctamente';
         Session::flash('success_message', $message);
-        return redirect('dashboard/sections');
+        return redirect('/admin/dashboard/sections');
     }
 }

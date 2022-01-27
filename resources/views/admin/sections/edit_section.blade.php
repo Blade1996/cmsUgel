@@ -1,5 +1,5 @@
 @extends('layouts.admin_layout')
-@section('title', 'Editar Menu Navegacion')
+@section('title', 'Editar Partner')
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->

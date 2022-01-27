@@ -22,7 +22,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/documentos', 'HomeController@indexDocuments')->name('home.document');
-Route::get('/convocatorias', 'HomeController@indexAnnouncements')->name('home.announcements');
+// Route::get('/convocatorias', 'HomeController@indexAnnouncements')->name('home.announcements');
 Route::get('/contacto', 'HomeController@indexContact')->name('home.contact');
 
 Route::get('/noticias', 'HomeController@indexArticles')->name('home.articles');
@@ -50,6 +50,13 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::match(['get', 'post'], 'dashboard/section/create', 'SectionController@addSection')->name('dashboard.section.create');
         Route::match(['get', 'post'], 'dashboard/section/edit/{id?}', 'SectionController@editSection')->name('dashboard.section.edit');
         Route::get('dashboard/section/delete/{id}', 'SectionController@deleteSection')->name('dashboard.section.delete');
+
+        //Partners
+        Route::get('dashboard/partners', 'PartnerController@listPartners')->name('dashboard.partners');
+        // Route::post('dashboard/upd-section-status', 'SectionController@updateSectionStatus')->name('dashboard.upd-section-status');
+        Route::match(['get', 'post'], 'dashboard/partners/create', 'PartnerController@addPartner')->name('dashboard.partner.create');
+        Route::match(['get', 'post'], 'dashboard/partners/edit/{id?}', 'PartnerController@editPartner')->name('dashboard.partner.edit');
+        Route::get('dashboard/partners/delete/{id}', 'PartnerController@deletePartner')->name('dashboard.partner.delete');
 
         //Slider
         Route::get('dashboard/slider', 'SliderController@index')->name('dashboard.slider.index');

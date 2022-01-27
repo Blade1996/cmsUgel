@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="form-group">
-            {!! Form::label('id_sub_category', 'Curso') !!}
+            <!-- {!! Form::label('id_sub_category', 'Curso') !!} -->
             {!! Form::select('course_id', $courses,null, [ 'id'=>'course_id','class'=>'form-control']) !!}
             @error('course_id')
             <x-form message="{{$message }}"/>
