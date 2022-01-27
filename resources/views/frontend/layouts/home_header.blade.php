@@ -6,15 +6,15 @@
                 <div class="col-lg-6 col-sm-6">
                     <ul class="left-info">
                         <li>
-                            <a href="mailto:hello@atorn.com">
+                            <a href="mailto:info@ugelilo.edu.pe">
                                 <i class="las la-envelope"></i>
-                                hello@atorn.com
+                                info@ugelilo.edu.pe
                             </a>
                         </li>
                         <li>
-                            <a href="tel:+823-456-879">
+                            <a href="tel:053484090">
                                 <i class="las la-phone"></i>
-                                +0123 456 789
+                                053 - 484090
                             </a>
                         </li>
                     </ul>
@@ -22,7 +22,7 @@
 
                 <div class="col-lg-6 col-sm-6">
                     <ul class="right-info">
-                        <li>
+                        <!--<li>
                             <a href="#" target="_blank">
                                 <i class="lab la-facebook-f"></i>
                             </a>
@@ -41,10 +41,12 @@
                             <a href="#" target="_blank">
                                 <i class="lab la-google-plus"></i>
                             </a>
+                        </li>-->
+ 						<li class="heder-btn">
+                            <a href="#">INTRANET</a>
                         </li>
-
                         <li class="heder-btn">
-                            <a href="#">Get A Schedule</a>
+                            <a href="#">TRANSPARENCIA</a>
                         </li>
                     </ul>
                 </div>
