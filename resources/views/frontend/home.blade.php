@@ -258,31 +258,6 @@
                 </div>
             </div>
             @endforeach
-            <div class="col-lg-4 col-sm-6">
-                <div class="our-service-card">
-                    <i class="las la-users"></i>
-                    <h3>10/11/21</h3>
-                    <p>CAS Nº.013-2021-UGEL ILO-AGA-PER
-                        28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="our-service-card">
-                    <i class="las la-users"></i>
-                    <h3>10/11/21</h3>
-                    <p>CAS Nº.013-2021-UGEL ILO-AGA-PER
-                        28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-sm-6">
-                <div class="our-service-card">
-                    <i class="las la-users"></i>
-                    <h3>10/11/21</h3>
-                    <p>CAS Nº.013-2021-UGEL ILO-AGA-PER
-                        28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
-                </div>
-            </div>
         </div>
         <div class="about-btn" style="text-align: center;">
             <a href="#" class="default-btn-one">Ver todo</a>
