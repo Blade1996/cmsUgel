@@ -1,20 +1,20 @@
 /*
-Error: File to import not found or unreadable: ~sweetalert2/src/variables.
+Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.
        Load paths:
          C:/Program Files/Adobe/Adobe Dreamweaver 2021/Configuration/SassFrameworks/bourbon
          C:/Program Files/Adobe/Adobe Dreamweaver 2021/Configuration/SassFrameworks/neat
          C:/Program Files/Adobe/Adobe Dreamweaver 2021/Configuration/SassFrameworks/base
-        on line 1 of D:\DESARROLLO\DESARROLLO WEB\MAQA\PROYECTO UGEL\UGEL-GIT\public\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.scss
+        on line 8 of D:\DESARROLLO\DESARROLLO WEB\MAQA\PROYECTO UGEL\UGEL-GIT\resources\sass\app.scss
 
-1: @import '~sweetalert2/src/variables';
-2: 
-3: // Function
-4: @function str-replace($string, $search, $replace: '') {
-5:   $index: str-index($string, $search);
+3: 
+4: // Variables
+5: @import 'variables';
 6: 
+7: // Bootstrap
+8: @import '~bootstrap/scss/bootstrap';
 
 Backtrace:
-D:\DESARROLLO\DESARROLLO WEB\MAQA\PROYECTO UGEL\UGEL-GIT\public\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.scss:1
+D:\DESARROLLO\DESARROLLO WEB\MAQA\PROYECTO UGEL\UGEL-GIT\resources\sass\app.scss:8
 C:/Program Files/Adobe/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/import_node.rb:67:in `rescue in import'
 C:/Program Files/Adobe/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/import_node.rb:44:in `import'
 C:/Program Files/Adobe/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/import_node.rb:28:in `imported_file'
@@ -51,4 +51,4 @@ C:/Program Files/Adobe/Adobe Dreamweaver 2021/ruby/bin/sass:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~sweetalert2/src/variables.\A        Load paths:\A          C:/Program Files/Adobe/Adobe Dreamweaver 2021/Configuration/SassFrameworks/bourbon\A          C:/Program Files/Adobe/Adobe Dreamweaver 2021/Configuration/SassFrameworks/neat\A          C:/Program Files/Adobe/Adobe Dreamweaver 2021/Configuration/SassFrameworks/base\A         on line 1 of D:\DESARROLLO\DESARROLLO WEB\MAQA\PROYECTO UGEL\UGEL-GIT\public\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.scss\A \A 1: @import '~sweetalert2/src/variables';\A 2: \A 3: // Function\A 4: @function str-replace($string, $search, $replace: '') {\A 5:   $index: str-index($string, $search);\A 6: "; }
+  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.\A        Load paths:\A          C:/Program Files/Adobe/Adobe Dreamweaver 2021/Configuration/SassFrameworks/bourbon\A          C:/Program Files/Adobe/Adobe Dreamweaver 2021/Configuration/SassFrameworks/neat\A          C:/Program Files/Adobe/Adobe Dreamweaver 2021/Configuration/SassFrameworks/base\A         on line 8 of D:\DESARROLLO\DESARROLLO WEB\MAQA\PROYECTO UGEL\UGEL-GIT\resources\sass\app.scss\A \A 3: \A 4: // Variables\A 5: @import 'variables';\A 6: \A 7: // Bootstrap\A 8: @import '~bootstrap/scss/bootstrap';"; }
