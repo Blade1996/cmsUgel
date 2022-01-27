@@ -78,7 +78,7 @@
 
 
 <!-- Enlaces de Interes -->
-<div class="about-area ptb-100">
+<div class="about-area pt-100">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-5">
@@ -147,8 +147,8 @@
         <div class="partner-slider owl-carousel owl-theme">
             @foreach ($partners as $partner)
             <div class="partner-slider-item">
-                <a href="#">
-                    <img src="{{$partner->logo}}" href="{{$partner->url}}" alt="logo">
+                <a href="{{$partner->url}}" target="_blank">
+                    <img src="{{$partner->logo}}" alt="logo">
                 </a>
             </div>
             @endforeach
@@ -249,6 +249,15 @@
         </div>
 
         <div class="row">
+            @foreach ($announcements as $announcement)
+            <div class="col-lg-4 col-sm-6">
+                <div class="our-service-card">
+                    <i class="las la-users"></i>
+                    <h3> {{ $announcement->created_at }}</h3>
+                    <p>{{ $announcement->title }}</p>
+                </div>
+            </div>
+            @endforeach
             <div class="col-lg-4 col-sm-6">
                 <div class="our-service-card">
                     <i class="las la-users"></i>
@@ -291,33 +300,16 @@
         <div class="section-title">
             <h4>Normatividad</h4>
         </div>
-
         <div class="row">
+            @foreach ($regulations as $regulation)
             <div class="col-lg-4 col-sm-6">
                 <div class="our-service-card">
                     <i class="las la-users"></i>
-                    <h3>10/11/21</h3>
-                    <p>CAS Nº.013-2021-UGEL ILO-AGA-PER
-                        28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
+                    <h3> {{ $regulation->created_at }}</h3>
+                    <p>{{ $regulation->title }}</p>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="our-service-card">
-                    <i class="las la-users"></i>
-                    <h3>10/11/21</h3>
-                    <p>CAS Nº.013-2021-UGEL ILO-AGA-PER
-                        28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-sm-6">
-                <div class="our-service-card">
-                    <i class="las la-users"></i>
-                    <h3>10/11/21</h3>
-                    <p>CAS Nº.013-2021-UGEL ILO-AGA-PER
-                        28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div class="about-btn" style="text-align: center;">
             <a href="#" class="default-btn-one">Ver todo</a>

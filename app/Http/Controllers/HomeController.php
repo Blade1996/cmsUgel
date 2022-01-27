@@ -29,11 +29,11 @@ class HomeController extends Controller
         $linksArray = $collection;
         $linksArray->toArray();
         $articles = Article::where('section_id', 6)->take(3)->get();
-        $documents = Documents::latest()->take(3)->get();
-        // $announcements = Announcement::latest()->take(3)->get();
+        $regulations = Documents::where('category_id', 3)->get();
+        $announcements = Documents::where('category_id', 2)->latest()->take(3)->get();
         $slider = Article::where('section_id', 5)->orderBy('order')->get();
-        return view('frontend.home')->with(['companyData' => $companyData, 'sections' => $sections, 'partners' => $partners, 'linksArray' => $linksArray, 'sliders' => $slider, 'articles' => $articles, 'documents' => $documents, 
-        // 'announcements' => $announcements
+        return view('frontend.home')->with([
+            'companyData' => $companyData, 'sections' => $sections, 'partners' => $partners, 'linksArray' => $linksArray, 'sliders' => $slider, 'articles' => $articles, 'announcements' => $announcements, 'regulations' => $regulations
         ]);
     }
 
