@@ -30,7 +30,7 @@
     .chatbot {
         position: fixed;
         z-index: 99999999;
-        bottom: 100px;
+        bottom: 100px !important;
         right: 10px;
     }
 </style>

@@ -18,9 +18,20 @@
                         aria-expanded="false">{{ $section->name }}</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown05">
                         @foreach ($section->articles as $article)
-                        <li><a class="dropdown-item" href="{{ route('home.article.detail', $article->slug) }}">{{
+                        @if ($article->slug === 'jurisdiccion')
+                        <li><a target="_blank" class="dropdown-item"
+                                href="https://www.google.com/maps/place/Unidad+de+Gesti%C3%B3n+Educativa+Local+-+UGEL+ILO/@-17.6457997,-71.3470758,16.71z/data=!4m5!3m4!1s0x91445b056166fea1:0x2509687ace9c91a6!8m2!3d-17.6455168!4d-71.3449688?hl=es-ES">{{
                                 $article->title
-                                }}</a></li>
+                                }}</a>
+                        </li>
+                        @else
+                        <li><a class="dropdown-item" href="{{ route('home.article.detail', $article->slug) }}"
+                                target="_blank">{{
+                                $article->title
+                                }}</a>
+                        </li>
+                        @endif
+
                         @endforeach
                     </ul>
                     @else

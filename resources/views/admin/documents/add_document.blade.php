@@ -72,43 +72,13 @@
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
                                 </div>
 
-                                <div class="col-md-6" id="announcement" style="display: none">
-                                    <div class="form-group">
-                                        <label class="control-label">Bases de Convocatoria</label>
-                                        <div class="controls">
-                                            <input type="file" name="documentBasis" id="documentBasis"
-                                                onchange="preview_image(event)">
-                                            <br>
-                                            <img class="img-fluid" style="margin-top: 10px;" id="output_image" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Resultados Evaluacion de CV</label>
-                                        <div class="controls">
-                                            <input type="file" name="documentResultCV" id="documentResultCV"
-                                                onchange="preview_image(event)">
-                                            <br>
-                                            <img class="img-fluid" style="margin-top: 10px;" id="output_image" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Resultado Final</label>
-                                        <div class="controls">
-                                            <input type="file" name="documentFinalResult" id="documentFinalResult"
-                                                onchange="preview_image(event)">
-                                            <br>
-                                            <img class="img-fluid" style="margin-top: 10px;" id="output_image" />
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="form-group" id="documentsFile">
-                                    <label class="control-label">Subir Archivo</label>
+                                    <label class="control-label">Subir Archivos</label>
                                     <div class="controls">
-                                        <input type="file" name="documentFile" id="documentFile"
-                                            onchange="preview_image(event)">
+                                        <div class="needsclick dropzone" id="document-dropzone">
+                                        </div>
                                         <br>
-                                        <img class="img-fluid" style="margin-top: 10px;" id="output_image" />
+                                        <input type="hidden" name="currentFiles">
                                     </div>
                                 </div>
                             </div>
@@ -127,6 +97,7 @@
     <!-- /.content -->
     <!-- /.content -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 <script type='text/javascript'>
     function preview_image(event)
       {
@@ -141,5 +112,31 @@
        }
        reader.readAsDataURL(event.target.files[0]);
       }
+
+      var uploadedDocumentMap = {}
+      Dropzone.options.documentDropzone = {
+         url: '{{ route('documents.storeMedia') }}',
+         maxFilesize: 15, // MB
+         addRemoveLinks: true,
+         acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
+         headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+         },
+         success: function(file, response) {
+            $('form').append('<input type="hidden" name="files[]" value="' + response.name + '">')
+            uploadedDocumentMap[file.name] = response.name
+         },
+         removedfile: function(file) {
+            file.previewElement.remove()
+            var name = ''
+            if (typeof file.file_name !== 'undefined') {
+               name = file.file_name
+            } else {
+               name = uploadedDocumentMap[file.name]
+            }
+            $('form').find('input[name="files[]"][value="' + name + '"]').remove()
+         }
+      }
+
 </script>
 @endsection

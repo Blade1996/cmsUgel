@@ -3,11 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Documents extends Model
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+
+class Documents extends Model implements HasMedia
 {
     use SoftDeletes;
+
+    use InteractsWithMedia;
 
     protected $table = 'documents';
 
@@ -16,8 +22,12 @@ class Documents extends Model
         'title',
         'category_id',
         'description',
-        'url_file',
         'slug',
         'route',
     ];
+
+    public function files()
+    {
+        return $this->morphMany(Media::class, 'model');
+    }
 }

@@ -73,57 +73,20 @@
                                         id="documentDescription" placeholder="Ingrese Descripcion"
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;">{!! $documentDetail['description'] !!}</textarea>
                                 </div>
-                                @if ($documentDetail['id'] == 2)
-                                <div class="col-md-6" id="announcement">
-                                    <div class="form-group">
-                                        <label class="control-label">Bases de Convocatoria</label>
-                                        <div class="controls">
-                                            <input type="file" name="documentBasis" id="documentBasis"
-                                                onchange="preview_image(event)">
-                                            <br>
-                                            <input type="hidden" name="currentDocumentBasis" id="currentDocumentBasis"
-                                                value="{{$documentDetail['url_basis']}}" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Resultados Evaluacion de CV</label>
-                                        <div class="controls">
-                                            <input type="file" name="documentResultCV" id="documentResultCV"
-                                                onchange="preview_image(event)">
-                                            <br>
-                                            <input type="hidden" name="currentDocumentResultCV"
-                                                id="currentDocumentResultCV" value="{{$documentDetail['result_cv']}}" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Resultado Final</label>
-                                        <div class="controls">
-                                            <input type="file" name="documentFinalResult" id="documentFinalResult"
-                                                onchange="preview_image(event)">
-                                            <br>
-                                            <input type="hidden" name="currentDocumentFinalResult"
-                                                id="currentDocumentFinalResult"
-                                                value="{{$documentDetail['result_final']}}" />
-                                        </div>
-                                    </div>
-                                </div>
-                                @else
-                                <div class="form-group" id="documentsFile" style="display: none">
-                                    <label class="control-label">Subir Archivo</label>
+                                <div class="form-group" id="documentsFile">
+                                    <label class="control-label">Subir Archivos</label>
                                     <div class="controls">
-                                        <input type="file" name="documentFile" id="documentFile"
-                                            onchange="preview_image(event)">
+                                        <div class="needsclick dropzone" id="document-dropzone">
+                                        </div>
                                         <br>
-                                        <input type="hidden" name="currentDocumentFile" id="currentDocumentFile"
-                                            value="{{$documentDetail['url_file']}}" />
+                                        <input type="hidden" name="currentFiles">
                                     </div>
                                 </div>
-                                @endif
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Agregar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -135,6 +98,7 @@
     <!-- /.content -->
     <!-- /.content -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 <script type='text/javascript'>
     function preview_image(event)
       {
@@ -148,6 +112,50 @@
 
        }
        reader.readAsDataURL(event.target.files[0]);
+      }
+      var uploadedDocumentMap = {}
+      Dropzone.options.documentDropzone = {
+         url: '{{ route('documents.storeMedia') }}',
+         maxFilesize: 15, // MB
+         addRemoveLinks: true,
+         acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
+         headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+         },
+         success: function(file, response) {
+            $('form').append('<input type="hidden" name="files[]" value="' + response.name + '">')
+            uploadedDocumentMap[file.name] = response.name
+         },
+         removedfile: function(file) {
+            file.previewElement.remove()
+            var name = ''
+            if (typeof file.file_name !== 'undefined') {
+               name = file.file_name
+            } else {
+               name = uploadedDocumentMap[file.name]
+            }
+            $('form').find('input[name="files[]"][value="' + name + '"]').remove()
+         },
+         init: function() {
+            @if (isset($files))
+               var files =
+               {!! json_encode($files) !!}
+               for (var i in files) {
+               var file = files[i]
+               console.log(file);
+               file = {
+               ...file,
+               width: 226,
+               height: 324
+               }
+               this.options.addedfile.call(this, file)
+               this.options.thumbnail.call(this, file,'https://firebasestorage.googleapis.com/v0/b/url-short-286413.appspot.com/o/pdf-128.png?alt=media&token=2c85269d-2f5b-4c86-9400-4f1a1c65927d')
+               file.previewElement.classList.add('dz-complete')
+
+               $('form').append('<input type="hidden" name="files[]" value="' + file.file_name + '">')
+               }
+            @endif
+         }
       }
 </script>
 @endsection

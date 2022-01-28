@@ -29,6 +29,12 @@ class Article extends Model
         return $this->belongsTo('App\Section', 'section_id');
     }
 
+    public function scopeTitle($query, $title)
+    {
+        if ($title)
+            return $query->where('title', 'LIKE', "%$title%");
+    }
+
     public function cleanSlug($title)
     {
         $title = str_replace('á', 'a', $title);

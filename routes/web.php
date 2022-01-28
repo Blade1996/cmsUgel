@@ -96,6 +96,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('dashboard/announcements', 'DocumentController@announcements')->name('dashboard.announcements.index');
         Route::get('dashboard/regulations', 'DocumentController@regulations')->name('dashboard.regulations.index');
 
+        //DocumentsFiles
+        Route::post('file-upload', 'DocumentController@storeMedia')->name('documents.storeMedia');
+
         //Category
         Route::get('dashboard/categories', 'CategoryController@index')->name('dashboard.categories.index');
         Route::match(['get', 'post'], 'dashboard/categories/create', 'CategoryController@addCategory')->name('dashboard.categories.create');

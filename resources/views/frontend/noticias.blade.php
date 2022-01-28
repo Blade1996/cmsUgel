@@ -40,39 +40,40 @@
         <div class="col-lg-9">
             <h3>Noticias: Más recientes</h3>
             <hr>
-             @foreach ($articles as $article)
-                <div class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative">
-                    <div class="col-auto d-none d-lg-block">
-                        <img class="card-img-top" src="https://dummyimage.com/140x180/dee2e6/6c757d.jpg" alt="...">
-                    </div>
-                    <div class="col p-4 d-flex flex-column position-static">
-
-                        <h3 class="mb-0">{{$article->title}}</h3>
-                        <div class="mb-1 text-muted">{{$article->created_at}}</div>
-                        <p class="card-text mb-auto">{{$article->subtitle}}</p>
-                        <a href="{{route('home.article.detail',$article->slug )}}" class="stretched-link">Continuar leyendo</a>
-                    </div>
+            @foreach ($articles as $article)
+            <div class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative">
+                <div class="col-auto d-none d-lg-block">
+                    <img class="card-top-image" width="140" height="180" src="{{ $article->page_image }}" alt="...">
                 </div>
-                <hr>
-             @endforeach
-             
-        </div>
-            <!-- Pagination-->
-            <nav aria-label="Pagination">
-                <hr class="my-0" />
-                <ul class="pagination justify-content-center my-4">
-                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Más
-                            recientes</a></li>
-                    <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">Más antiguos</a></li>
-                </ul>
-            </nav>
-        </div>
+                <div class="col p-4 d-flex flex-column position-static">
 
+                    <h3 class="mb-0">{{$article->title}}</h3>
+                    <div class="mb-1 text-muted">{{$article->created_at}}</div>
+                    <p class="card-text mb-auto">{{$article->subtitle}}</p>
+                    <a href="{{route('home.article.detail',$article->slug )}}" class="stretched-link">Continuar
+                        leyendo</a>
+                </div>
+            </div>
+            <hr>
+            @endforeach
+
+        </div>
+        <!-- Pagination-->
+        <nav aria-label="Pagination">
+            <hr class="my-0" />
+            <ul class="pagination justify-content-center my-4">
+                <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Más
+                        recientes</a></li>
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                <li class="page-item"><a class="page-link" href="#!">Más antiguos</a></li>
+            </ul>
+        </nav>
     </div>
+
+</div>
 </div>
 @endsection

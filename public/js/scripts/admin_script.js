@@ -85,7 +85,7 @@ $(function(){
         })
     })
 
-
+/*
       $(document).on('change', "#sectionId", function() {
         let sectionId =$(this).val();
         if(sectionId !== "100" && sectionId !== "200" && sectionId !== "300"){
@@ -133,4 +133,5 @@ $(function(){
             $('#documentsFile').css('display', 'block');
         }
     })
+ */
 })
