@@ -9,6 +9,7 @@ use App\User;
 use App\Admin;
 use App\Course;
 use App\Article;
+use App\Documents;
 use App\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,13 +22,12 @@ class AdminController extends Controller
     public function dashboard()
     {
         Session::put('page', 'dashboard');
-        $numCourses = Course::count();
-        $numUnits = Unit::count();
-        $numUsers = User::count();
+        $numRegulations = Documents::where('category_id', 3)->count();
+        $numAnnouncements = Documents::where('category_id', 2)->count();
+        $numDocuments = Documents::where('category_id', 1)->count();
         $numArticles = Article::count();
-        $company = new Company;
         $companyData = getCompanyData();
-        return view('admin.admin_dashboard', compact('numCourses', 'numUnits', 'numUsers', 'numArticles', 'companyData'))->with('title', 'Dashboard');
+        return view('admin.admin_dashboard', compact('numRegulations', 'numAnnouncements', 'numDocuments', 'numArticles', 'companyData'))->with('title', 'Dashboard');
     }
 
     public function settings()

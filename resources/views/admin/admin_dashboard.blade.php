@@ -1,22 +1,22 @@
 @extends('layouts.admin_layout')
 @section('title', 'Dashboard')
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -24,73 +24,77 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-                <div class="inner">
-                <h3>{{$numArticles}}</h3>
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{$numArticles}}</h3>
 
-                <p>Articulos</p>
-                </div>
-                <div class="icon">
-                <i class="ion ion-ios-paper"></i>
-                </div>
-                <a href="{{ url('dashboard/articles') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-                <div class="inner">
-                <h3>{{$numCourses}}</h3>
-
-                <p>Cursos</p>
-                </div>
-                <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="{{ url('dashboard/courses') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-                <div class="inner">
-                <h3>{{$numUnits}}</h3>
-
-                <p>Unidades</p>
-                </div>
-                <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="{{ url('dashboard/units') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                    <h3>{{$numUsers}}</h3>
-
-                    <p>Usuarios</p>
+                            <p>Articulos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-ios-paper"></i>
+                        </div>
+                        <a href="{{ route('dashboard.articles.index') }}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
                     </div>
-                    <div class="icon">
-                    <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="{{ url('dashboard/users') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{$numDocuments}}</h3>
+
+                            <p>Documentos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="{{ route('dashboard.documents.index') }}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>{{$numRegulations}}</h3>
+
+                            <p>Normativas</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{ route('dashboard.regulations.index') }}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>{{$numAnnouncements}}</h3>
+
+                            <p>Convocatorias</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="{{ route('dashboard.announcements.index') }}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
             </div>
-            <!-- ./col -->
-        </div>
-        <!-- /.row -->
-        <!-- /.row (main row) -->
+            <!-- /.row -->
+            <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    </div>
+</div>
 @endsection
