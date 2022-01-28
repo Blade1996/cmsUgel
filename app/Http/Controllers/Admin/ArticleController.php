@@ -20,7 +20,6 @@ class ArticleController extends Controller
     {
         Session::put('page', 'articles');
         $articles = Article::orderBy('published_at', 'desc')->get();
-        $company = new Company;
         $companyData = getCompanyData();
         return view('admin.articles.articles')->with(compact('articles', 'companyData'));
     }

@@ -60,9 +60,10 @@ class HomeController extends Controller
         return view('frontend.contact')->with(compact('companyData', 'sections'));
     }
 
-    public function indexArticles()
+    public function indexArticles(Request $request)
     {
-        $articles = Article::where('section_id', 6)->latest()->paginate(4);
+        $search = $request->get('search');
+        $articles = Article::where('section_id', 6)->latest()->title($search)->paginate(4);
         $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
         $companyData = getCompanyData();
         return view('frontend.noticias')->with(compact('companyData', 'articles', 'sections'));

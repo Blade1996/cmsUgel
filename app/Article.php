@@ -26,7 +26,7 @@ class Article extends Model
 
     public function section()
     {
-        return $this->belongsTo('App\Section', 'section_id');
+        return $this->belongsTo('App\Section', 'section_id', 'id', 'name');
     }
 
     public function scopeTitle($query, $title)

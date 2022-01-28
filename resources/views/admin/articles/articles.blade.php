@@ -66,7 +66,7 @@
                                     <tr>
                                         <td>{{ $article->id }}</td>
                                         <td>{{ $article->title }}</td>
-                                        <td>{{ $article->section->name }}</td>
+                                        <td>{{ $article->section['name'] ?? '' }}</td>
                                         <td>
                                             <img src="{{$article->page_image}}" class="img-fluid" width=200 height=100
                                                 alt="">
