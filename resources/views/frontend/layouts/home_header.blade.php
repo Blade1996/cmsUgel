@@ -9,7 +9,7 @@
 
             <div id="btn-intranet" class="col-md-2 d-flex text-right">
                 <button type="button"
-                    onclick="location.href='http://200.48.65.242/sisgedonew/app/main.php?_op=1I&_type=L&_nameop=Login%20de%20Acceso'"
+                    onclick="window.open('http://200.48.65.242/sisgedonew/app/main.php?_op=1I&_type=L&_nameop=Login%20de%20Acceso', '_blank')"
                     class="btn btn-outline-primary me-2">Intranet</button>
                 <button type="button" class="btn btn-outline-primary me-2">Transparencia</button>
             </div>

@@ -51,9 +51,10 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Título</label>
+                                    <label for="exampleInputEmail1">Título &nbsp;<small> (max: 60
+                                            caracteres)</small></label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" name="articleTitle"
-                                        value="{{$articleDetail->title}}" placeholder="Ingrese Titulo">
+                                        value="{{$articleDetail->title}}" maxlength="60" placeholder="Ingrese Titulo">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">Insertar Imagen para Slider</label>
@@ -69,7 +70,7 @@
                                     <label for="exampleInputEmail1">Subtítulo</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1"
                                         name="articleSubTitle" value="{{$articleDetail->subtitle}}"
-                                        placeholder="Ingrese Subtitulo">
+                                        placeholder="Ingrese Subtitulo" maxlength="100">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Resumen de Artículo</label>
@@ -131,7 +132,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Título para SEO</label>
                             <input type="text" class="form-control" placeholder="Ingrese Titulo" id="articleSeoTitle"
-                                value="{{$articleDetail->title_seo }}" name="articleSeoTitle">
+                                value="{{$articleDetail->title_seo }}" name="articleSeoTitle" maxlength="60">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Descripción para SEO</label>

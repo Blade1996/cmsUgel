@@ -11,7 +11,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('dashboard.logout') }}" class="nav-link">Logout</a>
+            <a href="{{ route('dashboard.logout') }}" class="nav-link">Salir</a>
         </li>
     </ul>
 </nav>

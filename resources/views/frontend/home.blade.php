@@ -49,7 +49,7 @@
 </div>
 
 
-<div class="pt-1 pb-2 mb-3" id="enlacesdeinteres" style="">
+<div class="pt-1 pb-2 mb-3" id="enlacesdeinteres">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
@@ -69,13 +69,32 @@
     </div>
 </div>
 
+<!-- ======= Casos de exito Section ======= -->
+<section id="casos" style="margin-bottom: 40px">
+    <div class="container">
+        <div class="row aos-init aos-animate" data-aos="zoom-in">
+            <div class="owl-carousel owl-theme">
+                @foreach ($partners as $partner)
+                <div class="ml-2 mr-2 text-center">
+                    <a href="{{ $partner->url }}" target="_blank" data-gallery="portfolioGallery"
+                        class="portfolio-lightbox preview-link" title="">
+                        <img src="{{ $partner->logo }}" class="img-fluid" alt=""><i class="bx bx-plus"></i>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
 <!-- End Casos Section -->
+
+
 <div class="" id="accesosdirectos" style="padding-bottom: 20px; padding-top: 20px; margin-bottom: 30px;">
     <div class="row" style="margin: auto; max-width: 80%;">
         <div class="col-md-4 text-center mb-2"><a href="{{ route('home.announcements') }}" class="btn"><i
                     class="fas fa-bullhorn"></i> Convocatorias CAS</a></div>
-        <div class="col-md-4 text-center mb-2"><a href="https://pandora.pe/ugel/control-interno" class="btn"><i
-                    class="far fa-folder-open"></i> Sistema de control interno</a></div>
+        <div class="col-md-4 text-center mb-2"><a href="#" class="btn"><i class="far fa-folder-open"></i> Sistema de
+                control interno</a></div>
         <div class="col-md-4 text-center mb-2"><a href="{{ route('home.document') }}" class="btn"><i class="far fa-file"
                     aria-hidden="true"></i> Documentos generales</a></div>
     </div>
@@ -159,9 +178,12 @@
             <h class="title-color">Enlaces Directos</h>
             <hr />
             <div class="col-md-12 border p-3 mb-4">
-                <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link.jpg') }}" width="700">
-                <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link1.jpg') }}" width="700">
-                <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link2.jpg') }}" width="700">
+                <a href="#"><img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link.jpg') }}"
+                        width="700"></a>
+                <a href="#"><img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link1.jpg') }}"
+                        width="700"></a>
+                <a href="http://miboleta.minedu.gob.pe/" target="_blank"><img class="img-fluid" style="margin-top: 8px;"
+                        src="{{ asset('images/link2.jpg') }}" width="700"></a>
 
             </div>
             <!--            <a class="btn btn-outline-primary w-100 mb-5" href="filtro-noticias.html">Ver todas las noticias →</a>-->
@@ -183,56 +205,5 @@
     </div>
 </div>
 {{-- <script src="{{ url('plugins/js/jquery/jquery.min.js') }}"></script> --}}
-<script src="{{ asset('js/owl.carousel.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-$('#casos .owl-carousel #myCarousel').owlCarousel({
-      autoplay: false,
-      autoplayHoverPause: true,
-      items: 6,
-      nav: true,
-      dots: false,
-      loop: false,
-      margin: 10,
-      responsiveClass: true,
-      responsive: {
-        0: {
-          items: 2,
-          nav: false,
-          dots: false,
-          loop: true,
-          autoplay: true,
-        },
-        600: {
-          items: 6,
-          nav: false,
-          dots: false,
-          loop: true,
-          autoplay: true,
-        },
-        1000: {
-          items: 6,
-          nav: false,
-          loop: true,
-          margin: 20,
-          autoplay: true,
-        }
-      }
-    })
-
-})
-
-
-$(document).ready(function() {
-
-var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
-
-})
-myModal.show();
-
-
-
-})
-</script>
 @endsection

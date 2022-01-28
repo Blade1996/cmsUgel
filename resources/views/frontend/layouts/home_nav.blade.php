@@ -44,7 +44,7 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('home.contact') }}">Contacto</a>
                 </li>
             </ul>
-            <form class="d-flex">
+            <form class="d-flex" id="searchBar">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
                 <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>

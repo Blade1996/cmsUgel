@@ -28,6 +28,7 @@ Route::get('/contacto', 'HomeController@indexContact')->name('home.contact');
 Route::get('/noticias', 'HomeController@indexArticles')->name('home.articles');
 Route::get('/normatividad', 'HomeController@indexNormativity')->name('home.normativity');
 Route::get('/articulo/{slug}', 'HomeController@articleDetail')->name('home.article.detail');
+Route::get('/articulos', 'HomeController@findArticles')->name('home.articles.find');
 
 
 

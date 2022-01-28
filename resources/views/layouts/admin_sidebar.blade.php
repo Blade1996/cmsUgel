@@ -29,11 +29,11 @@
                     <a href="{{ route('dashboard') }}" class="nav-link {{ $active }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                            Portada
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">HOME</li>
+                <li class="nav-header">CONTENIDO</li>
                 <li class="nav-item">
                     @if (Session::get('page') == 'slider')
                     <?php $active = 'active';?>
@@ -73,7 +73,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     @if (Session::get('page') == 'sub-category')
                     <?php $active = 'active';?>
                     @else
@@ -85,7 +85,7 @@
                             SubMenus
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     @if (Session::get('page') == 'articles')
                     <?php $active = 'active';?>
@@ -99,7 +99,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     @if (Session::get('page') == 'interest-link')
                     <?php $active = 'active';?>
                     @else
@@ -111,7 +111,7 @@
                             Enlaces de Interes
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 @if (Session::get('page') == 'list-documents' || Session::get('page') == 'announcements'||
                 Session::get('page') == 'regulations')
                 <?php $active = 'active'; $menuOpen = 'menu-open'; ?>

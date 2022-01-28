@@ -51,11 +51,11 @@
                                         <?php echo $section_drop_down; ?>
                                     </select>
                                 </div>
-                                <div class="form-group" id="selectSub" style="display: none">
-                                    <label>Seleccione Sub Cateogoria</label>
-                                    <select name="subCategoryId" id="subCategoryId" class="form-control select2"
-                                        style="width: 100%;">
-                                    </select>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Título&nbsp;<small>(max: 60
+                                            caracteres)</small></label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="articleTitle"
+                                        placeholder="Ingrese Titulo" maxlength="60">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">Insertar Imagen para Slider</label>
@@ -64,14 +64,9 @@
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image3" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Título</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="articleTitle"
-                                        placeholder="Ingrese Titulo">
-                                </div>
-                                <div class="form-group">
                                     <label for="exampleInputEmail1">Subtítulo</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1"
-                                        name="articleSubTitle" placeholder="Ingrese Subtitulo">
+                                        name="articleSubTitle" placeholder="Ingrese Subtitulo" maxlength="100">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Resumen de Artículo</label>
@@ -119,7 +114,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Título para SEO</label>
                             <input type="text" class="form-control" placeholder="Ingrese Titulo" id="articleSeoTitle"
-                                name="articleSeoTitle">
+                                name="articleSeoTitle" maxlength="60">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Descripción para SEO</label>
