@@ -60,7 +60,7 @@
             <div class="col-xs-12 col-sm-6 col-md-4">
                 @foreach ($links as $link)
                 <a href="{{ route('home.article.detail', $link->slug)}}" target="_blank"><i
-                        class="nav-icon fas fa-link"></i>{{
+                        class="nav-icon fas {{ $link->icon_class }}"></i>{{
                     $link->title }}<i class="fas fa-chevron-right"></i></a>
                 @endforeach
             </div>
@@ -180,8 +180,8 @@
             <div class="col-md-12 border p-3 mb-4">
                 <a href="#"><img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link.jpg') }}"
                         width="700"></a>
-                <a href="#"><img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link1.jpg') }}"
-                        width="700"></a>
+                <a href="http://siagie.minedu.gob.pe/inicio/" target="_blank"><img class="img-fluid"
+                        style="margin-top: 8px;" src="{{ asset('images/link1.jpg') }}" width="700"></a>
                 <a href="http://miboleta.minedu.gob.pe/" target="_blank"><img class="img-fluid" style="margin-top: 8px;"
                         src="{{ asset('images/link2.jpg') }}" width="700"></a>
 

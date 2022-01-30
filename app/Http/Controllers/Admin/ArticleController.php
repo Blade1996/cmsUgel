@@ -113,6 +113,12 @@ class ArticleController extends Controller
             //     $article->sub_category_id = $data['subCategoryId'];
             // }
 
+            if (empty($data['iconClass'])) {
+                $iconClass = '';
+            } else {
+                $iconClass = $data['iconClass'];
+            }
+
             $article->title = $data['articleTitle'];
             $article->section_id = $data['sectionId'];
             $article->admin_id = Auth::guard('admin')->user()->id;
@@ -121,6 +127,7 @@ class ArticleController extends Controller
             $article->show_slider = $data['showSlider'] ?? 0;
             $article->text_link = $data['articleTextLink'];
             $article->title_seo = $data['articleSeoTitle'];
+            $article->icon_class = $iconClass ?? '';
             $article->content_seo = $data['articleSeoDescription'];
             $article->url_video = !empty($data['articleUrlVideo']) ? $data['articleUrlVideo'] : '';
             $article->slug = $slug;
@@ -240,10 +247,17 @@ class ArticleController extends Controller
                 $subCatId = 0;
             }
 
+            if (empty($data['iconClass'])) {
+            } else if (!empty($data['currentIconClass'])) {
+                $completePathSlider = $data['currentIconClass'];
+            } else {
+                $completePathSlider = '';
+            }
+
 
             Article::where(['id' => $id])->update([
                 'title' => $data['articleTitle'], 'subtitle' => $data['articleSubTitle'], 'show_slider' => $data['showSlider'] ?? 0, 'route' => $slug, 'slug' => $slug, 'content' => htmlspecialchars_decode(e($data['articleContent'])), 'section_id' => intval($data['sectionId']), 'page_image' => $completePath, 'resume' => $data['articleResume'], 'text_link' => $data['articleTextLink'], 'title_seo' => $data['articleSeoTitle'], 'content_seo' => $data['articleSeoDescription'], 'image_seo' => $completePathSeo, 'url_video' => $data['articleUrlVideo'],
-                // 'sub_category_id' => $subCatId,
+                'icon_class' => $data['iconClass'] ?? '',
                 'slider_image' => $completePathSlider
             ]);
 

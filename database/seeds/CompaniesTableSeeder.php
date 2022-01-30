@@ -14,14 +14,14 @@ class CompaniesTableSeeder extends Seeder
         DB::table('companies')->delete();
         $companyRecord = [
             [
-                'name' => 'ENEL',
-                'code' => 'ENEL',
+                'name' => 'UGEL',
+                'code' => 'UGEL',
                 'companyInfo' => json_encode([
                     'company_address' => '',
                     'company_phone' => '',
-                    'url_logo' => 'https://enel.apprunn.com/images/logoSinExcusas.jpg',
-                    'url_company' => 'https://enel.apprunn.com/images/logoEnel.png',
-                    'url_icon' => 'https://enel.apprunn.com/images/favicon.ico',
+                    'url_logo' => '',
+                    'url_company' => '',
+                    'url_icon' => '',
                 ]),
                 'helpCenter' => json_encode(
                     [
@@ -32,7 +32,8 @@ class CompaniesTableSeeder extends Seeder
                         'seoTitle' => '',
                         'seoDescription' => '',
                         'seoImage' => '',
-                    ]),
+                    ]
+                ),
                 'cookiePolicy' => json_encode([
                     'title' => 'Políticas de cookies',
                     'slug' => 'políticas-de-cookies',
@@ -54,7 +55,7 @@ class CompaniesTableSeeder extends Seeder
                 'companySeo' => json_encode([
                     'title' => 'SEO para Compañia',
                     'description' => 'Esta es una compañia para SEO',
-                    'url_image' =>'',
+                    'url_image' => '',
                 ]),
                 'beforeRegister' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et ligula efficitur, facilisis erat auctor, faucibus nisl. Nunc varius nisi nulla, euismod rutrum risus eleifend nec. Etiam posuere aliquam sollicitudin. Proin placerat non libero varius vestibulum. Nullam sit amet feugiat felis. Nunc ut nibh sit amet nibh dignissim imperdiet quis quis felis. Nam at tristique sapien. Aenean commodo ante at tellus pulvinar, nec faucibus leo fringilla. Nullam purus augue, faucibus et interdum quis, elementum eu orci.',
             ],
