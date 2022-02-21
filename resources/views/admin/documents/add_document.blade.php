@@ -49,7 +49,7 @@
                         <form role="form" method="post" action="{{ route('dashboard.documents.create')}}"
                             name="addSection" id="addSection" enctype="multipart/form-data">@csrf
                             <div class="card-body">
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label>Seleccione Categoria</label>
                                     <select name="categoryId" id="categoryId" class="form-control">
                                         <option <?php if($slug=='documentos-generales' ) echo 'selected="selected"' ; ?>
@@ -59,7 +59,7 @@
                                         <option <?php if($slug=='normativas' ) echo 'selected="selected"' ; ?>
                                             value="3">Normatividad</option>
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Titulo Documento</label>
                                     <input type="text" class="form-control" placeholder="Ingrese Nombre"

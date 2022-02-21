@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Category;
 use App\Documents;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use League\CommonMark\Block\Element\Document;
 
 class DocumentController extends Controller
 {
@@ -180,6 +178,26 @@ class DocumentController extends Controller
         $companyData = getCompanyData();
         return view('admin.documents.documents')->with(compact('documents', 'companyData', 'title', 'slug'));
     }
+
+    public function storeMedia(Request $request, $slug = null)
+    {
+        $path = public_path('tmp/uploads/' . $slug . '/');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $file = $request->file('file');
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $file->move($path, $name);
+
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+    }
+
+
 
     public function regulations()
     {

@@ -74,19 +74,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    @if (Session::get('page') == 'sub-category')
-                    <?php $active = 'active';?>
-                    @else
-                    <?php $active = ''; ?>
-                    @endif
-                    <a href="{{ route('dashboard.subcategories.index') }}" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-stream"></i>
-                        <p>
-                            SubMenus
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     @if (Session::get('page') == 'articles')
                     <?php $active = 'active';?>
                     @else
@@ -100,133 +87,187 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    @if (Session::get('page') == 'interest-link')
+                    @if (Session::get('page') == 'advertisements')
                     <?php $active = 'active';?>
                     @else
                     <?php $active = ''; ?>
                     @endif
-                    <a href="{{ route('dashboard.links.index') }}" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-link"></i>
+                    <a href="{{ route('dashboard.advertisements.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
                         <p>
-                            Enlaces de Interes
+                            Anuncios
                         </p>
-                    </a>
-                </li>
-                @if (Session::get('page') == 'list-documents' || Session::get('page') == 'announcements'||
-                Session::get('page') == 'regulations')
-                <?php $active = 'active'; $menuOpen = 'menu-open'; ?>
-                @else
-                <?php $active = ''; $menuOpen = ''; ?>
-                @endif
-                <li class="nav-item has-treeview {{$menuOpen}}">
-
-                    <a href="#" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-print"></i>
-                        <p>
-                            Documentos
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            @if (Session::get('page') == 'list-documents')
-                            <?php $active = 'active';?>
-                            @else
-                            <?php $active = ''; ?>
-                            @endif
-                            <a href="{{ route('dashboard.documents.index') }}" class="nav-link {{ $active }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>
-                                    Generales
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            @if (Session::get('page') == 'announcements')
-                            <?php $active = 'active'; ?>
-                            @else
-                            <?php $active = ''; ?>
-                            @endif
-                            <a href="{{route('dashboard.announcements.index')}}" class="nav-link {{ $active }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Convocatorias</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            @if (Session::get('page') == 'regulations')
-                            <?php $active = 'active'; ?>
-                            @else
-                            <?php $active = ''; ?>
-                            @endif
-                            <a href="{{route('dashboard.regulations.index')}}" class="nav-link {{ $active }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Normativas</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                {{-- <li class="nav-header">CONTENIDO</li>
-                <li class="nav-item">
-                    @if (Session::get('page') == 'courses')
-                    <?php $active = 'active'; ?>
-                    @else
-                    <?php $active = ''; ?>
-                    @endif
-                    <a href="{{route('courses.index')}}" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-book"></i>
-                        <p>Cursos</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    @if (Session::get('page') == 'units')
-                    <?php $active = 'active'; ?>
+                    @if (Session::get('page') == 'advertising')
+                    <?php $active = 'active';?>
                     @else
                     <?php $active = ''; ?>
                     @endif
-                    <a href="{{route('units.index')}}" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>Unidades</p>
-                    </a>
-                </li>
-                @if (Session::get('page') == 'questions-list' || Session::get('page') == 'type-answer')
-                <?php $active = 'active'; $menuOpen = 'menu-open'; ?>
-                @else
-                <?php $active = ''; $menuOpen = ''; ?>
-                @endif
-                <li class="nav-item has-treeview {{$menuOpen}}">
-
-                    <a href="#" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-question"></i>
+                    <a href="{{ route('dashboard.advertising.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
                         <p>
-                            Preguntas
-                            <i class="fas fa-angle-left right"></i>
+                            Publicidad
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            @if (Session::get('page') == 'questions-list')
-                            <?php $active = 'active'; ?>
-                            @else
-                            <?php $active = ''; ?>
-                            @endif
-                            <a href="{{route('questions.index')}}" class="nav-link {{ $active }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Preguntas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            @if (Session::get('page') == 'type-answer')
-                            <?php $active = 'active'; ?>
-                            @else
-                            <?php $active = ''; ?>
-                            @endif
-                            <a href="{{route('type-answers.index')}}" class="nav-link {{ $active }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Respuestas</p>
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'links')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.articles.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Enlaces
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'normativity')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.normativity.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Normatividad
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'announcement')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.announcement.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Convocatorias
+                        </p>
+                    </a>
+                </li>
+                {{-- <li class="nav-item">
+                    @if (Session::get('page') == 'desk')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.desk.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Mesa
+                        </p>
+                    </a>
                 </li> --}}
+                <li class="nav-item">
+                    @if (Session::get('page') == 'auxiliar')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.auxiliar.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Conf. Auxiliar
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'covid')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.covid.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Covid-19
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'control')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.control.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Control
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'contract')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.contract.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Contrato
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'rotate')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.rotate.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Rotacion
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'election')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.election.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Eleccion
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'charge')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.charge.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Encargatura
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (Session::get('page') == 'reassign')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.reassign.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Reasignación
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">CONFIGURACIÓN</li>
                 @if (Session::get('page') == 'Company' || Session::get('page') == 'policies')
                 <?php $active = 'active'; $menuOpen = 'menu-open'; ?>
@@ -267,17 +308,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    @if (Session::get('page') == 'areas')
-                    <?php $active = 'active'; ?>
-                    @else
-                    <?php $active = ''; ?>
-                    @endif
-                    <a href="{{ route('dashboard.areas.index') }}" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-suitcase"></i>
-                        <p>Áreas</p>
-                    </a>
-                </li>
                 @if (Session::get('page') == 'settings' || Session::get('page') == 'upd-admin-details')
                 <?php $active = 'active'; $menuOpen = 'menu-open' ?>
                 @else
@@ -315,45 +345,6 @@
                                 <p>Cambiar Datos</p>
                             </a>
                         </li>
-                    </ul>
-                </li>
-                @if (Session::get('page') == 'users' || Session::get('page') == 'courses-users')
-                <?php $active = 'active'; $menuOpen = 'menu-open'; ?>
-                @else
-                <?php $active = ''; $menuOpen = ''; ?>
-                @endif
-                <li class="nav-item has-treeview {{$menuOpen}}">
-
-                    <a href="#" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Usuarios
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            @if (Session::get('page') == 'users')
-                            <?php $active = 'active'; ?>
-                            @else
-                            <?php $active = ''; ?>
-                            @endif
-                            <a href="{{route('users.index')}}" class="nav-link {{ $active }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Lista de Usuarios</p>
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item">
-                            @if (Session::get('page') == 'courses-users')
-                            <?php $active = 'active'; ?>
-                            @else
-                            <?php $active = ''; ?>
-                            @endif
-                            <a href="{{url('dashboard/courses-users')}}" class="nav-link {{ $active }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Progreso de usuarios</p>
-                            </a>
-                        </li> --}}
                     </ul>
                 </li>
             </ul>

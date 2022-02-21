@@ -116,8 +116,14 @@
                                         name="modalImage" id="modalImage">
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image5"
                                         src="{{$companyData->first_image}}" />
-                                    <input type="hidden" name="currentModalImage"
-                                        value="{{$companyData->first_image}}">
+                                    <input type="hidden" name="currentModalImage" value="{{$companyData->first_image}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Redireccion de Imagen Modal</label>
+                                    <input type="text" class="form-control" id="redirectModal" name="redirectModal"
+                                        value="{{$companyData->redirect_first_image}}" placeholder="Ingrese Direccion">
+                                    <input type="hidden" name="currentRedirectModal"
+                                        value="{{$companyData->redirect_first_image}}">
                                 </div>
                             </div>
                             <div class="col-12">

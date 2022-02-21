@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 class CompanyController extends Controller
 {
 
+
     public function index(Request $request)
     {
         Session::put('page', 'Company');
@@ -18,7 +19,7 @@ class CompanyController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
 
-          
+
             $rulesData = [
                 'companyName' => 'required|regex:/^[A-Za-zá-úÁ-ÚñÑ0-9\-! ,&\'\"\/@\.:\(\)]+$/',
                 'companyAddress' => 'nullable|regex:/^[A-Za-zá-úÁ-ÚñÑ0-9\-! ,&\'\"\/@\.:\(\)]+$/',
@@ -97,7 +98,7 @@ class CompanyController extends Controller
             } else {
                 $completePathIcon = '';
             }
-            
+
             if ($request->hasFile('modalImage')) {
                 $image_tmp = $request->file('modalImage');
                 if ($image_tmp->isValid()) {
@@ -113,7 +114,7 @@ class CompanyController extends Controller
             } else {
                 $completePathModal = '';
             }
-            
+
             if ($request->hasFile('companySeoImage')) {
                 $image_tmp = $request->file('companySeoImage');
                 if ($image_tmp->isValid()) {
@@ -130,9 +131,15 @@ class CompanyController extends Controller
                 $completePathSeo = '';
             }
 
+            if (!empty($data['redirectModal'])) {
+                $completeRedirect = $data['redirectModal'];
+            } else {
+                $completeRedirect = $data['currentRedirectModal'];
+            }
+
             Company::where('code', env('CODE_COMPANY'))->update([
                 'name' => $data['companyName'], 'companyInfo->url_logo' => $completePathCampaign,
-                'companyInfo->company_address' => $data['companyAddress'], 'companyInfo->company_phone' => $data['companyPhone'], 'companyInfo->url_company' => $completePathCompany, 'companyInfo->url_icon' => $completePathIcon, 'companySeo->title' => $data['companySeoTitle'], 'companySeo->description' => $data['companySeoDescription'], 'companySeo->url_image' => $completePathSeo,'first_image' => $completePathModal
+                'companyInfo->company_address' => $data['companyAddress'], 'companyInfo->company_phone' => $data['companyPhone'], 'companyInfo->url_company' => $completePathCompany, 'companyInfo->url_icon' => $completePathIcon, 'companySeo->title' => $data['companySeoTitle'], 'companySeo->description' => $data['companySeoDescription'], 'companySeo->url_image' => $completePathSeo, 'first_image' => $completePathModal, 'redirect_first_image' => $completeRedirect ?? ''
             ]);
             Session::flash('success_message', 'Los datos se guardaron Correctamente');
             return redirect()->route('dashboard.company');

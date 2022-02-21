@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
+    private $mediaCollection = 'files';
+
     /**
      * Show the application dashboard.
      *
@@ -45,14 +47,6 @@ class HomeController extends Controller
         return view('frontend.documents')->with(compact('documents', 'companyData', 'sections'));
     }
 
-    public function indexAnnouncements()
-    {
-        $announcements = Documents::where('category_id', 2)->get();
-        $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
-        $companyData = getCompanyData();
-        return view('frontend.announcements')->with(compact('announcements', 'companyData', 'sections'));
-    }
-
     public function indexContact()
     {
         $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
@@ -74,6 +68,24 @@ class HomeController extends Controller
         $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
         $companyData = getCompanyData();
         return view('frontend.normatividad')->with(compact('regulations', 'companyData', 'sections'));
+    }
+
+    public function indexAnnouncements()
+    {
+        $announcements = Documents::where('category_id', 2)->get();
+        $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
+        $mediaCollection = $this->mediaCollection;
+        $companyData = getCompanyData();
+        return view('frontend.announcements')->with(compact('announcements', 'companyData', 'sections', 'mediaCollection'));
+    }
+
+    public function announcementDetail($slug = null)
+    {
+        $announcementDetail = Documents::where(['category_id' => 2, 'slug' => $slug])->first();
+        $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
+        $files = $this->mediaCollection;
+        $companyData = getCompanyData();
+        return view('frontend.announcement_detail')->with(compact('announcementDetail', 'companyData', 'sections', 'files'));
     }
 
     public function articleDetail($slug)

@@ -56,7 +56,6 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Título</th>
-                                        <th>Seccion</th>
                                         <th>Imagen</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -65,10 +64,9 @@
                                     @foreach ($articles as $article)
                                     <tr>
                                         <td>{{ $article->id }}</td>
-                                        <td>{{ $article->title }}</td>
-                                        <td>{{ $article->section->name }}</td>
+                                        <td>{{ $article->titulo }}</td>
                                         <td>
-                                            <img src="{{$article->page_image}}" class="img-fluid" width=200 height=100
+                                            <img src="{{$article->imagen}}" class="img-fluid" width=200 height=100
                                                 alt="">
                                         </td>
                                         <td>

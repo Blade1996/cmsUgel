@@ -98,116 +98,134 @@
                             <div class="small text-muted">{{ $announcement->created_at->format('d/m/Y') }}</div>
                             <h2 class="card-title h4">{{ $announcement->title }}</h2>
                             <p class="card-text">{{ $announcement->created_at }} RESULTADOS FINALES</p>
-                            <a href="{{ $announcement->result_final }}" class="stretched-link"><i class="bi bi-app"></i>
+                            <a href="{{ route('home.announcement.detail', $announcement->slug) }}"
+                                class="stretched-link"><i class="bi bi-app"></i>
                                 Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
-                </div>
 
-                <!-- NOTICIAS-->
-                <div class="card-header mt-4">
-                    Normatividad
-                    <a class="pull-right" href="{{route('home.normativity')}}">Ver todo&nbsp;&nbsp;<i
-                            class="fas fa-angle-right"></i></a>
-                </div>
-                <div class="row">
-                    @foreach ($regulations as $regulation)
-                    <div class="col-lg-4 col-md-6 col-xs-12">
-                        <div class="card-body">
-                            <div class="small text-muted">{{ $regulation->created_at->format('d/m/Y') }}</div>
-                            <h2 class="card-title h4">{{ $regulation->title }}</h2>
-                            <p class="card-text">28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
-                            <a href="{{ $regulation->url_file }}" class="stretched-link"><i class="bi bi-app"></i>
-                                Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                    <!-- NOTICIAS-->
+                    <div class="card-header mt-4">
+                        Normatividad
+                        <a class="pull-right" href="{{route('home.normativity')}}">Ver todo&nbsp;&nbsp;<i
+                                class="fas fa-angle-right"></i></a>
+                    </div>
+                    <div class="row">
+                        @foreach ($regulations as $regulation)
+                        <div class="col-lg-4 col-md-6 col-xs-12">
+                            <div class="card-body">
+                                <div class="small text-muted">{{ $regulation->created_at->format('d/m/Y') }}</div>
+                                <h2 class="card-title h4">{{ $regulation->title }}</h2>
+                                <p class="card-text">28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
+                                <a href="{{ $regulation->url_file }}" class="stretched-link"><i class="bi bi-app"></i>
+                                    Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                            </div>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
-                </div>
 
-                <!-- NORMATIVIDAD-->
-                <div class="card-header mt-4">
-                    Noticias
-                    <a class="pull-right" href="{{route('home.articles')}}">Ver todo&nbsp;&nbsp;<i
-                            class="fas fa-angle-right"></i></a>
-                </div>
-                <div class="row">
-                    @foreach ($articles as $article)
+                    <!-- NORMATIVIDAD-->
+                    <div class="card-header mt-4">
+                        Noticias
+                        <a class="pull-right" href="{{route('home.articles')}}">Ver todo&nbsp;&nbsp;<i
+                                class="fas fa-angle-right"></i></a>
+                    </div>
+                    <div class="row">
+                        @foreach ($articles as $article)
 
-                    <div class="col-lg-4 col-md-6 col-xs-12">
-                        <div class="card-body">
-                            <div
-                                class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative mb-4 pt-2">
-                                <div class="col-auto d-none d-lg-block">
-                                    <img class="card-img-top-news" src="{{ $article->page_image }}" alt="..." />
-                                </div>
-                                <div class="col d-flex flex-column position-static">
-                                    <div class="mb-1 text-muted">{{ $article->created_at->format('d/m/Y') }}</div>
-                                    <h4 class="card-title h4">{{ $article->title }}E</h4>
+                        <div class="col-lg-4 col-md-6 col-xs-12">
+                            <div class="card-body">
+                                <div
+                                    class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative mb-4 pt-2">
+                                    <div class="col-auto d-none d-lg-block">
+                                        <img class="card-img-top-news" src="{{ $article->page_image }}" alt="..." />
+                                    </div>
+                                    <div class="col d-flex flex-column position-static">
+                                        <div class="mb-1 text-muted">{{ $article->created_at->format('d/m/Y') }}</div>
+                                        <h4 class="card-title h4">{{ $article->title }}E</h4>
 
-                                    <p class="card-text">{{ $article->subtitle }}</p>
-                                    <a href="{{ route('home.article.detail', $article->slug) }}"
-                                        class="stretched-link">Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                                        <p class="card-text">{{ $article->subtitle }}</p>
+                                        <a href="{{ route('home.article.detail', $article->slug) }}"
+                                            class="stretched-link">Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- <div class="col-lg-4 col-md-6 col-xs-12">
-                        <div class="card-body">
-                            <div
-                                class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative mb-4 pt-2">
-                                <div class="col-auto d-none d-lg-block">
-                                    <img class="card-img-top-news"
-                                        src="https://pandora.pe/ugel/assets/img/noticias/1.jpg" alt="..." />
-                                </div>
-                                <div class="col d-flex flex-column position-static">
-                                    <div class="mb-1 text-muted">{{ $article->created_at }}</div>
-                                    <h4 class="card-title h4">{{ $article->title }}</h4>
+                        {{-- <div class="col-lg-4 col-md-6 col-xs-12">
+                            <div class="card-body">
+                                <div
+                                    class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative mb-4 pt-2">
+                                    <div class="col-auto d-none d-lg-block">
+                                        <img class="card-img-top-news"
+                                            src="https://pandora.pe/ugel/assets/img/noticias/1.jpg" alt="..." />
+                                    </div>
+                                    <div class="col d-flex flex-column position-static">
+                                        <div class="mb-1 text-muted">{{ $article->created_at }}</div>
+                                        <h4 class="card-title h4">{{ $article->title }}</h4>
 
-                                    <p class="card-text">{{ $article->subtitle }}</p>
-                                    <a href="{{ route('home.article.detail', $article->slug) }}"
-                                        class="stretched-link">Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                                        <p class="card-text">{{ $article->subtitle }}</p>
+                                        <a href="{{ route('home.article.detail', $article->slug) }}"
+                                            class="stretched-link">Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                                    </div>
                                 </div>
                             </div>
+                        </div> --}}
+                        @endforeach
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3">
+                    <h class="title-color">Enlaces Directos</h>
+                    <hr />
+                    <div class="col-md-12 border p-3 mb-4">
+                        <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link.jpg') }}"
+                            width="700">
+                        <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link1.jpg') }}"
+                            width="700">
+                        <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link2.jpg') }}"
+                            width="700">
+
+                    </div>
+                    <!--            <a class="btn btn-outline-primary w-100 mb-5" href="filtro-noticias.html">Ver todas las noticias →</a>-->
+                </div>
+            </div>
+        </div>
+
+        <<<<<<< Updated upstream <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="{{ $companyData->first_image }}" width="100%">
                         </div>
-                    </div> --}}
-                    @endforeach
-                </div>
-
-            </div>
-
-            <div class="col-lg-3">
-                <h class="title-color">Enlaces Directos</h>
-                <hr />
-                <div class="col-md-12 border p-3 mb-4">
-                    <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link.jpg') }}" width="700">
-                    <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link1.jpg') }}" width="700">
-                    <img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link2.jpg') }}" width="700">
-
-                </div>
-                <!--            <a class="btn btn-outline-primary w-100 mb-5" href="filtro-noticias.html">Ver todas las noticias →</a>-->
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <img src="{{ $companyData->first_image }}" width="100%">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- <script src="{{ url('plugins/js/jquery/jquery.min.js') }}"></script> --}}
-    <script src="{{ asset('js/owl.carousel.js') }}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                        =======
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <a href="{{ $companyData->redirect_first_image }}" target="_blank"><img
+                                                src="{{ $companyData->first_image }}" width="100%"></a>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
+                                        >>>>>>> Stashed changes
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <script src="{{ url('plugins/js/jquery/jquery.min.js') }}"></script> --}}
+                            <script src="{{ asset('js/owl.carousel.js') }}"></script>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
 $('#casos .owl-carousel #myCarousel').owlCarousel({
       autoplay: false,
       autoplayHoverPause: true,
@@ -255,5 +273,5 @@ myModal.show();
 
 
 })
-    </script>
-    @endsection
+                            </script>
+                            @endsection

@@ -74,7 +74,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-                <a href="{{ url('/dashboard/slider/create') }}"
+                <a href="{{ route('dashboard.slider.create') }}"
                     style="max-width: 150px; float: right; display:inline-block;"
                     class="btn btn-info btn-success">Agregar Slider</a>
             </div>

@@ -45,50 +45,6 @@
 
     @include('frontend.layouts.home_footer')
 
-
-    {{-- <script src="{{ url('js/owl.carousel.js') }}"></script> --}}
-    {{-- <script>
-        $(document).ready(function() {
-    $('#casos .owl-carousel').owlCarousel({
-      autoplay: false,
-      autoplayHoverPause: true,
-      items: 6,
-      nav: true,
-      dots: false,
-      loop: false,
-      margin: 10,
-      responsiveClass: true,
-      responsive: {
-        0: {
-          items: 2,
-          nav: false,
-          dots: false,
-          loop: true,
-          autoplay: true,
-        },
-        600: {
-          items: 6,
-          nav: false,
-          dots: false,
-          loop: true,
-          autoplay: true,
-        },
-        1000: {
-          items: 6,
-          nav: false,
-          loop: true,
-          margin: 20,
-          autoplay: true,
-        }
-      }
-    })
-  })
-  $(document).ready(function() {
-    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
-    })
-    myModal.show();
-  })
-    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>

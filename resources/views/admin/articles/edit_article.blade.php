@@ -47,7 +47,7 @@
                                 <div class="form-group">
                                     <label>Seleccione Seccion</label>
                                     <select name="sectionId" class="form-control select2" style="width: 100%;">
-                                        <?php echo $section_drop_down; ?>
+                                        <?php echo $categories_drop_down; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">

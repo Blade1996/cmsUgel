@@ -18,7 +18,7 @@ class SliderController extends Controller
     public function index()
     {
         Session::put('page', 'slider');
-        $sliders = Article::where('section_id', 5)->orderBy('order')->get();
+        $sliders = Slider::get();
         $company = new Company;
         $companyData = getCompanyData();
         return view('admin.slider.slider')->with(compact('sliders', 'companyData'));
@@ -34,7 +34,7 @@ class SliderController extends Controller
         }
     }
 
-    /*     public function addSlider(Request $request)
+    public function addSlider(Request $request)
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -77,7 +77,7 @@ class SliderController extends Controller
         $company = new Company;
         $companyData = getCompanyData();
         return view('admin.slider.add_slider', compact('companyData'));
-    } */
+    }
 
     public function editSlider(Request $request, $id = null)
     {
@@ -101,7 +101,7 @@ class SliderController extends Controller
                 $fileName = '';
             }
 
-            Article::where('id', $id)->update(['slider_image' => $completePath]);
+            Slider::where('id', $id)->update(['slider_image' => $completePath]);
             Session::flash('success_message', 'El slider se actualizo Correctamente');
             return redirect()->route('dashboard.slider.index');
         }

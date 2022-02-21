@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {

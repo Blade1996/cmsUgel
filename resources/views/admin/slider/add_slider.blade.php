@@ -45,7 +45,7 @@
                         @endif
 
                         <!-- form start -->
-                        <form role="form" method="post" action="{{ url('/dashboard/slider/create')}}" name="addSlider"
+                        <form role="form" method="post" action="{{ route('dashboard.slider.create')}}" name="addSlider"
                             id="addSlider" enctype="multipart/form-data">@csrf
                             <div class="card-body">
                                 <div class="control-group">

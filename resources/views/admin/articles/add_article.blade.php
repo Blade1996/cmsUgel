@@ -46,33 +46,34 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Seleccione Sección</label>
-                                    <select name="sectionId" id="sectionId" class="form-control select2"
-                                        style="width: 100%;">
-                                        <?php echo $section_drop_down; ?>
+                                    <select name="categoryId" id="categoryId" class="form-control" style="width: 100%;">
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->titulo }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group" id="selectSub" style="display: none">
+                                {{-- <div class="form-group" id="selectSub" style="display: none">
                                     <label>Seleccione Sub Cateogoria</label>
                                     <select name="subCategoryId" id="subCategoryId" class="form-control select2"
                                         style="width: 100%;">
                                     </select>
-                                </div>
-                                <div class="form-group">
+                                </div> --}}
+                                {{-- <div class="form-group">
                                     <label for="exampleInputFile">Insertar Imagen para Slider</label>
                                     <input type="file" class="form-control" onchange="preview_image3(event)"
                                         name="sliderImage" id="sliderImage">
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image3" />
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Título</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" name="articleTitle"
                                         placeholder="Ingrese Titulo">
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="exampleInputEmail1">Subtítulo</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1"
                                         name="articleSubTitle" placeholder="Ingrese Subtitulo">
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Resumen de Artículo</label>
                                     <textarea class="form-control" name="articleResume" id="articleResume"
@@ -80,10 +81,15 @@
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">URL de Video</label>
+                                    <input type="url" class="form-control" id="articleUrlVideo" name="articleUrlVideo"
+                                        placeholder="Ingrese URL">
+                                </div>
+                                {{-- <div class="form-group">
                                     <label for="exampleInputEmail1">Link Texto</label>
                                     <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
                                         placeholder="Ingrese Texto Link">
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- /.col -->
                             <div class="col-md-6">
@@ -93,11 +99,7 @@
                                         name="articleImage" id="articleImage">
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image" />
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">URL de Video</label>
-                                    <input type="url" class="form-control" id="articleUrlVideo" name="articleUrlVideo"
-                                        placeholder="Ingrese URL">
-                                </div>
+
                             </div>
                             <!-- /.col -->
                         </div>
