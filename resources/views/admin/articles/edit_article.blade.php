@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('dashboard/articles') }}">Artículos</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard.articles.index') }}">Artículos</a></li>
                         <li class="breadcrumb-item active">Editar Artículo</li>
                     </ol>
                 </div>
@@ -46,38 +46,68 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Seleccione Seccion</label>
-                                    <select name="sectionId" class="form-control select2" style="width: 100%;">
+                                    <select name="categoryId" id="categoryId" class="form-control select2"
+                                        style="width: 100%;">
                                         <?php echo $categories_drop_down; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Título</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" name="articleTitle"
-                                        value="{{$articleDetail->title}}" placeholder="Ingrese Titulo">
+                                        value="{{$articleDetail->titulo}}" placeholder="Ingrese Titulo">
                                 </div>
+                                <label for="form-check-input">Tipo de Contenido</label>
                                 <div class="form-group">
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="internal"
+                                                value="internal" <?php if($articleDetail->tipo == 'internal' ||
+                                            $articleDetail->tipo == '')
+                                            echo 'checked' ; ?> >
+                                            Enlace Interno
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="external"
+                                                value="external" <?php if($articleDetail->tipo == 'external' )
+                                            echo 'checked' ; ?> >
+                                            Enlace Enterno
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="pdf"
+                                                value="pdf" <?php if($articleDetail->tipo == 'pdf' )
+                                            echo 'checked' ; ?> >
+                                            Archivo PDF
+                                        </label>
+                                    </div>
+
+                                </div>
+                                {{-- <div class="form-group">
                                     <label for="exampleInputFile">Insertar Imagen para Slider</label>
                                     <input type="file" class="form-control" onchange="preview_image3(event)"
                                         name="sliderImage" id="sliderImage">
                                     <input type="hidden" class="form-control" id="currentSliderImage"
-                                        name="currentSliderImage" value="{{$articleDetail->slider_image}}"
+                                        name="currentSliderImage" value="{{$articleDetail->imagen}}"
                                         placeholder="Ingrese Titulo">
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image3"
-                                        src="{{$articleDetail->slider_image }}" />
-                                </div>
-                                <div class="form-group">
+                                        src="{{$articleDetail->imagen }}" />
+                                </div> --}}
+                                {{-- <div class="form-group">
                                     <label for="exampleInputEmail1">Subtítulo</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1"
                                         name="articleSubTitle" value="{{$articleDetail->subtitle}}"
                                         placeholder="Ingrese Subtitulo">
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Resumen de Artículo</label>
                                     <textarea class="form-control" name="articleResume" id="articleResume"
                                         placeholder="Ingrese Resumen"
-                                        style="margin-top: 0px; margin-bottom: 0px; height: 93px;">{{$articleDetail->resume}}</textarea>
+                                        style="margin-top: 0px; margin-bottom: 0px; height: 93px;">{{$articleDetail->resumen}}</textarea>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="exampleInputEmail1">Link Texto</label>
                                     <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
                                         value="{{$articleDetail->text_link}}" placeholder="Ingrese Texto Link">
@@ -91,7 +121,7 @@
                                             Mostrar Banner de Articulo en Slider
                                         </label>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- /.col -->
                             <div class="col-md-6">
@@ -102,14 +132,13 @@
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image" width=300
                                         src="{{asset($articleDetail->page_image)}}" />
                                     <input type="hidden" name="currentArticleImage"
-                                        value="{{ $articleDetail->page_image }}">
+                                        value="{{ $articleDetail->imagen }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">URL de Video</label>
                                     <input type="url" class="form-control" id="articleUrlVideo" name="articleUrlVideo"
-                                        value="{{ $articleDetail->url_video}}" placeholder="Ingrese URL">
-                                    <input type="hidden" name="currentUrlVideo"
-                                        value="{{ $articleDetail->page_image }}">
+                                        value="{{ $articleDetail->video}}" placeholder="Ingrese URL">
+                                    <input type="hidden" name="currentUrlVideo" value="{{ $articleDetail->video }}">
                                 </div>
                             </div>
                             <!-- /.col -->
@@ -118,17 +147,28 @@
                         <h5>Contenido del Articulo</h5>
                         <div class="row">
                             <div class="col-12">
-                                <div class="form-group">
+                                <div class="form-group" id="areaArticleContent">
                                     <label for="exampleInputEmail1">Descripción</label>
                                     <textarea class="form-control textAreaEditor" name="articleContent"
                                         id="articleContent" placeholder="Ingrese Descripcion"
-                                        style="margin-top: 0px; margin-bottom: 0px; height: 93px;">{!! $articleDetail->content!!}</textarea>
+                                        style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
+                                </div>
+                                <div class="form-group" id="articleFileContent" style="display: none">
+                                    <label for="exampleInputFile">Subir Archivo</label>
+                                    <input type="file" class="form-control" name="articleFile" id="articleFile">
+                                    <input type="hidden" class="form-control" name="currentArticleFile"
+                                        id="currentArticleFile" value="{{ $articleDetail->archivo }}">
+                                </div>
+                                <div class="form-group" id="articleUrlContent" style="display: none">
+                                    <label for="exampleInputEmail1">Link Texto</label>
+                                    <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
+                                        placeholder="Ingrese Texto Link" value="{{ $articleDetail->redireccion }}">
                                 </div>
                             </div>
                             <!-- /.form-group -->
                         </div>
                         <!-- /.col -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="exampleInputEmail1">Título para SEO</label>
                             <input type="text" class="form-control" placeholder="Ingrese Titulo" id="articleSeoTitle"
                                 value="{{$articleDetail->title_seo }}" name="articleSeoTitle">
@@ -145,7 +185,7 @@
                                 name="articleSeoImage" id="articleSeoImage">
                             <img style="margin-top: 10px;" class="img-fluid" id="output_image2" width="400"
                                 src="{{$articleDetail->image_seo }}" />
-                        </div>
+                        </div> --}}
                 </div>
                 <!-- /.row -->
                 <div class="card-footer">

@@ -1,5 +1,5 @@
 @extends('layouts.admin_layout')
-@section('title', 'Enlace de Interes')
+@section('title', 'Enlaces')
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -8,12 +8,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Enlace de Interes</h1>
+                    <h1>Enlaces</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Secciones</li>
+                        <li class="breadcrumb-item active">Enlaces</li>
                     </ol>
                 </div>
             </div>
@@ -44,8 +44,8 @@
                     <!--Elegido-->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Tabla de Secciones</h3>
-                            <a href="{{ route('dashboard.links.create') }}"
+                            <h3 class="card-title">Tabla de Enlaces</h3>
+                            <a href="{{ route('dashboard.link.create') }}"
                                 style="max-width: 150px; float: right; display:inline-block;"
                                 class="btn btn-block btn-success">Agregar Enlace</a>
                         </div>
@@ -64,11 +64,13 @@
                                     @foreach ($links as $link)
                                     <tr>
                                         <td>{{ $link->id }}</td>
-                                        <td>{{ $link->title }}</td>
-                                        <td><img src="{{ $link->url_icon }}" width="20" class="img-fluid" alt=""></td>
-                                        <td>
+                                        <td>{{ $link->titulo }}</td>
+                                        <td>{{ $link->resumen }}</td>
+                                        {{-- <td><img src="{{ $link->pretitulo }}" width="20" class="img-fluid" alt="">
+                                        </td>
+                                        --}} <td>
                                             <a data-toggle="tooltip"
-                                                href="{{ route('dashboard.links.edit', $link->id) }}"
+                                                href="{{ route('dashboard.link.edit', $link->id) }}"
                                                 data-toggle="tooltip" title="Editar" title="Editar">
                                                 <i class="far fa-edit"></i>
                                             </a>

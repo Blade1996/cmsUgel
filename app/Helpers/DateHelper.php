@@ -1,14 +1,18 @@
 <?php
 // Zona horarias
-date_default_timezone_set("America/Lima");
 
+use Illuminate\Support\Carbon;
 
 function fecha_string()
 {
 
-    $fecha_dia = date("d");
-    $fecha_mes = date("m");
-    $fecha_year = date("Y");
+    $now = Carbon::now();
+
+    $fecha_dia = $now->format('d');
+    $fecha_mes = $now->format('m');
+    $fecha_year = $now->format('Y');
+
+    $queSignifica = $now->format('l');
 
     $dia_semana = [
         "Monday" => "Lunes",
@@ -35,7 +39,7 @@ function fecha_string()
         "12" => "Diciembre"
     ];
 
-    $fecha_final = $dia_semana[date("l")] . " " . $fecha_dia . " de " . $mese_year[$fecha_mes] . " de " . $fecha_year;
+    $fecha_final = $dia_semana[$now->format('l')] . " " . $fecha_dia . " de " . $mese_year[$fecha_mes] . " de " . $fecha_year;
 
     return $fecha_final;
 }

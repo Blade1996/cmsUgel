@@ -9,9 +9,9 @@
                 <!-- Post header-->
                 <header class="mb-4">
                     <!-- Post title-->
-                    <h1 class="fw-bolder mb-1">{{ $articleDetail->title }}</h1>
+                    <h1 class="fw-bolder mb-1">{{ $articleDetail->titulo }}</h1>
                     <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2">Publicado el {{ $articleDetail->created_at }}</div>
+                    <div class="text-muted fst-italic mb-2">Publicado el {{ $articleDetail->creado }}</div>
                     <!-- Post categories-->
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">etiqueta</a>
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">etiqueta</a>
@@ -21,7 +21,7 @@
                 </figure>
                 <!-- Post content-->
                 <section class="mb-5">
-                    {!!$articleDetail->content!!}
+                    {!!$articleDetail->descripcion!!}
                 </section>
             </article>
 

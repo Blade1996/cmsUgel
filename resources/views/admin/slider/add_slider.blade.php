@@ -51,9 +51,28 @@
                                 <div class="control-group">
                                     <label class="control-label">Banner Image</label>
                                     <div class="controls">
-                                        <input type="file" name="sliderImage" onchange="preview_image(event)">
+                                        <input type="file" class="form-control" name="sliderImage"
+                                            onchange="preview_image(event)">
                                         <br>
                                         <img class="img-fluid" style="margin-top: 10px;" id="output_image" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="showCaption" id="showCaption"
+                                        aria-label="Mostrar Texto en Slide">
+                                    <label for="showCaption">Mostrar Texto en Slider</label>
+                                </div>
+                                <div class="control-group captionSlider" style="display: none">
+                                    <h3>Contenido del Texto</h3>
+                                    <div class="form-group">
+                                        <label for="titleCaption">Titulo de Texto</label>
+                                        <input type="text" class="form-control" name=" titleCaption" id="titleCaption"
+                                            placeholder="Ingrese titulo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subTitleCaption">Subtitulo</label>
+                                        <input type="text" class="form-control" name=" subTitleCaption"
+                                            id="subTitleCaption" placeholder="Ingrese Subtitulo">
                                     </div>
                                 </div>
                             </div>

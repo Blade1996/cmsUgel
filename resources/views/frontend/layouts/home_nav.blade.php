@@ -15,19 +15,29 @@
                 @if (count($section->articles) > 0)
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown"
-                        aria-expanded="false">{{ $section->name }}</a>
+                        aria-expanded="false">{{ $section->titulo }}</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown05">
                         @foreach ($section->articles as $article)
-                        <li><a class="dropdown-item" href="{{ route('home.article.detail', $article->slug) }}">{{
-                                $article->title
+                        @if ($article->tipo == 'external')
+                        <li><a class="dropdown-item" href="{{ $article->redireccion }}">{{
+                                $article->titulo
                                 }}</a></li>
+                        @elseif ($article->tipo == 'pdf')
+                        <li><a class="dropdown-item" href="{{ $article->archivo }}">{{
+                                $article->titulo
+                                }}</a></li>
+                        @else
+                        <li><a class="dropdown-item" href="{{ route('home.article.detail', $article->id) }}">{{
+                                $article->titulo
+                                }}</a></li>
+                        @endif
                         @endforeach
                     </ul>
                     @else
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">{{ $section->name }}</a>
-                    @endif
+                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">{{ $section->titulo }}</a>
                 </li>
+                @endif
                 @endforeach
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ route('home.contact') }}">Contacto</a>

@@ -133,4 +133,51 @@ $(function(){
             $('#documentsFile').css('display', 'block');
         }
     })
+
+
+    let linkType = $("input[name='typelink']:checked").val();
+
+    if(linkType === 'external'){
+        $('#areaArticleContent').css('display', 'none');
+        $("#articleUrlContent").css('display', 'block');
+        $("#articleFileContent").css('display', 'none');
+    } else if (linkType == 'pdf'){
+        $('#areaArticleContent').css('display', 'none');
+        $("#articleUrlContent").css('display', 'none');
+        $("#articleFileContent").css('display', 'block');
+
+    }else{
+        $('#areaArticleContent').css('display', 'block');
+        $("#articleUrlContent").css('display', 'none');
+        $("#articleFileContent").css('display', 'none');
+    }
+
+    $(document).on('change', 'input[type=radio][name=typelink]', function(){
+        let typeLink = $(this).val();
+        if(typeLink === 'external'){
+            $('#areaArticleContent').css('display', 'none');
+            $("#articleUrlContent").css('display', 'block');
+            $("#articleFileContent").css('display', 'none');
+        } else if (typeLink == 'pdf'){
+            $('#areaArticleContent').css('display', 'none');
+            $("#articleUrlContent").css('display', 'none');
+            $("#articleFileContent").css('display', 'block');
+
+        }else{
+            $('#areaArticleContent').css('display', 'block');
+            $("#articleUrlContent").css('display', 'none');
+            $("#articleFileContent").css('display', 'none');
+        }
+    })
+
+    $(document).on('click', '#showCaption', function(){
+        let showCaption  = $(this).is(':checked');
+        if(showCaption) {
+            $(".captionSlider").css('display', 'block');
+        }else{
+            $(".captionSlider").css('display', 'none');
+            $("#titleCaption").val('');
+            $("#subTitleCaption").val('');
+        }
+    })
 })

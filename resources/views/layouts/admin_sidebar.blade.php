@@ -118,7 +118,7 @@
                     @else
                     <?php $active = ''; ?>
                     @endif
-                    <a href="{{ route('dashboard.articles.index') }}" class="nav-link {{ $active }}">
+                    <a href="{{ route('dashboard.link.index') }}" class="nav-link {{ $active }}">
                         <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             Enlaces
@@ -262,7 +262,7 @@
                     <?php $active = ''; ?>
                     @endif
                     <a href="{{ route('dashboard.reassign.index') }}" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-newspaper"></i>
+                        <i class="nav-icon fas fa-sync"></i>
                         <p>
                             Reasignación
                         </p>

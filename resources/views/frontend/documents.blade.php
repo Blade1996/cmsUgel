@@ -44,6 +44,7 @@
                     </div>
 
                     <a class="btn btn-primary w-100 mt-2" href="#!">Aplicar</a>
+                </form>
             </div>
         </div>
 

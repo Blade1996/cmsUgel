@@ -65,7 +65,7 @@ class AnnouncementController extends Controller
             $document->idconvocatoria_categoria = $data['categoryId'];
             $document->descripcion = $data['announcementDescription'];
             $document->archivo = $announcementBasis ?? '';
-            $document->archivo_eva =  $announcementResultCV ?? '';
+            $document->archivo_eval =  $announcementResultCV ?? '';
             $document->archivo_final =  $announcementFinalResult ?? '';
             $document->save();
 
@@ -108,7 +108,7 @@ class AnnouncementController extends Controller
             $document->idconvocatoria_categoria = $data['categoryId'];
             $document->descripcion = $data['announcementDescription'];
             $document->archivo = $announcementBasis ?? '';
-            $document->archivo_eva =  $announcementResultCV ?? '';
+            $document->archivo_eval =  $announcementResultCV ?? '';
             $document->archivo_final =  $announcementFinalResult ?? '';
 
             $document->update();
@@ -193,7 +193,7 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deleteDocument($id)
+    public function delete($id)
     {
         Announcements::find($id)->delete();
         $message = 'El documento se elimino correctamente';

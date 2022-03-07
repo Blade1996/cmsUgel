@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,17 @@ Route::get('/contacto', 'HomeController@indexContact')->name('home.contact');
 
 Route::get('/noticias', 'HomeController@indexArticles')->name('home.articles');
 Route::get('/normatividad', 'HomeController@indexNormativity')->name('home.normativity');
-Route::get('/articulo/{slug}', 'HomeController@articleDetail')->name('home.article.detail');
-Route::get('/convocatoria/{slug}', 'HomeController@announcementDetail')->name('home.announcement.detail');
+Route::get('/reasignacion', 'HomeController@indexReassign')->name('home.reassign');
+Route::get('/contratos', 'HomeController@indexContract')->name('home.contract');
+Route::get('/encargaturas', 'HomeController@indexCharges')->name('home.charges');
+Route::get('/normatividad/category/{id}', 'HomeController@indexNormativity')->name('home.normativity.category');
+Route::get('/reasignacion/category/{id}', 'HomeController@indexReassign')->name('home.reassign.category');
+Route::get('/contratos/category/{id}', 'HomeController@indexContract')->name('home.contract.category');
+Route::get('/encargaturas/category/{id}', 'HomeController@indexCharges')->name('home.charges.category');
+Route::get('/articulo/{id}', 'HomeController@articleDetail')->name('home.article.detail');
+Route::get('/convocatoria/{id}', 'HomeController@announcementDetail')->name('home.announcement.detail');
 Route::get('/articulos', 'HomeController@findArticles')->name('home.articles.find');
+Route::get('/document/find', 'HomeController@findDocument')->name('home.document.find');
 
 
 
@@ -109,42 +118,60 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('dashboard/auxiliar', 'AuxiliarController@index')->name('dashboard.auxiliar.index');
         Route::match(['get', 'post'], 'dashboard/auxiliar/create', 'AuxiliarController@add')->name('dashboard.auxiliar.create');
         Route::match(['get', 'post'], 'dashboard/auxiliar/edit/{id?}', 'AuxiliarController@edit')->name('dashboard.auxiliar.edit');
+        Route::get('dashboard/auxiliar/delete/{id}', 'AuxiliarController@delete')->name('dashboard.auxiliar.delete');
 
         //Covid
         Route::get('dashboard/covid', 'CovidController@index')->name('dashboard.covid.index');
         Route::match(['get', 'post'], 'dashboard/covid/create', 'CovidController@add')->name('dashboard.covid.create');
         Route::match(['get', 'post'], 'dashboard/covid/edit/{id?}', 'CovidController@edit')->name('dashboard.covid.edit');
-
+        Route::get('dashboard/covid/delete/{id}', 'CovidController@delete')->name('dashboard.covid.delete');
 
         //Control
         Route::get('dashboard/control', 'ControlController@index')->name('dashboard.control.index');
         Route::match(['get', 'post'], 'dashboard/control/create', 'ControlController@add')->name('dashboard.control.create');
         Route::match(['get', 'post'], 'dashboard/control/edit/{id?}', 'ControlController@edit')->name('dashboard.control.edit');
+        Route::get('dashboard/control/delete/{id}', 'ControlController@delete')->name('dashboard.control.delete');
+
 
         //Contract
         Route::get('dashboard/contract', 'ContractController@index')->name('dashboard.contract.index');
         Route::match(['get', 'post'], 'dashboard/contract/create', 'ContractController@add')->name('dashboard.contract.create');
         Route::match(['get', 'post'], 'dashboard/contract/edit/{id?}', 'ContractController@edit')->name('dashboard.contract.edit');
+        Route::get('dashboard/contract/delete/{id}', 'ContractController@delete')->name('dashboard.announcement.delete');
+
+        //Interest Links
+        Route::get('dashboard/link', 'InterestLinkController@index')->name('dashboard.link.index');
+        Route::match(['get', 'post'], 'dashboard/link/create', 'InterestLinkController@add')->name('dashboard.link.create');
+        Route::match(['get', 'post'], 'dashboard/link/edit/{id?}', 'InterestLinkController@edit')->name('dashboard.link.edit');
+        Route::get('dashboard/link/delete/{id}', 'InterestLinkController@delete')->name('dashboard.link.delete');
+
 
         //rotate
         Route::get('dashboard/rotate', 'RotateController@index')->name('dashboard.rotate.index');
         Route::match(['get', 'post'], 'dashboard/rotate/create', 'RotateController@add')->name('dashboard.rotate.create');
         Route::match(['get', 'post'], 'dashboard/rotate/edit/{id?}', 'RotateController@edit')->name('dashboard.rotate.edit');
+        Route::get('dashboard/announcement/delete/{id}', 'AnnouncementController@delete')->name('dashboard.rotate.delete');
 
         //election
         Route::get('dashboard/election', 'ElectionController@index')->name('dashboard.election.index');
         Route::match(['get', 'post'], 'dashboard/election/create', 'ElectionController@add')->name('dashboard.election.create');
         Route::match(['get', 'post'], 'dashboard/election/edit/{id?}', 'ElectionController@edit')->name('dashboard.election.edit');
+        Route::get('dashboard/election/delete/{id}', 'ElectionController@delete')->name('dashboard.election.delete');
+
 
         //charge
         Route::get('dashboard/charge', 'ChargeController@index')->name('dashboard.charge.index');
         Route::match(['get', 'post'], 'dashboard/charge/create', 'ChargeController@add')->name('dashboard.charge.create');
         Route::match(['get', 'post'], 'dashboard/charge/edit/{id?}', 'ChargeController@edit')->name('dashboard.charge.edit');
+        Route::get('dashboard/charge/delete/{id}', 'ChargeController@delete')->name('dashboard.charge.delete');
+
 
         //reassign
         Route::get('dashboard/reassign', 'ReassignController@index')->name('dashboard.reassign.index');
         Route::match(['get', 'post'], 'dashboard/reassing/create', 'ReassignController@add')->name('dashboard.reassign.create');
         Route::match(['get', 'post'], 'dashboard/reassing/edit/{id?}', 'ReassignController@edit')->name('dashboard.reassign.edit');
+        Route::get('dashboard/reassing/delete/{id}', 'ReassignController@delete')->name('dashboard.reassign.delete');
+
 
         //DocumentsFiles
         Route::post('file-upload/{slug?}', 'DocumentController@storeMedia')->name('documents.storeMedia');

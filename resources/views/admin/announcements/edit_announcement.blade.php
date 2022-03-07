@@ -51,7 +51,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Seleccione Categoria</label>
-                                    <select name="sectionId" id="sectionId" class="form-control" style="width: 100%;">
+                                    <select name="categoryId" id="categoryId" class="form-control" style="width: 100%;">
                                         <?php echo $categories_drop_down; ?>
                                     </select>
                                 </div>

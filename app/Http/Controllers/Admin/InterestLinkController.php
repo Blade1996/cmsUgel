@@ -2,31 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Auth;
-use File;
-use Image;
-use Session;
-use DateTime;
 use App\Article;
-use App\Company;
-use App\Section;
+use DateTime;
+use File;
+use Auth;
 use DateTimeZone;
+use App\InterestLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
-class ArticleController extends Controller
+class InterestLinkController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        Session::put('page', 'articles');
-        $articles = Article::orderBy('creado', 'desc')->where('idarticulo_categoria', '<>', 10)->get(['id', 'titulo', 'imagen']);
-        $company = new Company;
+        Session::put('page', 'links');
+        $links = Article::where('idarticulo_categoria', 10)->get();
         $companyData = getCompanyData();
-        return view('admin.articles.articles')->with(compact('articles', 'companyData'));
+        return view('admin.interestLink.interestLink', compact('links', 'companyData'));
     }
 
-    public function addArticle(Request $request)
+    public function add(Request $request)
     {
 
         if ($request->isMethod('post')) {
@@ -60,7 +62,7 @@ class ArticleController extends Controller
             }
 
             $article->titulo = $data['articleTitle'];
-            $article->idarticulo_categoria = $data['categoryId'];
+            $article->idarticulo_categoria = 10;
             $article->idusuario = Auth::guard('admin')->user()->id;
             $article->resumen = $data['articleResume'];
             $article->tipo = $data['typelink'] ?? '';
@@ -72,15 +74,15 @@ class ArticleController extends Controller
 
             $article->save();
             Session::flash('success_message', 'El articulo se creo Correctamente');
-            return redirect()->route('dashboard.articles.index');
+            return redirect()->route('dashboard.link.index');
         }
 
-        $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where('id', '<>', 10)->get();
+        $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->get();
         $companyData = getCompanyData();
-        return view('admin.articles.add_article')->with(compact('categories', 'companyData'));
+        return view('admin.interestLink.add_interestLink')->with(compact('categories', 'companyData'));
     }
 
-    public function editArticle(Request $request, $id = null)
+    public function edit(Request $request, $id = null)
     {
 
         if ($request->isMethod('post')) {
@@ -107,7 +109,7 @@ class ArticleController extends Controller
             }
 
             $article->titulo = $data['articleTitle'];
-            $article->idarticulo_categoria = $data['categoryId'];
+            $article->idarticulo_categoria = 10;
             $article->imagen = $articleImage;
             $article->idusuario = Auth::guard('admin')->user()->id;
             $article->resumen = $data['articleResume'];
@@ -120,23 +122,23 @@ class ArticleController extends Controller
             $article->update();
 
             Session::flash('success_message', 'El articulo se Actualizo Correctamente');
-            return redirect()->route('dashboard.articles.index');
+            return redirect()->route('dashboard.link.index');
         }
 
-        $articleDetail = Article::where(['id' => $id])->first();
-        $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where('id', '<>', 10)->get();
+        $linkDetail = Article::where(['id' => $id])->first();
+        /*         $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->get();
         $categories_drop_down = "<option value='' selected disabled>Select</option>";
         foreach ($categories as $category) {
-            if ($category->id == $articleDetail->idarticulo_categoria) {
+            if ($category->id == $linkDetail->idarticulo_categoria) {
                 $selected = "selected";
             } else {
                 $selected = "";
             }
 
             $categories_drop_down .= "<option value='" . $category->id . "' " . $selected . ">" . $category->titulo . "</option>";
-        }
+        } */
         $companyData = getCompanyData();
-        return view('admin.articles.edit_article')->with(compact('categories_drop_down', 'articleDetail', 'companyData'));
+        return view('admin.interestLink.edit_interestLink')->with(compact('linkDetail', 'companyData'));
     }
 
     public function deleteArticle($id)
@@ -144,6 +146,17 @@ class ArticleController extends Controller
         Article::find($id)->delete();
         $message = 'La Seccion se elimino correctamente';
         Session::flash('success_message', $message);
-        return redirect()->route('dashboard.articles.index');
+        return redirect()->route('dashboard.link.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }

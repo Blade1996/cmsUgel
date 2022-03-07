@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('dashboard/articles') }}">Artículos</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard.articles.index') }}">Artículos</a></li>
                         <li class="breadcrumb-item active">Agregar Artículo</li>
                     </ol>
                 </div>
@@ -52,6 +52,31 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <label for="form-check-input">Tipo de Contenido</label>
+                                <div class="form-group">
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="internal"
+                                                value="internal" checked>
+                                            Enlace Interno
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="external"
+                                                value="external">
+                                            Enlace Externo
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="pdf"
+                                                value="pdf">
+                                            Archivo PDF
+                                        </label>
+                                    </div>
+
+                                </div>
                                 {{-- <div class="form-group" id="selectSub" style="display: none">
                                     <label>Seleccione Sub Cateogoria</label>
                                     <select name="subCategoryId" id="subCategoryId" class="form-control select2"
@@ -82,14 +107,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">URL de Video</label>
-                                    <input type="url" class="form-control" id="articleUrlVideo" name="articleUrlVideo"
-                                        placeholder="Ingrese URL">
+                                    <input type="url" class="form-control" idlinkType </div>
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="exampleInputEmail1">Link Texto</label>
-                                    <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
-                                        placeholder="Ingrese Texto Link">
-                                </div> --}}
                             </div>
                             <!-- /.col -->
                             <div class="col-md-6">
@@ -107,18 +126,27 @@
                         <h5>Contenido del Articulo</h5>
                         <div class="row">
                             <div class="col-12">
-                                <div class="form-group">
+                                <div class="form-group" id="areaArticleContent">
                                     <label for="exampleInputEmail1">Descripción</label>
                                     <textarea class="form-control textAreaEditor" name="articleContent"
                                         id="articleContent" placeholder="Ingrese Descripcion"
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
+                                </div>
+                                <div class="form-group" id="articleFileContent" style="display: none">
+                                    <label for="exampleInputFile">Subir Archivo</label>
+                                    <input type="file" class="form-control" name="articleFile" id="articleFile">
+                                </div>
+                                <div class="form-group" id="articleUrlContent" style="display: none">
+                                    <label for="exampleInputEmail1">Link Texto</label>
+                                    <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
+                                        placeholder="Ingrese Texto Link">
                                 </div>
                             </div>
                             <!-- /.form-group -->
                         </div>
                         <!-- /.col -->
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="exampleInputEmail1">Título para SEO</label>
                             <input type="text" class="form-control" placeholder="Ingrese Titulo" id="articleSeoTitle"
                                 name="articleSeoTitle">
@@ -134,7 +162,7 @@
                             <input type="file" class="form-control" onchange="preview_image2(event)"
                                 name="articleSeoImage" id="articleSeoImage">
                             <img style="margin-top: 10px;" class="img-fluid" id="output_image2" />
-                        </div>
+                        </div> --}}
                 </div>
 
                 <!-- /.row -->

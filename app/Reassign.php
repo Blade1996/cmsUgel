@@ -12,4 +12,16 @@ class Reassign extends Model
 
     protected $table = 'dx_reasi';
     protected $fillable = ['name', 'url_image', 'confirm_answer'];
+
+    public function scopeCategory($query, $id)
+    {
+        if ($id)
+            return $query->where('idreasi_categoria', $id);
+    }
+
+    public function scopeTitle($query, $search)
+    {
+        if ($search)
+            return $query->where('nombre', 'LIKE', "%$search%");
+    }
 }

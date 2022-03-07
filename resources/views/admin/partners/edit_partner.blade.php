@@ -61,8 +61,7 @@
                                     <br>
                                     <img class="img-fluid" style="margin-top: 10px;" width="300" id="output_image"
                                         src="{{$partnerDetail['logo']}}" />
-                                    <input type="hidden" name="currentPartnerLogo"
-                                        value="{{$partnerDetail['logo']}}">
+                                    <input type="hidden" name="currentPartnerLogo" value="{{$partnerDetail['logo']}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">URL</label>
