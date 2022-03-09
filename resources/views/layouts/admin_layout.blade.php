@@ -91,6 +91,7 @@
     <script src="{{ url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <!-- Summernote -->
     <script src="{{ url('plugins/summernote/summernote-bs4.min.js') }}"></script>
+
     <!-- overlayScrollbars -->
     <script src="{{ url('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- Select2 -->
@@ -102,11 +103,14 @@
     <!-- DataTables -->
     <script src="{{ url('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+
     <script src="{{ url('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{url('js/toastr.min.js')}}"></script>
+    <!--CkEditor-->
+    <script src="{{ url('ckeditor/ckeditor.js') }}"></script>
     <script>
         $(function(){
     $('#sectionsTable').dataTable({
@@ -114,7 +118,7 @@
     });
 
     $('[data-toggle="tooltip"]').tooltip();
-      $('.textAreaEditor').summernote({
+/*       $('.textAreaEditor').summernote({
           placeholder: 'Hello stand alone ui',
           tabsize: 2,
           height: 120,
@@ -138,6 +142,14 @@
           ['color', ['color']],
           ['para', ['paragraph']],
       ]
+    }); */
+    CKEDITOR.replace('articleContent',{
+        filebrowserUploadUrl: "{{ route('documents.storeFiles',  ['_token' => csrf_token() ]) }}",
+        filebrowserUploadRedirect: true,
+        filebrowserUploadMethod: 'form',
+        extraPlugins: 'colordialog',
+        language: 'es-mx'
+
     });
   })
   //QUESTIONS

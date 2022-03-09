@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
+        '/',
         '/admin/dashboard/verify-curr-pwd',
         '/admin/dashboard/upd-section-status',
         '/admin/dashboard/slider/upd-slider-order',

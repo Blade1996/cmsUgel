@@ -190,6 +190,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         //DocumentsFiles
         Route::post('file-upload/{slug?}', 'DocumentController@storeMedia')->name('documents.storeMedia');
 
+        Route::post('files-upload', 'DocumentController@storeMedia2')->name('documents.storeFiles');
+
         //Documents
         Route::get('dashboard/documents', 'DocumentController@index')->name('dashboard.documents.index');
         // Route::post('dashboard/upd-article-status', 'SectionController@updateArticleStatus')->name('dashboard.upd-article-status');

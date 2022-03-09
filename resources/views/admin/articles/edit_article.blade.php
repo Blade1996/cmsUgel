@@ -151,7 +151,7 @@
                                     <label for="exampleInputEmail1">Descripción</label>
                                     <textarea class="form-control textAreaEditor" name="articleContent"
                                         id="articleContent" placeholder="Ingrese Descripcion"
-                                        style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
+                                        style="margin-top: 0px; margin-bottom: 0px; height: 93px;">{{ $articleDetail->descripcion }}</textarea>
                                 </div>
                                 <div class="form-group" id="articleFileContent" style="display: none">
                                     <label for="exampleInputFile">Subir Archivo</label>

@@ -56,7 +56,6 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Título</th>
-                                        <th>Imagen</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -66,10 +65,10 @@
                                     <tr>
                                         <td>{{ $article->id }}</td>
                                         <td>{{ $article->titulo }}</td>
-                                        <td>
+                                        {{-- <td>
                                             <img src="{{$article->imagen}}" class="img-fluid" width=200 height=100
                                                 alt="">
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             @if ($article->estado == 1)
                                             <small class="badge badge-success update-status" style="cursor: pointer;"

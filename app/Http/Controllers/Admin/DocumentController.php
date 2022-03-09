@@ -197,6 +197,15 @@ class DocumentController extends Controller
         ]);
     }
 
+    public function storeMedia2(Request $request)
+    {
+        $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+        $url = $this->loadFile($request, 'upload', 'multiple/files', 'multiple');
+        $msg = 'Image uploaded successfully';
+        $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+        return $response;
+    }
+
 
 
     public function regulations()

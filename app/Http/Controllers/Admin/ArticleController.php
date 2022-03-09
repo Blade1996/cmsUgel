@@ -20,7 +20,7 @@ class ArticleController extends Controller
     public function index()
     {
         Session::put('page', 'articles');
-        $articles = Article::orderBy('creado', 'desc')->where('idarticulo_categoria', '<>', 10)->get(['id', 'titulo', 'imagen']);
+        $articles = Article::orderBy('creado', 'desc')->where('idarticulo_categoria', '<>', 10)->get(['id', 'titulo', 'estado']);
         $company = new Company;
         $companyData = getCompanyData();
         return view('admin.articles.articles')->with(compact('articles', 'companyData'));
