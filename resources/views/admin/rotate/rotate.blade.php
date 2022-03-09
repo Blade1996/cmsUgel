@@ -56,6 +56,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Titulo</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -65,13 +66,28 @@
                                         <td>{{ $rotate->id }}</td>
                                         <td>{{ $rotate->nombre }}</td>
                                         <td>
+                                            @if ($rotate->estado == 1)
+                                            <small class="badge badge-success update-status" style="cursor: pointer;"
+                                                id="rotate-{{ $rotate->id }}" rotate_id="{{ $rotate->id }}"
+                                                type="rotate">
+                                                Activado
+                                            </small>
+                                            @else
+                                            <small class="badge badge-danger update-status" style="cursor: pointer;"
+                                                id="rotate-{{ $rotate->id }}" rotate_id="{{ $rotate->id }}"
+                                                type="rotate">
+                                                Desactivado
+                                            </small>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a data-toggle="tooltip"
                                                 href="{{ route('dashboard.rotate.edit', $rotate->id) }}"
                                                 data-toggle="tooltip" title="Editar" title="Editar">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;"
-                                                record="documents" recordId="{{ $rotate->id }}" data-toggle="tooltip"
+                                                record="rotate" recordId="{{ $rotate->id }}" data-toggle="tooltip"
                                                 title="Eliminar">
                                                 <i style="color: red;" class="fas fa-trash-alt"></i>
                                             </a>

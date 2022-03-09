@@ -24,6 +24,21 @@ class SliderController extends Controller
         return view('admin.slider.slider')->with(compact('sliders', 'companyData'));
     }
 
+    public function updateSliderStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Slider::where('id', $data['id'])->update(['activated' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
+
     public function updateOrder(Request $request)
     {
         if ($request->ajax()) {

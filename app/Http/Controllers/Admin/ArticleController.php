@@ -26,6 +26,21 @@ class ArticleController extends Controller
         return view('admin.articles.articles')->with(compact('articles', 'companyData'));
     }
 
+    public function updateArticleStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Article::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
+
     public function addArticle(Request $request)
     {
 
@@ -139,7 +154,7 @@ class ArticleController extends Controller
         return view('admin.articles.edit_article')->with(compact('categories_drop_down', 'articleDetail', 'companyData'));
     }
 
-    public function deleteArticle($id)
+    public function destroy($id)
     {
         Article::find($id)->delete();
         $message = 'La Seccion se elimino correctamente';

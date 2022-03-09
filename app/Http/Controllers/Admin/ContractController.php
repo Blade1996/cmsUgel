@@ -21,6 +21,20 @@ class ContractController extends Controllers\Controller
         return view('admin.contract.contract', compact('contracts', 'companyData'));
     }
 
+    public function updateContractStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Contract::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
     public function add(Request $request)
     {
 
@@ -95,7 +109,9 @@ class ContractController extends Controllers\Controller
 
     public function destroy($id)
     {
-        TypeAnswer::findOrFail($id)->delete();
-        return redirect()->route('type-answers.index')->with('status', '¡Eliminado satisfactoriamente!');
+        Contract::find($id)->delete();
+        $message = 'El Partner se elimino correctamente';
+        Session::flash('success_message', $message);
+        return redirect()->route('dashboard.contract.index');
     }
 }

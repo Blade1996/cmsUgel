@@ -56,7 +56,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Nombre</th>
-                                        <th>Icono</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -65,7 +65,19 @@
                                     <tr>
                                         <td>{{ $link->id }}</td>
                                         <td>{{ $link->titulo }}</td>
-                                        <td>{{ $link->resumen }}</td>
+                                        <td>
+                                            @if ($link->estado == 1)
+                                            <small class="badge badge-success update-status" style="cursor: pointer;"
+                                                id="link-{{ $link->id }}" link_id="{{ $link->id }}" type="link">
+                                                Activado
+                                            </small>
+                                            @else
+                                            <small class="badge badge-danger update-status" style="cursor: pointer;"
+                                                id="link-{{ $link->id }}" link_id="{{ $link->id }}" type="link">
+                                                Desactivado
+                                            </small>
+                                            @endif
+                                        </td>
                                         {{-- <td><img src="{{ $link->pretitulo }}" width="20" class="img-fluid" alt="">
                                         </td>
                                         --}} <td>
@@ -75,7 +87,7 @@
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;"
-                                                record="section" recordId="{{ $link->id }}" data-toggle="tooltip"
+                                                record="link" recordId="{{ $link->id }}" data-toggle="tooltip"
                                                 title="Eliminar">
                                                 <i style="color: red;" class="fas fa-trash-alt"></i>
                                             </a>

@@ -27,6 +27,19 @@ class AnnouncementController extends Controller
         return view('admin.announcements.announcements')->with(compact('announcements', 'companyData'));
     }
 
+    public function updateAnnouncementStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Announcements::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
 
     public function indexAnnouncementsHome()
     {
@@ -193,7 +206,7 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function destroy($id)
     {
         Announcements::find($id)->delete();
         $message = 'El documento se elimino correctamente';

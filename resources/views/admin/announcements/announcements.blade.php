@@ -56,6 +56,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Titulo</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -64,6 +65,21 @@
                                     <tr>
                                         <td>{{ $announcement->id }}</td>
                                         <td>{{ $announcement->nombre }}</td>
+                                        <td>
+                                            @if ($announcement->estado == 1)
+                                            <small class="badge badge-success update-status" style="cursor: pointer;"
+                                                id="announcement-{{ $announcement->id }}"
+                                                announcement_id="{{ $announcement->id }}" type="announcement">
+                                                Activado
+                                            </small>
+                                            @else
+                                            <small class="badge badge-danger update-status" style="cursor: pointer;"
+                                                id="announcement-{{ $announcement->id }}"
+                                                announcement_id="{{ $announcement->id }}" type="announcement">
+                                                Desactivado
+                                            </small>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a data-toggle="tooltip"
                                                 href="{{ route('dashboard.announcement.edit', $announcement->id) }}"

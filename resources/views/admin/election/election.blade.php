@@ -56,6 +56,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Titulo</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -65,13 +66,28 @@
                                         <td>{{ $election->id }}</td>
                                         <td>{{ $election->nombre }}</td>
                                         <td>
+                                            @if ($election->estado == 1)
+                                            <small class="badge badge-success update-status" style="cursor: pointer;"
+                                                id="election-{{ $election->id }}" election_id="{{ $election->id }}"
+                                                type="election">
+                                                Activado
+                                            </small>
+                                            @else
+                                            <small class="badge badge-danger update-status" style="cursor: pointer;"
+                                                id="election-{{ $election->id }}" election_id="{{ $election->id }}"
+                                                type="election">
+                                                Desactivado
+                                            </small>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a data-toggle="tooltip"
                                                 href="{{ route('dashboard.election.edit', $election->id) }}"
                                                 data-toggle="tooltip" title="Editar" title="Editar">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;"
-                                                record="documents" recordId="{{ $election->id }}" data-toggle="tooltip"
+                                                record="election" recordId="{{ $election->id }}" data-toggle="tooltip"
                                                 title="Eliminar">
                                                 <i style="color: red;" class="fas fa-trash-alt"></i>
                                             </a>

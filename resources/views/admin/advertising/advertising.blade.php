@@ -56,6 +56,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Titulo</th>
+                                        <th>Statuss</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -65,13 +66,28 @@
                                         <td>{{ $advertising->id }}</td>
                                         <td>{{ $advertising->titulo }}</td>
                                         <td>
+                                            @if ($advertising->estado == 1)
+                                            <small class="badge badge-success update-status" style="cursor: pointer;"
+                                                id="advertising-{{ $advertising->id }}"
+                                                advertising_id="{{ $advertising->id }}" type="advertising">
+                                                Activado
+                                            </small>
+                                            @else
+                                            <small class="badge badge-danger update-status" style="cursor: pointer;"
+                                                id="advertising-{{ $advertising->id }}"
+                                                advertising_id="{{ $advertising->id }}" type="advertising">
+                                                Desactivado
+                                            </small>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a data-toggle="tooltip"
                                                 href="{{ route('dashboard.advertising.edit', $advertising->id) }}"
                                                 data-toggle="tooltip" title="Editar" title="Editar">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;"
-                                                record="advertisements" recordId="{{ $advertising->id }}"
+                                                record="advertising" recordId="{{ $advertising->id }}"
                                                 data-toggle="tooltip" title="Eliminar">
                                                 <i style="color: red;" class="fas fa-trash-alt"></i>
                                             </a>

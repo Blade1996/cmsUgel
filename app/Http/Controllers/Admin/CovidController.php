@@ -29,6 +29,19 @@ class CovidController extends Controller
         return view('admin.covid.covid')->with(compact('covids', 'companyData'));
     }
 
+    public function updateCovidStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Covid::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
 
     public function add(Request $request)
     {
@@ -100,5 +113,13 @@ class CovidController extends Controller
         }
         $companyData = getCompanyData();
         return view('admin.covid.edit_covid')->with(compact('categories_drop_down', 'covidDetail', 'companyData'));
+    }
+
+    public function destroy($id)
+    {
+        Covid::find($id)->delete();
+        $message = 'El Articulo covid se elimino correctamente';
+        Session::flash('success_message', $message);
+        return redirect()->route('dashboard.covid.index');
     }
 }

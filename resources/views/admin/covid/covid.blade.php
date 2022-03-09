@@ -56,6 +56,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Titulo</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -65,13 +66,26 @@
                                         <td>{{ $covid->id }}</td>
                                         <td>{{ $covid->nombre }}</td>
                                         <td>
+                                            @if ($covid->estado == 1)
+                                            <small class="badge badge-success update-status" style="cursor: pointer;"
+                                                id="covid-{{ $covid->id }}" covid_id="{{ $covid->id }}" type="covid">
+                                                Activado
+                                            </small>
+                                            @else
+                                            <small class="badge badge-danger update-status" style="cursor: pointer;"
+                                                id="covid-{{ $covid->id }}" covid_id="{{ $covid->id }}" type="covid">
+                                                Desactivado
+                                            </small>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a data-toggle="tooltip"
                                                 href="{{ route('dashboard.covid.edit', $covid->id) }}"
                                                 data-toggle="tooltip" title="Editar" title="Editar">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;"
-                                                record="documents" recordId="{{ $covid->id }}" data-toggle="tooltip"
+                                                record="covid" recordId="{{ $covid->id }}" data-toggle="tooltip"
                                                 title="Eliminar">
                                                 <i style="color: red;" class="fas fa-trash-alt"></i>
                                             </a>

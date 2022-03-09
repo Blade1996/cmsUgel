@@ -56,6 +56,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Titulo</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -65,13 +66,28 @@
                                         <td>{{ $contract->id }}</td>
                                         <td>{{ $contract->nombre }}</td>
                                         <td>
+                                            @if ($contract->estado == 1)
+                                            <small class="badge badge-success update-status" style="cursor: pointer;"
+                                                id="contract-{{ $contract->id }}" contract_id="{{ $contract->id }}"
+                                                type="contract">
+                                                Activado
+                                            </small>
+                                            @else
+                                            <small class="badge badge-danger update-status" style="cursor: pointer;"
+                                                id="contract-{{ $contract->id }}" contract_id="{{ $contract->id }}"
+                                                type="contract">
+                                                Desactivado
+                                            </small>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a data-toggle="tooltip"
                                                 href="{{ route('dashboard.contract.edit', $contract->id) }}"
                                                 data-toggle="tooltip" title="Editar" title="Editar">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;"
-                                                record="documents" recordId="{{ $contract->id }}" data-toggle="tooltip"
+                                                record="contract" recordId="{{ $contract->id }}" data-toggle="tooltip"
                                                 title="Eliminar">
                                                 <i style="color: red;" class="fas fa-trash-alt"></i>
                                             </a>

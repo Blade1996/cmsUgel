@@ -24,6 +24,20 @@ class ControlController extends Controller
         return view('admin.control.control', compact('controls', 'companyData'));
     }
 
+    public function updateControlStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Control::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
 
     public function add(Request $request)
     {
@@ -97,8 +111,10 @@ class ControlController extends Controller
 
     public function destroy($id)
     {
-        Question::withoutGlobalScope(ActivatedScope::class)->findOrFail($id)->delete();
-        return redirect()->route('questions.index')->with('status', '¡Eliminado satisfactoriamente!');
+        Control::find($id)->delete();
+        $message = 'El Partner se elimino correctamente';
+        Session::flash('success_message', $message);
+        return redirect()->route('dashboard.control.index');
     }
 
     public function changeStatus($id)

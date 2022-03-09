@@ -58,6 +58,7 @@
                                         <th>Nombre</th>
                                         <th>Logo</th>
                                         <th>URL</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -72,13 +73,28 @@
                                         </td>
                                         <td>{{ $partner->url }}</td>
                                         <td>
+                                            @if ($partner->estado == 1)
+                                            <small class="badge badge-success update-status" style="cursor: pointer;"
+                                                id="partner-{{ $partner->id }}" partner_id="{{ $partner->id }}"
+                                                type="partner">
+                                                Activado
+                                            </small>
+                                            @else
+                                            <small class="badge badge-danger update-status" style="cursor: pointer;"
+                                                id="partner-{{ $partner->id }}" partner_id="{{ $partner->id }}"
+                                                type="partner">
+                                                Desactivado
+                                            </small>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a data-toggle="tooltip"
                                                 href="{{ route('dashboard.partner.edit', $partner->id) }}"
                                                 data-toggle="tooltip" title="Editar" title="Editar">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="confirmDelete" style="cursor: pointer;"
-                                                record="partners" recordId="{{ $partner->id }}" data-toggle="tooltip"
+                                                record="partner" recordId="{{ $partner->id }}" data-toggle="tooltip"
                                                 title="Eliminar">
                                                 <i style="color: red;" class="fas fa-trash-alt"></i>
                                             </a>

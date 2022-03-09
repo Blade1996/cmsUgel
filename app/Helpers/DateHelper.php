@@ -6,7 +6,7 @@ use Illuminate\Support\Carbon;
 function fecha_string()
 {
 
-    $now = Carbon::now();
+    $now = Carbon::now(config('app.timezone'));
 
     $fecha_dia = $now->format('d');
     $fecha_mes = $now->format('m');

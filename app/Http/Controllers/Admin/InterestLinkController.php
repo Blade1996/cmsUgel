@@ -28,6 +28,20 @@ class InterestLinkController extends Controller
         return view('admin.interestLink.interestLink', compact('links', 'companyData'));
     }
 
+    public function updateLinkStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Article::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
     public function add(Request $request)
     {
 
@@ -141,22 +155,11 @@ class InterestLinkController extends Controller
         return view('admin.interestLink.edit_interestLink')->with(compact('linkDetail', 'companyData'));
     }
 
-    public function deleteArticle($id)
-    {
-        Article::find($id)->delete();
-        $message = 'La Seccion se elimino correctamente';
-        Session::flash('success_message', $message);
-        return redirect()->route('dashboard.link.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        Article::find($id)->delete();
+        $message = 'El Articulo covid se elimino correctamente';
+        Session::flash('success_message', $message);
+        return redirect()->route('dashboard.link.index');
     }
 }

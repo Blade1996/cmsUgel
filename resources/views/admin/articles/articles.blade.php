@@ -57,6 +57,7 @@
                                         <th>Id</th>
                                         <th>Título</th>
                                         <th>Imagen</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -68,6 +69,21 @@
                                         <td>
                                             <img src="{{$article->imagen}}" class="img-fluid" width=200 height=100
                                                 alt="">
+                                        </td>
+                                        <td>
+                                            @if ($article->estado == 1)
+                                            <small class="badge badge-success update-status" style="cursor: pointer;"
+                                                id="article-{{ $article->id }}" article_id="{{ $article->id }}"
+                                                type="article">
+                                                Activado
+                                            </small>
+                                            @else
+                                            <small class="badge badge-danger update-status" style="cursor: pointer;"
+                                                id="article-{{ $article->id }}" article_id="{{ $article->id }}"
+                                                type="article">
+                                                Desactivado
+                                            </small>
+                                            @endif
                                         </td>
                                         <td>
                                             <a data-toggle="tooltip"

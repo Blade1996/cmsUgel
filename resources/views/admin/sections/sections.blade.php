@@ -74,12 +74,14 @@
                                         <td>
                                             @if ($section->activated == 1)
                                             <small class="badge badge-success update-status" style="cursor: pointer;"
-                                                id="section-{{ $section->id }}" section_id="{{ $section->id }}">
+                                                id="section-{{ $section->id }}" section_id="{{ $section->id }}"
+                                                type="section">
                                                 Activado
                                             </small>
                                             @else
                                             <small class="badge badge-danger update-status" style="cursor: pointer;"
-                                                id="section-{{ $section->id }}" section_id="{{ $section->id }}">
+                                                id="section-{{ $section->id }}" section_id="{{ $section->id }}"
+                                                type="section">
                                                 Desactivado
                                             </small>
                                             @endif

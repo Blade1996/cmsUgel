@@ -23,6 +23,20 @@ class RotateController extends Controller
         return view('admin.rotate.rotate', compact('rotates', 'companyData'));
     }
 
+    public function updateRotateStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Rotate::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
     public function add(Request $request)
     {
 

@@ -25,6 +25,21 @@ class ReassignController extends Controller
         return view('admin.reassign.reassign', compact('reassigns', 'companyData'));
     }
 
+    public function updateReassignStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Reassign::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
+
     public function add(Request $request)
     {
 
@@ -105,6 +120,9 @@ class ReassignController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Reassign::find($id)->delete();
+        $message = 'El Link se elimino correctamente';
+        Session::flash('success_message', $message);
+        return redirect()->route('dashboard.reassign.index');
     }
 }

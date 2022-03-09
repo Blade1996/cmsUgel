@@ -18,24 +18,28 @@ $(function(){
     });
 
 
-    $('.update-status').click(function(){
+
+    $(document).on('click','.update-status', function(){
         var status = $(this).text();
-        var section_id = $(this).attr('section_id');
+        var type = $(this).attr('type');
+        var id = $(this).attr(`${type}_id`);
+        console.log(status, type, id);
         $.ajax({
-            type: 'post',
-            url: '/dashboard/upd-section-status',
-            data: { status, section_id },
+            type: 'POST',
+            url: `/admin/dashboard/upd-${type}-status`,
+            data: { status, id },
             success: function(res){
                 if(res['status'] == 0){
-                    $('#section-'+res['section_id']).attr('class', 'badge badge-danger update-status').html('Desactivado');
+                    $(`#${type}-${res['id']}`).attr('class', 'badge badge-danger update-status').html('Desactivado');
                 }else if(res['status'] == 1) {
-                    $('#section-'+res['section_id']).attr('class', 'badge badge-success update-status').html('Activado');
+                    $(`#${type}-${res['id']}`).attr('class', 'badge badge-success update-status').html('Activado');
                 }
             },error: function(){
                 alert('error');
             }
         })
     });
+
 
     var item_slide = $('.item-slide');
 

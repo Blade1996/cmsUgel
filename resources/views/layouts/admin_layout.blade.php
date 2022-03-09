@@ -112,6 +112,7 @@
     $('#sectionsTable').dataTable({
       responsive: true,
     });
+
     $('[data-toggle="tooltip"]').tooltip();
       $('.textAreaEditor').summernote({
           placeholder: 'Hello stand alone ui',

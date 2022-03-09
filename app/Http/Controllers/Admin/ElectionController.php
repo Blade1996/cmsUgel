@@ -23,6 +23,19 @@ class ElectionController extends Controller
         return view('admin.election.election', compact('elections', 'companyData'));
     }
 
+    public function updateElectionStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Election::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -98,5 +111,13 @@ class ElectionController extends Controller
         }
         $companyData = getCompanyData();
         return view('admin.election.edit_election')->with(compact('categories_drop_down', 'electionDetail', 'companyData'));
+    }
+
+    public function destroy($id)
+    {
+        Election::find($id)->delete();
+        $message = 'El Articulo covid se elimino correctamente';
+        Session::flash('success_message', $message);
+        return redirect()->route('dashboard.election.index');
     }
 }

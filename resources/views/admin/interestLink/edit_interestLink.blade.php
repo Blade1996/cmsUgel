@@ -499,7 +499,7 @@
                             <!-- /.col -->
                         </div>
 
-                        <h5>Contenido del Articulo</h5>
+                        <h5>Contenido del Enlace</h5>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group" id="areaArticleContent">

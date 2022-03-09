@@ -63,52 +63,58 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::post('dashboard/upd-section-status', 'SectionController@updateSectionStatus')->name('dashboard.upd-section-status');
         Route::match(['get', 'post'], 'dashboard/section/create', 'SectionController@addSection')->name('dashboard.section.create');
         Route::match(['get', 'post'], 'dashboard/section/edit/{id?}', 'SectionController@editSection')->name('dashboard.section.edit');
-        Route::get('dashboard/section/delete/{id}', 'SectionController@deleteSection')->name('dashboard.section.delete');
+        Route::get('dashboard/section/delete/{id}', 'SectionController@destroy')->name('dashboard.section.delete');
 
         //Partners
         Route::get('dashboard/partners', 'PartnerController@listPartners')->name('dashboard.partners');
-        // Route::post('dashboard/upd-section-status', 'SectionController@updateSectionStatus')->name('dashboard.upd-section-status');
+        Route::post('dashboard/upd-partner-status', 'PartnerController@updatePartnerStatus')->name('dashboard.upd-partner-status');
         Route::match(['get', 'post'], 'dashboard/partners/create', 'PartnerController@addPartner')->name('dashboard.partner.create');
         Route::match(['get', 'post'], 'dashboard/partners/edit/{id?}', 'PartnerController@editPartner')->name('dashboard.partner.edit');
-        Route::get('dashboard/partners/delete/{id}', 'PartnerController@deletePartner')->name('dashboard.partner.delete');
+        Route::get('dashboard/partners/delete/{id}', 'PartnerController@destroy')->name('dashboard.partner.delete');
 
         //Slider
         Route::get('dashboard/slider', 'SliderController@index')->name('dashboard.slider.index');
+        Route::post('dashboard/upd-slider-status', 'SliderController@updateSliderStatus')->name('dashboard.upd-slider-status');
         Route::match(['get', 'post'], 'dashboard/slider/create', 'SliderController@addSlider')->name('dashboard.slider.create');
         Route::match(['get', 'post'], 'dashboard/slider/edit/{id?}', 'SliderController@editSlider')->name('dashboard.slider.edit');
         Route::post('dashboard/slider/upd-slider-order', 'SliderController@updateOrder')->name('dashboard.slider.upd-order');
-        Route::get('dashboard/slider/delete/{id}', 'SliderController@deleteSlider')->name('dashboard.slider.delete');
+        Route::get('dashboard/slider/delete/{id}', 'SliderController@destroy')->name('dashboard.slider.delete');
 
         //Articles
         Route::get('dashboard/articles', 'ArticleController@index')->name('dashboard.articles.index');
         Route::match(['get', 'post'], 'dashboard/articles/create', 'ArticleController@addArticle')->name('dashboard.articles.create');
+        Route::post('dashboard/upd-article-status', 'ArticleController@updateArticleStatus')->name('dashboard.upd-article-status');
         Route::match(['get', 'post'], 'dashboard/articles/edit/{id?}', 'ArticleController@editArticle')->name('dashboard.articles.edit');
-        Route::get('dashboard/article/delete/{id}', 'ArticleController@deleteArticle')->name('dashboard.articles.delete');
+        Route::get('dashboard/article/delete/{id}', 'ArticleController@destroy')->name('dashboard.articles.delete');
         Route::get('dashboard/articles/section/{id}', 'SectionController@sectionDetails');
 
         //Advertisements
         Route::get('dashboard/advertisements', 'AdvertisementsController@index')->name('dashboard.advertisements.index');
+        Route::post('dashboard/upd-advertisement-status', 'AdvertisementsController@updateAdvertisementStatus')->name('dashboard.upd-advertisements-status');
         Route::match(['get', 'post'], 'dashboard/advertisements/create', 'AdvertisementsController@add')->name('dashboard.advertisements.create');
         Route::match(['get', 'post'], 'dashboard/advertisements/edit/{id?}', 'AdvertisementsController@edit')->name('dashboard.advertisements.edit');
-        Route::get('dashboard/advertisements/delete/{id}', 'AdvertisementsController@deleteArticle')->name('dashboard.advertisements.delete');
+        Route::get('dashboard/advertisements/delete/{id}', 'AdvertisementsController@destroy')->name('dashboard.advertisements.delete');
 
         //Advertising
         Route::get('dashboard/advertising', 'AdvertisingController@index')->name('dashboard.advertising.index');
+        Route::post('dashboard/upd-advertising-status', 'AdvertisingController@updateAdvertisingStatus')->name('dashboard.upd-advertising-status');
         Route::match(['get', 'post'], 'dashboard/advertising/create', 'AdvertisingController@add')->name('dashboard.advertising.create');
         Route::match(['get', 'post'], 'dashboard/advertising/edit/{id?}', 'AdvertisingController@edit')->name('dashboard.advertising.edit');
-        Route::get('dashboard/advertising/delete/{id}', 'AdvertisingController@delete')->name('dashboard.advertising.delete');
+        Route::get('dashboard/advertising/delete/{id}', 'AdvertisingController@destroy')->name('dashboard.advertising.delete');
 
         //Normativity
         Route::get('dashboard/normativities', 'NormativityController@index')->name('dashboard.normativity.index');
+        Route::post('dashboard/upd-normativity-status', 'NormativityController@updateNormativityStatus')->name('dashboard.upd-normativity-status');
         Route::match(['get', 'post'], 'dashboard/normativities/create', 'NormativityController@add')->name('dashboard.normativity.create');
         Route::match(['get', 'post'], 'dashboard/normativities/edit/{id?}', 'NormativityController@edit')->name('dashboard.normativity.edit');
-        Route::get('dashboard/normativities/delete/{id}', 'NormativityController@delete')->name('dashboard.normativity.delete');
+        Route::get('dashboard/normativities/delete/{id}', 'NormativityController@destroy')->name('dashboard.normativity.delete');
 
         //Announcements
         Route::get('dashboard/announcement', 'AnnouncementController@index')->name('dashboard.announcement.index');
+        Route::post('dashboard/upd-announcement-status', 'AnnouncementController@updateAnnouncementStatus')->name('dashboard.upd-announcement-status');
         Route::match(['get', 'post'], 'dashboard/announcement/create', 'AnnouncementController@add')->name('dashboard.announcement.create');
         Route::match(['get', 'post'], 'dashboard/announcement/edit/{id?}', 'AnnouncementController@edit')->name('dashboard.announcement.edit');
-        Route::get('dashboard/announcement/delete/{id}', 'AnnouncementController@delete')->name('dashboard.announcement.delete');
+        Route::get('dashboard/announcement/delete/{id}', 'AnnouncementController@destroy')->name('dashboard.announcement.delete');
 
         /*    //Desk
         Route::get('dashboard/desk', 'DeskController@index')->name('dashboard.desk.index');
@@ -116,84 +122,95 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
         //Auxiliar
         Route::get('dashboard/auxiliar', 'AuxiliarController@index')->name('dashboard.auxiliar.index');
+        Route::post('dashboard/upd-auxiliar-status', 'AuxiliarController@updateAuxiliarStatus')->name('dashboard.upd-auxiliar-status');
         Route::match(['get', 'post'], 'dashboard/auxiliar/create', 'AuxiliarController@add')->name('dashboard.auxiliar.create');
         Route::match(['get', 'post'], 'dashboard/auxiliar/edit/{id?}', 'AuxiliarController@edit')->name('dashboard.auxiliar.edit');
-        Route::get('dashboard/auxiliar/delete/{id}', 'AuxiliarController@delete')->name('dashboard.auxiliar.delete');
+        Route::get('dashboard/auxiliar/delete/{id}', 'AuxiliarController@destroy')->name('dashboard.auxiliar.delete');
 
         //Covid
         Route::get('dashboard/covid', 'CovidController@index')->name('dashboard.covid.index');
+        Route::post('dashboard/upd-covid-status', 'CovidController@updateCovidStatus')->name('dashboard.upd-covid-status');
         Route::match(['get', 'post'], 'dashboard/covid/create', 'CovidController@add')->name('dashboard.covid.create');
         Route::match(['get', 'post'], 'dashboard/covid/edit/{id?}', 'CovidController@edit')->name('dashboard.covid.edit');
-        Route::get('dashboard/covid/delete/{id}', 'CovidController@delete')->name('dashboard.covid.delete');
+        Route::get('dashboard/covid/delete/{id}', 'CovidController@destroy')->name('dashboard.covid.delete');
 
         //Control
         Route::get('dashboard/control', 'ControlController@index')->name('dashboard.control.index');
+        Route::post('dashboard/upd-control-status', 'ControlController@updateControlStatus')->name('dashboard.upd-control-status');
         Route::match(['get', 'post'], 'dashboard/control/create', 'ControlController@add')->name('dashboard.control.create');
         Route::match(['get', 'post'], 'dashboard/control/edit/{id?}', 'ControlController@edit')->name('dashboard.control.edit');
-        Route::get('dashboard/control/delete/{id}', 'ControlController@delete')->name('dashboard.control.delete');
+        Route::get('dashboard/control/delete/{id}', 'ControlController@destroy')->name('dashboard.control.delete');
 
 
         //Contract
         Route::get('dashboard/contract', 'ContractController@index')->name('dashboard.contract.index');
+        Route::post('dashboard/upd-contract-status', 'ContractController@updateContractStatus')->name('dashboard.upd-contract-status');
         Route::match(['get', 'post'], 'dashboard/contract/create', 'ContractController@add')->name('dashboard.contract.create');
         Route::match(['get', 'post'], 'dashboard/contract/edit/{id?}', 'ContractController@edit')->name('dashboard.contract.edit');
-        Route::get('dashboard/contract/delete/{id}', 'ContractController@delete')->name('dashboard.announcement.delete');
+        Route::get('dashboard/contract/delete/{id}', 'ContractController@destroy')->name('dashboard.announcement.delete');
 
         //Interest Links
         Route::get('dashboard/link', 'InterestLinkController@index')->name('dashboard.link.index');
+        Route::post('dashboard/upd-link-status', 'InterestLinkController@updateLinkStatus')->name('dashboard.upd-link-status');
         Route::match(['get', 'post'], 'dashboard/link/create', 'InterestLinkController@add')->name('dashboard.link.create');
         Route::match(['get', 'post'], 'dashboard/link/edit/{id?}', 'InterestLinkController@edit')->name('dashboard.link.edit');
-        Route::get('dashboard/link/delete/{id}', 'InterestLinkController@delete')->name('dashboard.link.delete');
+        Route::get('dashboard/link/delete/{id}', 'InterestLinkController@destroy')->name('dashboard.link.delete');
 
 
         //rotate
         Route::get('dashboard/rotate', 'RotateController@index')->name('dashboard.rotate.index');
+        Route::post('dashboard/upd-rotate-status', 'RotateController@updateRotateStatus')->name('dashboard.upd-rotate-status');
         Route::match(['get', 'post'], 'dashboard/rotate/create', 'RotateController@add')->name('dashboard.rotate.create');
         Route::match(['get', 'post'], 'dashboard/rotate/edit/{id?}', 'RotateController@edit')->name('dashboard.rotate.edit');
-        Route::get('dashboard/announcement/delete/{id}', 'AnnouncementController@delete')->name('dashboard.rotate.delete');
+        Route::get('dashboard/announcement/delete/{id}', 'AnnouncementController@destroy')->name('dashboard.rotate.delete');
 
         //election
         Route::get('dashboard/election', 'ElectionController@index')->name('dashboard.election.index');
+        Route::post('dashboard/upd-election-status', 'ElectionController@updateElectionStatus')->name('dashboard.upd-election-status');
         Route::match(['get', 'post'], 'dashboard/election/create', 'ElectionController@add')->name('dashboard.election.create');
         Route::match(['get', 'post'], 'dashboard/election/edit/{id?}', 'ElectionController@edit')->name('dashboard.election.edit');
-        Route::get('dashboard/election/delete/{id}', 'ElectionController@delete')->name('dashboard.election.delete');
+        Route::get('dashboard/election/delete/{id}', 'ElectionController@destroy')->name('dashboard.election.delete');
 
 
         //charge
         Route::get('dashboard/charge', 'ChargeController@index')->name('dashboard.charge.index');
+        Route::post('dashboard/upd-charge-status', 'ChargeController@updateChargeStatus')->name('dashboard.upd-charge-status');
         Route::match(['get', 'post'], 'dashboard/charge/create', 'ChargeController@add')->name('dashboard.charge.create');
         Route::match(['get', 'post'], 'dashboard/charge/edit/{id?}', 'ChargeController@edit')->name('dashboard.charge.edit');
-        Route::get('dashboard/charge/delete/{id}', 'ChargeController@delete')->name('dashboard.charge.delete');
+        Route::get('dashboard/charge/delete/{id}', 'ChargeController@destroy')->name('dashboard.charge.delete');
 
 
         //reassign
         Route::get('dashboard/reassign', 'ReassignController@index')->name('dashboard.reassign.index');
+        Route::post('dashboard/upd-reassign-status', 'ReassignController@updateReassignStatus')->name('dashboard.upd-reassign-status');
         Route::match(['get', 'post'], 'dashboard/reassing/create', 'ReassignController@add')->name('dashboard.reassign.create');
         Route::match(['get', 'post'], 'dashboard/reassing/edit/{id?}', 'ReassignController@edit')->name('dashboard.reassign.edit');
-        Route::get('dashboard/reassing/delete/{id}', 'ReassignController@delete')->name('dashboard.reassign.delete');
-
+        Route::get('dashboard/reassing/delete/{id}', 'ReassignController@destroy')->name('dashboard.reassign.delete');
 
         //DocumentsFiles
         Route::post('file-upload/{slug?}', 'DocumentController@storeMedia')->name('documents.storeMedia');
 
         //Documents
         Route::get('dashboard/documents', 'DocumentController@index')->name('dashboard.documents.index');
+        // Route::post('dashboard/upd-article-status', 'SectionController@updateArticleStatus')->name('dashboard.upd-article-status');
         Route::match(['get', 'post'], 'dashboard/documents/create/{slug?}', 'DocumentController@addDocument')->name('dashboard.documents.create');
         Route::match(['get', 'post'], 'dashboard/documents/edit/{id?}', 'DocumentController@editDocument')->name('dashboard.documents.edit');
-        Route::get('dashboard/documents/delete/{id}', 'DocumentController@deleteDocument')->name('dashboard.documents.delete');
+        Route::get('dashboard/documents/delete/{id}', 'DocumentController@destroy')->name('dashboard.documents.delete');
         Route::get('dashboard/regulations', 'DocumentController@regulations')->name('dashboard.regulations.index');
 
         //Category
         Route::get('dashboard/categories', 'CategoryController@index')->name('dashboard.categories.index');
+        // Route::post('dashboard/upd-article-status', 'SectionController@updateArticleStatus')->name('dashboard.upd-article-status');
         Route::match(['get', 'post'], 'dashboard/categories/create', 'CategoryController@addCategory')->name('dashboard.categories.create');
         Route::match(['get', 'post'], 'dashboard/categories/edit/{id?}', 'CategoryController@editCategory')->name('dashboard.categories.edit');
-        Route::get('dashboard/categories/delete/{id}', 'CategoryController@deleteCategory')->name('dashboard.categories.delete');
+        Route::get('dashboard/categories/delete/{id}', 'CategoryController@destroy')->name('dashboard.categories.delete');
 
         //Sub Menus
         Route::get('dashboard/sub-categories', 'SubCategoryController@index')->name('dashboard.subcategories.index');
+        // Route::post('dashboard/upd-article-status', 'SectionController@updateArticleStatus')->name('dashboard.upd-article-status');
         Route::match(['get', 'post'], 'dashboard/sub-categories/create', 'SubCategoryController@addSubCategory')->name('dashboard.subcategories.create');
         Route::match(['get', 'post'], 'dashboard/sub-categories/edit/{id?}', 'SubCategoryController@editSubCategory')->name('dashboard.subcategories.edit');
-        Route::get('dashboard/sub-categories/delete/{id}', 'SubCategoryController@deleteSubCategory')->name('dashboard.subcategories.delete');
+        Route::get('dashboard/sub-categories/delete/{id}', 'SubCategoryController@destroy')->name('dashboard.subcategories.delete');
 
         //helpCenter
         Route::match(['get', 'post'], 'dashboard/company', 'CompanyController@index')->name('dashboard.company');

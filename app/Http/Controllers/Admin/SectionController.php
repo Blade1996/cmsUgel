@@ -29,12 +29,12 @@ class SectionController extends Controller
             } else {
                 $status = 1;
             }
-            Section::where('id', $data['section_id'])->update(['activated' => $status]);
-            return response()->json(['status' => $status, 'section_id' => $data['section_id']]);
+            Section::where('id', $data['id'])->update(['activated' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
         }
     }
-    
-        public function sectionDetails($id)
+
+    public function sectionDetails($id)
     {
         $sectionDetail = Section::where(['id' => $id])->first();
         $sectionDetail->subCategories;

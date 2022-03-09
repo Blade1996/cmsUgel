@@ -27,6 +27,21 @@ class AuxiliarController extends Controller
         return view('admin.auxiliar.auxiliar', compact('auxiliars', 'companyData'));
     }
 
+    public function updateAuxiliarStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Auxiliar::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
+
     public function add(Request $request)
     {
 
@@ -97,5 +112,13 @@ class AuxiliarController extends Controller
         }
         $companyData = getCompanyData();
         return view('admin.auxiliar.edit_auxiliar')->with(compact('categories_drop_down', 'auxiliarDetail', 'companyData'));
+    }
+
+    public function destroy($id)
+    {
+        Auxiliar::find($id)->delete();
+        $message = 'El Partner se elimino correctamente';
+        Session::flash('success_message', $message);
+        return redirect()->route('dashboard.auxiliar.index');
     }
 }

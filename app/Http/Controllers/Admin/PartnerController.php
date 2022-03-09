@@ -130,5 +130,4 @@ class PartnerController extends Controller
         Session::flash('success_message', $message);
         return redirect('/admin/dashboard/partners');
     }
-
 }

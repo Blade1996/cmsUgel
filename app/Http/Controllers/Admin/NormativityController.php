@@ -20,6 +20,21 @@ class NormativityController extends Controller
         return view('admin.normativity.normativity')->with(compact('normativities', 'companyData'));
     }
 
+    public function updateNormativityStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Normativity::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
+
     public function add(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -95,11 +110,11 @@ class NormativityController extends Controller
         return view('admin.normativity.edit_normativity')->with(compact('categories_drop_down', 'normativityDetail', 'companyData'));
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         Normativity::find($id)->delete();
         $message = 'El Link se elimino correctamente';
         Session::flash('success_message', $message);
-        return redirect()->route('dashboard.links.index');
+        return redirect()->route('dashboard.normativity.index');
     }
 }

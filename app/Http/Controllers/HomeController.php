@@ -31,18 +31,18 @@ class HomeController extends Controller
     public function index()
     {
         $partners = Partner::get();
-        $articles = Article::select('id', 'titulo', 'imagen', 'creado')->where('id', '<>', 5)->take(3)->get();
-        $announcements = Announcements::select('id', 'nombre', 'imagen', 'fecha')->take(3)->get();
-        $links = Article::where('idarticulo_categoria', 10)->get();
+        $articles = Article::select('id', 'titulo', 'imagen', 'creado')->where([['id', '<>', 5], ['estado', '=', 1]])->take(3)->get();
+        $announcements = Announcements::select('id', 'nombre', 'imagen', 'fecha')->where('estado', 1)->take(3)->get();
+        $links = Article::where('idarticulo_categoria', 10)->where('estado', 1)->get();
         $collection = collect($links);
         $linksArray = $collection;
         $linksArray->toArray();
-        $normativities = Normativity::select('id', 'nombre', 'imagen', 'fecha')->take(3)->get();
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
+        $normativities = Normativity::select('id', 'nombre', 'imagen', 'fecha')->where('estado', 1)->take(3)->get();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
-            $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
+            $section->articles =  Article::select('id', 'titulo')->where('estado', 1)->where('idarticulo_categoria', $section->id)->get();
         });
-        $gestions = Article::select('id', 'titulo', 'imagen', 'creado')->where('id', '<>', 9)->take(3)->get();
+        $gestions = Article::select('id', 'titulo', 'imagen', 'creado')->where('estado', 1)->where('id', '<>', 9)->take(3)->get();
         $partners = Partner::get();
         $slider = Slider::orderBy('order')->get();
         $companyData = getCompanyData();

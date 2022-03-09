@@ -222,7 +222,7 @@
                             <!-- /.col -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputFile">Imagen de Articulo</label>
+                                    <label for="exampleInputFile">Imagen de Enlace</label>
                                     <input type="file" class="form-control" onchange="preview_image(event)"
                                         name="articleImage" id="articleImage">
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image" />
@@ -232,7 +232,7 @@
                             <!-- /.col -->
                         </div>
 
-                        <h5>Contenido del Articulo</h5>
+                        <h5>Contenido del Enlace</h5>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group" id="areaArticleContent">

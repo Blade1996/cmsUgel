@@ -20,6 +20,22 @@ class AdvertisingController extends Controller
         return view('admin.advertising.advertising')->with(compact('advertisings', 'companyData'));
     }
 
+    public function updateAdvertisingStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Advertising::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
+
+
     public function add(Request $request)
     {
 
@@ -115,11 +131,11 @@ class AdvertisingController extends Controller
     }
 
 
-    public function delete($id)
+    public function destroy($id)
     {
         Advertising::find($id)->delete();
-        $message = 'El Link se elimino correctamente';
+        $message = 'La Publicidad se elimino correctamente';
         Session::flash('success_message', $message);
-        return redirect()->route('dashboard.links.index');
+        return redirect()->route('dashboard.advertising.edit');
     }
 }

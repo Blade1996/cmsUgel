@@ -29,6 +29,22 @@ class ChargeController extends Controller
         return view('admin.charge.charge', compact('charges', 'companyData'));
     }
 
+    public function updateChargeStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == 'Activado') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            Charge::where('id', $data['id'])->update(['estado' => $status]);
+            return response()->json(['status' => $status, 'id' => $data['id']]);
+        }
+    }
+
+
+
     public function add(Request $request)
     {
 
@@ -101,7 +117,7 @@ class ChargeController extends Controller
         return view('admin.charge.edit_charge')->with(compact('categories_drop_down', 'chargeDetail', 'companyData'));
     }
 
-    public function destroy($id)
+    /*     public function destroy($id)
     {
         try {
             DB::table('type_answers_questions')->where('id', $id)->delete();
@@ -115,7 +131,7 @@ class ChargeController extends Controller
                 'message' => $e->getMessage()
             ], 500);
         }
-    }
+    } */
 
     public function changeStatus($id)
     {
@@ -126,5 +142,13 @@ class ChargeController extends Controller
         }
         DB::table('type_answers_questions')->where('id', $id)->update(['status' => $value]);
         return $value;
+    }
+
+    public function destroy($id)
+    {
+        Charge::find($id)->delete();
+        $message = 'El Partner se elimino correctamente';
+        Session::flash('success_message', $message);
+        return redirect()->route('dashboard.charge.index');
     }
 }
