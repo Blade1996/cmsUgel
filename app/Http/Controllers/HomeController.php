@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Advertising;
 use App\Charge;
 use App\Slider;
 use App\Article;
 use App\Partner;
-use App\Section;
-// use App\Announcement;
 use App\Reassign;
 use App\Documents;
 use App\Normativity;
-use App\InterestLink;
 use App\Announcements;
 use App\Contract;
 use Illuminate\Http\Request;
@@ -37,17 +35,18 @@ class HomeController extends Controller
         $collection = collect($links);
         $linksArray = $collection;
         $linksArray->toArray();
-        $normativities = Normativity::orderBy('fecha', 'desc')->where('estado', 1)->take(3)->get(['id', 'nombre', 'imagen', 'fecha']);
+        $normativities = Normativity::orderBy('fecha', 'desc')->where('estado', 1)->take(3)->get(['id', 'nombre', 'imagen', 'fecha', 'archivo']);
         $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::orderBy('creado', 'desc')->where('estado', 1)->where('idarticulo_categoria', $section->id)->get(['id', 'titulo']);
         });
         $gestions = Article::orderBy('creado', 'desc')->where('estado', 1)->where('id', '<>', 9)->take(3)->get(['id', 'titulo', 'imagen', 'creado']);
+        $popUp = Advertising::orderBy('fecha', 'desc')->where([['estado', '=', 1], ['idpublicidad_categoria', '=', 1]])->take(3)->get(['image', 'url']);
         $partners = Partner::get();
         $slider = Slider::orderBy('order')->get();
         $companyData = getCompanyData();
         return view('frontend.home')->with([
-            'companyData' => $companyData, 'sections' => $sections, 'partners' => $partners, 'sliders' => $slider, 'articles' => $articles, 'gestions' => $gestions, 'announcements' => $announcements, 'normativities' => $normativities, 'linksArray' => $linksArray
+            'companyData' => $companyData, 'sections' => $sections, 'partners' => $partners, 'sliders' => $slider, 'articles' => $articles, 'gestions' => $gestions, 'announcements' => $announcements, 'normativities' => $normativities, 'linksArray' => $linksArray, 'popUps' => $popUp
         ]);
         /*   $companyData = getCompanyData();
         $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();

@@ -57,6 +57,28 @@
     .pagination {
         flex-wrap: wrap;
     }
+
+    .modal-body {
+        position: relative;
+    }
+
+    .carousel,
+    .item,
+    .active {
+        height: 100%;
+    }
+
+    .carousel-inner {
+        height: 100%;
+    }
+
+    .modal-dialog {
+        width: 100vh !important;
+        height: 100% !important;
+        max-width: 960px !important;
+    }
+
+    */
 </style>
 
 @include('frontend.layouts.home_header')
@@ -121,10 +143,26 @@
                 }
                     })
                     $(document).ready(function() {
-                    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+                        let count = $('input[name="countModal"]').val();
+
+                        if(count > 0){
+                            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+                            myModal.show();
+
+                            $('').owlCarousel({
+                                items: count,
+                                nav: true,
+
+                            })
+
+                            $('#exampleModal .carousel').carousel()
+
+
+                        }
+
+
                     })
-                    myModal.show();
-                    })
+
     }
 
     $("#searchBar").submit(function(e) {

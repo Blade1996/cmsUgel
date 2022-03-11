@@ -239,14 +239,40 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" name="countModal" value="{{ $popUps->count() }}">
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <a href="{{ $companyData->redirect_first_image }}" target="_blank"><img
-                        src="{{ $companyData->first_image }}" width="100%"></a>
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @php
+                        $i = 1
+                        @endphp
+                        @foreach ($popUps as $popUp)
+                        <div class="carousel-item {{  $i === 1 ? 'active': ''  }}">
+                            @php
+                            $i++
+                            @endphp
+                            <a href="{{ $popUp->image }}">
+                                <img class="w-100" src="{{ $popUp->image }}" alt="">
+                            </a>
+
+                        </div>
+                        @endforeach
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
