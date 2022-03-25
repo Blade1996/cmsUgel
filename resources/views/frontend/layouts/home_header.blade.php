@@ -3,7 +3,7 @@
         <div class="row">
             <a id="logo" href="{{ route('home') }}"
                 class="me-auto align-items-center col-md-2 mb-2 mb-md-0 text-dark text-decoration-none">
-                <img class="img-fluid" src="https://pandora.pe/ugel/assets/img/logo.png" alt=""
+                <img class="img-fluid" src="{{ $companyData->companyInfo->url_company }}" alt=""
                     style="height: 50px; width: auto;">
             </a>
 

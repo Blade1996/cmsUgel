@@ -70,8 +70,8 @@ return [
         ],
         'public' => [
             'driver' => 'local',
-            'root' => public_path('tmp/uploads/documents'),
-            'url' => env('URL_DOMAIN') . '/tmp/uploads/documents',
+            'root' => public_path('tmp/uploads/announcements'),
+            'url' => env('URL_DOMAIN') . '/tmp/uploads/announcements',
             'visibility' => 'public',
         ],
 

@@ -4,11 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Charge;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TypeAnswerQuestionRequest;
-use App\Question;
-use App\Scopes\ActivatedScope;
-use App\TypeAnswer;
-use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;

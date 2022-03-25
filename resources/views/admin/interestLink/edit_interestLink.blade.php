@@ -77,6 +77,14 @@
                                             Archivo PDF
                                         </label>
                                     </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="tree"
+                                                value="tree" <?php if($linkDetail->tipo == 'tree' )
+                                            echo 'checked' ; ?> >
+                                            Arbol de Documentos
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Seleccione Icono</label>
@@ -518,6 +526,12 @@
                                     <label for="exampleInputEmail1">Link Texto</label>
                                     <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
                                         placeholder="Ingrese Texto Link" value="{{ $linkDetail->redireccion }}">
+                                </div>
+                                <div class="form-group" id="selectTree" style="display: none">
+                                    <label>Seleccione Sección</label>
+                                    <select name="treeId" id="treeId" class="form-control" style="width: 100%;">
+                                        <?php echo $tree_drop_down; ?>
+                                    </select>
                                 </div>
                             </div>
                             <!-- /.form-group -->

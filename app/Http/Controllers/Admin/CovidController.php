@@ -3,12 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
-use Image;
 use App\Covid;
-use App\Section;
-use App\Auxiliar;
-use App\SubCategory;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;

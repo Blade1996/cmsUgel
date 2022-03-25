@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Image;
-use Session;
-use App\Unit;
-use App\Course;
-use App\Company;
+
 use App\Auxiliar;
-use App\Question;
 use Illuminate\Http\Request;
-use App\Scopes\ActivatedScope;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UnitRequestPost;
+use Illuminate\Support\Facades\Session;
+
 
 
 class AuxiliarController extends Controller

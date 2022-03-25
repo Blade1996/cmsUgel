@@ -35,5 +35,8 @@ class VerifyCsrfToken extends Middleware
         'admin/dashboard/upd-election-status',
         'admin/dashboard/upd-charge-status',
         'admin/dashboard/upd-reassign-status',
+        'admin/dashboard/edit/tree/*',
+        'admin/dashboard/document-tree/create/*',
+        'admin/document-tree/files-upload'
     ];
 }

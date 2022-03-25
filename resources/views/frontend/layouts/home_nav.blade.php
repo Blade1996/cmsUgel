@@ -14,7 +14,7 @@
                 @foreach ($sections as $section)
                 @if (count($section->articles) > 0)
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" id="dropdown05" data-bs-toggle="dropdown"
                         aria-expanded="false">{{ $section->titulo }}</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown05">
                         @foreach ($section->articles as $article)

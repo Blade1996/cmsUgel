@@ -22,7 +22,7 @@
         $i = 1
         @endphp
         @foreach ($sliders as $slider)
-        <div class="carousel-item {{ $i === 1 ? 'active': '' }}" style="background-image: url({{ $slider->url_image }});
+        <div class="carousel-item {{ $i === 1 ? 'active': '' }}" style="background-image: url({{ $slider->imagen }});
             background-size: cover;background-repeat: no-repeat;">
             @php
             $i++
@@ -30,10 +30,19 @@
             @if ($slider->show_caption == 1)
             <div class="container">
                 <div class="carousel-caption text-start my-5">
-                    <h1>{{ $slider->title_caption }}</h1>
-                    <p>{{ $slider->subtitle_caption }}</p>
-                    <p><a class="btn btn-lg btn-primary" href="{{ route('home.article.detail', $slider->id)}}">+
+                    <h1>{{ $slider->titulo }}</h1>
+                    <p>{{ $slider->resumen }}</p>
+                    @if ($slider->tipo == 'external')
+                    <p><a class="btn btn-lg btn-primary" href="{{ $slider->redireccion }}" target="_blank">+
                             Información</a></p>
+                    @elseif ($slider->tipo == 'pdf')
+                    <p><a class="btn btn-lg btn-primary" href="{{ $slider->archivo }}" target="_blank">+ Información</a>
+                    </p>
+                    @else
+                    <p><a class="btn btn-lg btn-primary" href="{{ route('home.article.detail', $slider->id) }}">+
+                            Información</a></p>
+                    @endif
+
                 </div>
             </div>
             @endif
@@ -255,7 +264,7 @@
                             @php
                             $i++
                             @endphp
-                            <a href="{{ $popUp->image }}">
+                            <a href="{{ $popUp->url }}" target="_blank">
                                 <img class="w-100" src="{{ $popUp->image }}" alt="">
                             </a>
 

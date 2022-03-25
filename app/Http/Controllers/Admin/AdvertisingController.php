@@ -51,7 +51,7 @@ class AdvertisingController extends Controller
             $date_now = new \DateTime('now', new \DateTimeZone('America/Lima'));
 
             $advertising->titulo = $data['advertisingTitle'];
-            $advertising->iddisposicion_categoria = $data['categoryId'];
+            $advertising->idpublicidad_categoria = $data['categoryId'];
             $advertising->url = $data['advertisingRedirect'];
             $advertising->creado = $date_now;
             $advertising->modificado = $date_now;

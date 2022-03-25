@@ -33,14 +33,27 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('plugins/summernote/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
+    <!--Dropzone-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     @yield('css')
     <link href="{{url('css/toastr.min.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url('css/treeView.css') }}">
 </head>
 <style>
     select {
+
         font-family: fontAwesome
+    }
+
+    .icons-wrapper {
+        float: right;
+    }
+
+    .icon {
+        height: 15px;
+        width: 15px;
     }
 </style>
 
@@ -103,11 +116,14 @@
     <!-- DataTables -->
     <script src="{{ url('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-
-    <script src="{{ url('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ url('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <!--Dropzone-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- TreeView -->
+    <script src="{{ url('js/treeView.js') }}"></script>
     <script src="{{url('js/toastr.min.js')}}"></script>
     <!--CkEditor-->
     <script src="{{ url('ckeditor/ckeditor.js') }}"></script>
@@ -143,7 +159,8 @@
           ['para', ['paragraph']],
       ]
     }); */
-    CKEDITOR.replace('articleContent',{
+    if($("#articleContent").length){
+        CKEDITOR.replace('articleContent',{
         filebrowserUploadUrl: "{{ route('documents.storeFiles',  ['_token' => csrf_token() ]) }}",
         filebrowserUploadRedirect: true,
         filebrowserUploadMethod: 'form',
@@ -151,12 +168,16 @@
         language: 'es-mx'
 
     });
+    }
   })
   //QUESTIONS
   $(function(){
       $('#questionsTable').dataTable({
           responsive: true,
       });
+
+      $('.collapse').collapse()
+
   })
     </script>
     <!-- AdminLTE for demo purposes -->
@@ -164,7 +185,7 @@
 
     <!--Custom js-->
     <script src="{{ url('js/scripts/admin_script.js') }}"></script>
-    @yield('scripts')
+    @stack('script')
 </body>
 
 </html>

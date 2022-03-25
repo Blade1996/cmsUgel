@@ -217,6 +217,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    @if (Session::get('page') == 'document-tree')
+                    <?php $active = 'active';?>
+                    @else
+                    <?php $active = ''; ?>
+                    @endif
+                    <a href="{{ route('dashboard.document-tree.index') }}" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Jerarquia de Documentos
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     @if (Session::get('page') == 'rotate')
                     <?php $active = 'active';?>
                     @else
