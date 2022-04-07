@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +37,7 @@ Route::get('/encargaturas/category/{id}', 'HomeController@indexCharges')->name('
 Route::get('/articulo/{id}', 'HomeController@articleDetail')->name('home.article.detail');
 Route::get('/convocatoria/{id}', 'HomeController@announcementDetail')->name('home.announcement.detail');
 Route::get('/articulos', 'HomeController@findArticles')->name('home.articles.find');
+Route::get('/publicidad/{id}', 'HomeController@advertisingDetail')->name('home.advertising.detail');
 Route::get('/document/find', 'HomeController@findDocument')->name('home.document.find');
 
 
@@ -188,7 +188,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('dashboard/reassing/delete/{id}', 'ReassignController@destroy')->name('dashboard.reassign.delete');
 
         //DocumentsFiles
-        Route::post('file-upload/{slug?}', 'DocumentController@storeMedia')->name('documents.storeMedia');
+        Route::post('file-upload/{slug?}', 'AnnouncementController@storeMedia')->name('announcement.storeMedia');
 
         Route::post('files-upload', 'DocumentController@storeMedia2')->name('documents.storeFiles');
 
@@ -199,6 +199,16 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::match(['get', 'post'], 'dashboard/documents/edit/{id?}', 'DocumentController@editDocument')->name('dashboard.documents.edit');
         Route::get('dashboard/documents/delete/{id}', 'DocumentController@destroy')->name('dashboard.documents.delete');
         Route::get('dashboard/regulations', 'DocumentController@regulations')->name('dashboard.regulations.index');
+
+        //DocumentTree
+        Route::get('dashboard/document-tree', 'DocumentTreeController@manageDocuments')->name('dashboard.document-tree.index');
+        Route::match(['get', 'post'], 'dashboard/document-tree/create/{id?}', 'DocumentTreeController@addTree')->name('dashboard.add-category');
+        Route::match(['get', 'post'], 'dashboard/document-tree/edit/{id?}', 'DocumentTreeController@editTree')->name('dashboard.edit-category');
+        Route::get('dashboard/head/{id}', 'DocumentTreeController@getDataNode')->name('dashboard.getDataNode');
+        Route::post('dashboard/edit/tree/{id}/header', 'DocumentTreeController@editHeader')->name('dashboard.edit-tree-header');
+        Route::post('dashboard/edit/tree/{id}/node', 'DocumentTreeController@editNode')->name('dashboard.edit-tree-node');
+        Route::post('document-tree/files-upload', 'DocumentTreeController@storeToTree')->name('document-tree.storeFiles');
+        Route::get('dashboard/tree/delete/{id}', 'DocumentTreeController@destroy')->name('dashboard.charge.delete');
 
         //Category
         Route::get('dashboard/categories', 'CategoryController@index')->name('dashboard.categories.index');

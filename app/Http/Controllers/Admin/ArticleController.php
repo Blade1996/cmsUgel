@@ -11,6 +11,7 @@ use App\Article;
 use App\Company;
 use App\Section;
 use DateTimeZone;
+use App\DocumentTree;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -46,9 +47,9 @@ class ArticleController extends Controller
 
         if ($request->isMethod('post')) {
             $data = $request->all();
-            /*   echo '<pre>';
+            /* echo '<pre>';
             print_r($data);
-            die; */
+            die;*/
 
             $article = new Article;
 
@@ -74,13 +75,23 @@ class ArticleController extends Controller
                 $article->archivo = $this->loadFile($request, 'articleFile', 'article/files', 'articles');
             }
 
+            if ($request->hasFile('sliderImage')) {
+                $article->imagen_slider = $this->loadFile($request, 'sliderImage', 'sliders', 'sliders');
+            }
+
+
+            if (!empty($data['showCaption'])) {
+                $article->show_caption = 1;
+            }
+
             $article->titulo = $data['articleTitle'];
             $article->idarticulo_categoria = $data['categoryId'];
             $article->idusuario = Auth::guard('admin')->user()->id;
-            $article->resumen = $data['articleResume'];
+            $article->resumen = $data['articleResume'] ?? '';
             $article->tipo = $data['typelink'] ?? '';
             $article->redireccion = $data['articleTextLink'] ?? '';
             $article->video = $data['articleUrlVideo'] ?? '';
+            $article->tree_id = $data['treeId'];
             $article->creado = new DateTime('now', new DateTimeZone('America/Lima'));
             $article->modificado = new DateTime('now', new DateTimeZone('America/Lima'));
             $article->descripcion = htmlspecialchars_decode(e($data['articleContent']));
@@ -91,8 +102,9 @@ class ArticleController extends Controller
         }
 
         $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where('id', '<>', 10)->get();
+        $trees = DocumentTree::where('parent_id', '=', 0)->pluck('name', 'id')->all();
         $companyData = getCompanyData();
-        return view('admin.articles.add_article')->with(compact('categories', 'companyData'));
+        return view('admin.articles.add_article')->with(compact('categories', 'companyData', 'trees'));
     }
 
     public function editArticle(Request $request, $id = null)
@@ -101,9 +113,10 @@ class ArticleController extends Controller
         if ($request->isMethod('post')) {
 
             $data = $request->all();
-            /* echo '<pre>';
+            /*            echo '<pre>';
             print_r($data);
-            die; */
+            die;*/
+
             $article = Article::find($id);
 
             // Upload Image
@@ -121,14 +134,32 @@ class ArticleController extends Controller
                 $article->archivo = $data['currentArticleFile'] ?? "";
             }
 
+            /* if ($request->hasFile('sliderImage')) {
+                $article->imagen_slider = $this->loadFile($request, 'sliderImage', 'sliders', 'sliders');
+            } else if (!empty($data['currentSliderImage'])) {
+                $article->imagen_slider = $data['currentSliderImage'];
+            } else {
+                $article->imagen_slider = '';
+            }*/
+
+            if (!empty($data['treeId'])) {
+                $article->tree_id = $data['treeId'];
+            }
+
+            if (!empty($data['showCaption'])) {
+                $article->show_caption = 1;
+            } else {
+                $article->show_caption = 0;
+            }
+
             $article->titulo = $data['articleTitle'];
             $article->idarticulo_categoria = $data['categoryId'];
             $article->imagen = $articleImage;
             $article->idusuario = Auth::guard('admin')->user()->id;
-            $article->resumen = $data['articleResume'];
+            $article->resumen = $data['articleResume'] ?? '';
             $article->tipo = $data['typelink'] ?? '';
             $article->redireccion = $data['articleTextLink'] ?? '';
-            $article->video = $data['articleUrlVideo'] ?? '';
+            $article->video = $data['articleUrlVideo'];
             $article->modificado = new DateTime('now', new DateTimeZone('America/Lima'));
             $article->descripcion = htmlspecialchars_decode(e($data['articleContent']));
 
@@ -138,8 +169,18 @@ class ArticleController extends Controller
             return redirect()->route('dashboard.articles.index');
         }
 
-        $articleDetail = Article::where(['id' => $id])->first();
+        $articleDetail = Article::find($id);
         $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where('id', '<>', 10)->get();
+        $trees = DocumentTree::where('parent_id', '=', 0)->pluck('name', 'id')->all();
+        $tree_drop_down = "<option value='' selected disabled>Selected</option>";
+        foreach ($trees as $id => $tree) {
+            if ($id == $articleDetail->tree_id) {
+                $selected = "selected";
+            } else {
+                $selected = "";
+            }
+            $tree_drop_down .= "<option value='" . $id . "' " . $selected . ">" . $tree . "</option>";
+        }
         $categories_drop_down = "<option value='' selected disabled>Select</option>";
         foreach ($categories as $category) {
             if ($category->id == $articleDetail->idarticulo_categoria) {
@@ -147,11 +188,10 @@ class ArticleController extends Controller
             } else {
                 $selected = "";
             }
-
             $categories_drop_down .= "<option value='" . $category->id . "' " . $selected . ">" . $category->titulo . "</option>";
         }
         $companyData = getCompanyData();
-        return view('admin.articles.edit_article')->with(compact('categories_drop_down', 'articleDetail', 'companyData'));
+        return view('admin.articles.edit_article')->with(compact('categories_drop_down', 'articleDetail', 'companyData', 'tree_drop_down'));
     }
 
     public function destroy($id)

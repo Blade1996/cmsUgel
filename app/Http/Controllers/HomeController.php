@@ -12,6 +12,7 @@ use App\Documents;
 use App\Normativity;
 use App\Announcements;
 use App\Contract;
+use App\DocumentTree;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -36,14 +37,14 @@ class HomeController extends Controller
         $linksArray = $collection;
         $linksArray->toArray();
         $normativities = Normativity::orderBy('fecha', 'desc')->where('estado', 1)->take(3)->get(['id', 'nombre', 'imagen', 'fecha', 'archivo']);
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['estado', '=', 1]])->get();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::orderBy('creado', 'desc')->where('estado', 1)->where('idarticulo_categoria', $section->id)->get(['id', 'titulo']);
         });
-        $gestions = Article::orderBy('creado', 'desc')->where('estado', 1)->where('id', '<>', 9)->take(3)->get(['id', 'titulo', 'imagen', 'creado']);
-        $popUp = Advertising::orderBy('fecha', 'desc')->where([['estado', '=', 1], ['idpublicidad_categoria', '=', 1]])->take(3)->get(['image', 'url']);
+        $gestions = Article::orderBy('creado', 'desc')->where('estado', 1)->where('idarticulo_categoria', 9)->take(3)->get(['id', 'titulo', 'imagen', 'creado']);
+        $popUp = Advertising::orderBy('fecha', 'desc')->where([['estado', '=', 1], ['idpublicidad_categoria', '=', 1]])->take(3)->get();
         $partners = Partner::get();
-        $slider = Slider::orderBy('order')->get();
+        $slider = Article::orderBy('order')->where([['estado', '=', 1], ['idarticulo_categoria', '=', 11]])->get();
         $companyData = getCompanyData();
         return view('frontend.home')->with([
             'companyData' => $companyData, 'sections' => $sections, 'partners' => $partners, 'sliders' => $slider, 'articles' => $articles, 'gestions' => $gestions, 'announcements' => $announcements, 'normativities' => $normativities, 'linksArray' => $linksArray, 'popUps' => $popUp
@@ -74,7 +75,7 @@ class HomeController extends Controller
 
     public function indexContact()
     {
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
@@ -161,8 +162,9 @@ class HomeController extends Controller
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
+        $files = $this->mediaCollection;
         $companyData = getCompanyData();
-        return view('frontend.announcements')->with(compact('announcements', 'companyData', 'sections'));
+        return view('frontend.announcements')->with(compact('announcements', 'companyData', 'sections', 'files'));
     }
 
     public function indexContract(Request $request)
@@ -198,14 +200,27 @@ class HomeController extends Controller
         return view('frontend.announcement_detail')->with(compact('announcementDetail', 'companyData', 'sections', 'files'));
     }
 
+    public function advertisingDetail($id)
+    {
+        $advertisingDetail = Advertising::where('id', $id)->first();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
+        $treeDetail = DocumentTree::where('parent_id', $advertisingDetail->tree_id)->get();
+        $sections->each(function ($section) {
+            $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
+        });
+        $companyData = getCompanyData();
+        return view('frontend.advertising_detail')->with(compact('advertisingDetail', 'companyData', 'sections', 'treeDetail'));
+    }
+
     public function articleDetail($id)
     {
-        $articleDetail = Article::where('id', $id)->first();
+        $articleDetail = Article::find($id);
+        $treeDetail = DocumentTree::where('parent_id', $articleDetail->tree_id)->get();
         $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
         $companyData = getCompanyData();
-        return view('frontend.article_detail')->with(compact('articleDetail', 'companyData', 'sections'));
+        return view('frontend.article_detail')->with(compact('articleDetail', 'companyData', 'sections', 'treeDetail'));
     }
 }

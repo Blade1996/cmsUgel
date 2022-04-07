@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Article;
-use DateTime;
-use File;
 use Auth;
+use File;
+use DateTime;
+use App\Article;
 use DateTimeZone;
+use App\DocumentTree;
 use App\InterestLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -80,6 +81,7 @@ class InterestLinkController extends Controller
             $article->idusuario = Auth::guard('admin')->user()->id;
             $article->resumen = $data['articleResume'];
             $article->tipo = $data['typelink'] ?? '';
+            $article->tree_id = $data['treeId'];
             $article->redireccion = $data['articleTextLink'] ?? '';
             $article->video = $data['articleUrlVideo'] ?? '';
             $article->creado = new DateTime('now', new DateTimeZone('America/Lima'));
@@ -91,9 +93,10 @@ class InterestLinkController extends Controller
             return redirect()->route('dashboard.link.index');
         }
 
+        $trees = DocumentTree::where('parent_id', '=', 0)->pluck('name', 'id')->all();
         $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->get();
         $companyData = getCompanyData();
-        return view('admin.interestLink.add_interestLink')->with(compact('categories', 'companyData'));
+        return view('admin.interestLink.add_interestLink')->with(compact('categories', 'companyData', 'trees'));
     }
 
     public function edit(Request $request, $id = null)
@@ -102,7 +105,7 @@ class InterestLinkController extends Controller
         if ($request->isMethod('post')) {
 
             $data = $request->all();
-            /* echo '<pre>';
+            /*  echo '<pre>';
             print_r($data);
             die; */
             $article = Article::find($id);
@@ -122,6 +125,10 @@ class InterestLinkController extends Controller
                 $article->archivo = $data['currentArticleFile'] ?? "";
             }
 
+            if (!empty($data['treeId'])) {
+                $article->tree_id = $data['treeId'];
+            }
+
             $article->titulo = $data['articleTitle'];
             $article->idarticulo_categoria = 10;
             $article->imagen = $articleImage;
@@ -139,7 +146,17 @@ class InterestLinkController extends Controller
             return redirect()->route('dashboard.link.index');
         }
 
+        $trees = DocumentTree::where('parent_id', '=', 0)->pluck('name', 'id')->all();
         $linkDetail = Article::where(['id' => $id])->first();
+        $tree_drop_down = "<option value='' selected disabled>Selected</option>";
+        foreach ($trees as $id => $tree) {
+            if ($id == $linkDetail->tree_id) {
+                $selected = "selected";
+            } else {
+                $selected = "";
+            }
+            $tree_drop_down .= "<option value='" . $id . "' " . $selected . ">" . $tree . "</option>";
+        }
         /*         $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->get();
         $categories_drop_down = "<option value='' selected disabled>Select</option>";
         foreach ($categories as $category) {
@@ -152,7 +169,7 @@ class InterestLinkController extends Controller
             $categories_drop_down .= "<option value='" . $category->id . "' " . $selected . ">" . $category->titulo . "</option>";
         } */
         $companyData = getCompanyData();
-        return view('admin.interestLink.edit_interestLink')->with(compact('linkDetail', 'companyData'));
+        return view('admin.interestLink.edit_interestLink')->with(compact('linkDetail', 'companyData', 'tree_drop_down'));
     }
 
     public function destroy($id)

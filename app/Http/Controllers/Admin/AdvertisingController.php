@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Image;
 use App\Advertising;
+use App\DocumentTree;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
-use Image;
 
 class AdvertisingController extends Controller
 {
@@ -48,11 +49,16 @@ class AdvertisingController extends Controller
                 $advertising->image = $this->loadFile($request, 'advertisingImage', 'advertising/files', 'advertisings');
             }
 
+            if ($request->hasFile('advertisingFile')) {
+                $advertising->archivo = $this->loadFile($request, 'advertisingFile', 'advertising/files', 'advertisings');
+            }
             $date_now = new \DateTime('now', new \DateTimeZone('America/Lima'));
 
             $advertising->titulo = $data['advertisingTitle'];
-            $advertising->iddisposicion_categoria = $data['categoryId'];
+            $advertising->idpublicidad_categoria = $data['categoryId'];
             $advertising->url = $data['advertisingRedirect'];
+            $advertising->tree_id = $data['treeId'];
+            $advertising->tipo = $data['typelink'] ?? '';
             $advertising->creado = $date_now;
             $advertising->modificado = $date_now;
             $advertising->estado = 1;
@@ -63,8 +69,9 @@ class AdvertisingController extends Controller
             return redirect()->route('dashboard.advertisements.index');
         }
         $categories = DB::table('dx_publicidad_categoria')->select('id', 'descripcion')->where('estado', 1)->get();
+        $trees = DocumentTree::where('parent_id', '=', 0)->pluck('name', 'id')->all();
         $companyData = getCompanyData();
-        return view('admin.advertising.add_advertising')->with(compact('categories', 'companyData'));
+        return view('admin.advertising.add_advertising')->with(compact('categories', 'companyData', 'trees'));
     }
 
     public function edit(Request $request, $id = null)
@@ -82,11 +89,22 @@ class AdvertisingController extends Controller
                 $advertising->image = $data['currentAdvertisingImage'] ?? "";
             }
 
+            if ($request->hasFile('advertisingFile')) {
+                $advertising->archivo = $this->loadFile($request, 'advertisingFile', 'advertising/files', 'advertisings');
+            } else {
+                $advertising->archivo = $data['currentAdvertisingFile'] ?? "";
+            }
+
+            if (!empty($data['treeId'])) {
+                $advertising->tree_id = $data['treeId'];
+            }
+
             $date_now = new \DateTime('now', new \DateTimeZone('America/Lima'));
 
             $advertising->titulo = $data['advertisingTitle'];
             $advertising->idpublicidad_categoria = $data['categoryId'];
             $advertising->url = $data['advertisingRedirect'] ?? "";
+            $advertising->tipo = $data['typelink'] ?? '';
             $advertising->fecha = $date_now;
 
             $advertising->update();
@@ -95,8 +113,8 @@ class AdvertisingController extends Controller
             return redirect()->route('dashboard.advertising.index');
         }
 
-        $advertisingDetail = Advertising::where(['id' => $id])->first();
-
+        $advertisingDetail = Advertising::find($id);
+        $trees = DocumentTree::where('parent_id', '=', 0)->pluck('name', 'id')->all();
         $categories = DB::table('dx_publicidad_categoria')->select('id', 'descripcion')->where('estado', 1)->get();
         $categories_drop_down = "<option value='' selected disabled>Select</option>";
         foreach ($categories as $category) {
@@ -108,8 +126,17 @@ class AdvertisingController extends Controller
 
             $categories_drop_down .= "<option value='" . $category->id . "' " . $selected . ">" . $category->descripcion . "</option>";
         }
+        $tree_drop_down = "<option value='' selected disabled>Selected</option>";
+        foreach ($trees as $id => $tree) {
+            if ($id == $advertisingDetail->tree_id) {
+                $selected = "selected";
+            } else {
+                $selected = "";
+            }
+            $tree_drop_down .= "<option value='" . $id . "' " . $selected . ">" . $tree . "</option>";
+        }
         $companyData = getCompanyData();
-        return view('admin.advertising.edit_advertising')->with(compact('categories_drop_down', 'advertisingDetail', 'companyData'));
+        return view('admin.advertising.edit_advertising')->with(compact('categories_drop_down', 'advertisingDetail', 'companyData', 'tree_drop_down'));
     }
 
     public function storeMedia(Request $request)

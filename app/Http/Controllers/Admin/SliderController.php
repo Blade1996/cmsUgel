@@ -18,8 +18,7 @@ class SliderController extends Controller
     public function index()
     {
         Session::put('page', 'slider');
-        $sliders = Slider::orderBy('order')->get();
-        $company = new Company;
+        $sliders = Article::orderBy('order')->where('idarticulo_categoria', 11)->get();
         $companyData = getCompanyData();
         return view('admin.slider.slider')->with(compact('sliders', 'companyData'));
     }
@@ -33,7 +32,7 @@ class SliderController extends Controller
             } else {
                 $status = 1;
             }
-            Slider::where('id', $data['id'])->update(['activated' => $status]);
+            Article::where('id', $data['id'])->update(['estado' => $status]);
             return response()->json(['status' => $status, 'id' => $data['id']]);
         }
     }
@@ -44,21 +43,20 @@ class SliderController extends Controller
         if ($request->ajax()) {
             $data = $request->all();
             /* echo '<pre>'; print_r($data); die; */
-            $slider = Slider::find($data['id_slide']);
+            $slider = Article::find($data['id_slide']);
             $slider->order = $data['order'];
             $slider->update();
             return response()->json(['status' => 'Ordenado Correctamente']);
         }
     }
 
+    /*
+
     public function addSlider(Request $request)
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            /*   echo "<pre>";
-            print_r($data);
-            die;
- */
+
             $slider = new Slider;
             $title = 'imagen ' . strval(Slider::count() + 1);
             $slug = strtr(strtolower($title), ' ', '-');
@@ -102,38 +100,22 @@ class SliderController extends Controller
         $company = new Company;
         $companyData = getCompanyData();
         return view('admin.slider.add_slider', compact('companyData'));
-    }
+    } */
 
     public function editSlider(Request $request, $id = null)
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
 
-            $slider = Slider::find($id);
+            $slider = Article::find($id);
 
             // Upload Image
             if ($request->hasFile('sliderImage')) {
-                $image_tmp = $request->file('sliderImage');
-                if ($image_tmp->isValid()) {
-                    // Upload Images after Resize
-                    $extension = $image_tmp->getClientOriginalExtension();
-                    $fileName = rand(111, 99999) . '.' . $extension;
-                    $large_image_path = 'images/admin_images/articles/' . $fileName;
-                    Image::make($image_tmp)->save($large_image_path);
-                    $slider->url_image = env('URL_DOMAIN') . '/' . $large_image_path;
-                }
+                $slider->imagen_slider = $this->loadFile($request, 'sliderImage', 'sliders', 'sliders');
             } else if (!empty($data['currentSliderImage'])) {
-                $slider->url_image = $data['currentSliderImage'];
+                $slider->imagen_slider = $data['currentSliderImage'];
             } else {
-                $slider->url_image = '';
-            }
-
-            if (!empty($data['showCaption'])) {
-                $slider->show_caption = 1;
-                $slider->title_caption = $data['titleCaption'] ?? '';
-                $slider->subtitle_caption = $data['subTitleCaption'] ?? '';
-            } else {
-                $slider->show_caption = 0;
+                $slider->imagen_slider = '';
             }
 
             $slider->update();
@@ -142,13 +124,13 @@ class SliderController extends Controller
             return redirect()->route('dashboard.slider.index');
         }
         $companyData = getCompanyData();
-        $sliderDetails = Slider::where('id', $id)->first();
+        $sliderDetails = Article::where('id', $id)->first();
         return view('admin.slider.edit_slider')->with(compact('sliderDetails', 'companyData'));
     }
 
     public function deleteSlider($id)
     {
-        Slider::find($id)->delete();
+        Article::find($id)->delete();
         $message = 'El slider se elimino correctamente';
         Session::flash('success_message', $message);
         return redirect()->back();

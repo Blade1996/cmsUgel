@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Section;
 use App\Announcements;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
 
 class AnnouncementController extends Controller
@@ -61,26 +61,16 @@ class AnnouncementController extends Controller
             print_r($data);
             die;*/
 
-            if ($request->hasFile('announcementBasis')) {
-                $announcementBasis = $this->loadFile($request, 'announcementBasis', 'announcement/files', 'announcements');
+            foreach ($request->input('file', []) as $file) {
+                $document->addMedia(public_path('tmp/uploads/announcements/' . $file))->toMediacollection($this->mediaCollection);
             }
-
-            if ($request->hasFile('announcementResultCV')) {
-                $announcementResultCV = $this->loadFile($request, 'announcementResultCV', 'announcement/files', 'announcements');
-            }
-
-            if ($request->hasFile('announcementFinalResult')) {
-                $announcementFinalResult = $this->loadFile($request, 'announcementFinalResult', 'announcement/files', 'announcements');
-            }
-
 
             $document->nombre = $data['announcementTitle'];
             $document->idconvocatoria_categoria = $data['categoryId'];
             $document->descripcion = $data['announcementDescription'];
-            $document->archivo = $announcementBasis ?? '';
-            $document->archivo_eval =  $announcementResultCV ?? '';
-            $document->archivo_final =  $announcementFinalResult ?? '';
+            $document->fecha = Carbon::now('America/lima');
             $document->save();
+
 
             Session::flash('success_message', 'La Convocatoria se creo Correctamente');
             return redirect()->route('dashboard.announcement.index');
@@ -94,36 +84,29 @@ class AnnouncementController extends Controller
     {
         if ($request->isMethod('post')) {
 
-            $document = Announcements::find($id);
+            $document = Announcements::with('files')->find($id);
 
             $data = $request->all();
             // echo '<pre>'; print_r($data); die;
-
-            if ($request->hasFile('announcementBasis')) {
-                $announcementBasis = $this->loadFile($request, 'announcementBasis', 'announcement/files', 'announcements');
-            } else {
-                $announcementBasis = $data['currentAnnouncementBasis'] ?? "";
+            if (count($document->files) > 0) {
+                foreach ($document->files as $media) {
+                    if (!in_array($media->file_name, $request->input('files', []))) {
+                        $media->delete();
+                    }
+                }
             }
 
-            if ($request->hasFile('announcementResultCV')) {
-                $announcementResultCV = $this->loadFile($request, 'announcementResultCV', 'announcement/files', 'announcements');
-            } else {
-                $announcementBasis = $data['currentAnnouncementResultCV'] ?? "";
-            }
+            $media = $document->files->pluck('file_name')->toArray();
 
-            if ($request->hasFile('announcementFinalResult')) {
-                $announcementFinalResult = $this->loadFile($request, 'announcementFinalResult', 'announcement/files', 'announcements');
-            } else {
-                $announcementBasis = $data['currentAnnouncementFinalResult'] ?? "";
+            foreach ($request->input('files', []) as $file) {
+                if (count($media) === 0 || !in_array($file, $media)) {
+                    $document->addMedia(public_path('tmp/uploads/announcements/' . $file))->toMediaCollection($this->mediaCollection);
+                }
             }
 
             $document->nombre = $data['announcementTitle'];
             $document->idconvocatoria_categoria = $data['categoryId'];
             $document->descripcion = $data['announcementDescription'];
-            $document->archivo = $announcementBasis ?? '';
-            $document->archivo_eval =  $announcementResultCV ?? '';
-            $document->archivo_final =  $announcementFinalResult ?? '';
-
             $document->update();
 
             Session::flash('success_message', 'La Convocatoria se Actualizo Correctamente');
@@ -143,8 +126,28 @@ class AnnouncementController extends Controller
             $categories_drop_down .= "<option value='" . $category->id . "' " . $selected . ">" . $category->titulo . "</option>";
         }
         $companyData = getCompanyData();
-        return view('admin.announcements.edit_announcement')->with(compact('categories_drop_down', 'announcementDetail', 'companyData'));
+        $files = $announcementDetail->getMedia($this->mediaCollection);
+        return view('admin.announcements.edit_announcement')->with(compact('categories_drop_down', 'announcementDetail', 'companyData', 'files'));
     }
+
+    public function storeMedia(Request $request)
+    {
+        $path = public_path('tmp/uploads/announcements/');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $file = $request->file('file');
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $file->move($path, $name);
+
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+    }
+
 
     public function regulations()
     {
@@ -154,50 +157,6 @@ class AnnouncementController extends Controller
         $documents = Announcements::where('category_id', 3)->get();
         $companyData = getCompanyData();
         return view('admin.documents.documents')->with(compact('documents', 'companyData', 'title', 'slug'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

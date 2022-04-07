@@ -71,7 +71,7 @@
                 @else
                 <a href="{{ route('home.article.detail', $link->id) }}" target="_blank"><i
                         class="nav-icon fas {{ $link->icon_class }}"></i>{{
-                    $link->titulo }}<i class="fas fa-chevron-right"></i></a>
+                    $link->titulo }}<i class="fas fa-chevron-right float-end"></i></a>
                 @endif
                 @endforeach
             </div>

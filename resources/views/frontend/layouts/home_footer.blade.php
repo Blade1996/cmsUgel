@@ -1,6 +1,6 @@
 <!-- Footer-->
 <footer class="py-5 bg-dark">
-    <div class="container">
+    <div cdlass="container">
         <div class="row">
             <div class="col-md-3">
                 <img class="img-fluid" src="https://pandora.pe/ugel/assets/img/logo-footer.png" alt=""

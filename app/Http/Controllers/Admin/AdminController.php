@@ -3,12 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Hash;
-use Image;
-use App\Unit;
-use App\User;
 use App\Admin;
-use App\Course;
-use App\Article;
 use App\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
