@@ -55,33 +55,9 @@
                                         onchange="preview_image(event)">
                                     <br>
                                     <img class="img-fluid" style="margin-top: 10px;" width="300" id="output_image"
-                                        src="{{$sliderDetails->url_image}}" />
+                                        src="{{$sliderDetails->imagen_slider }}" />
                                     <input type="hidden" name="currentSliderImage"
-                                        value="{{$sliderDetails->url_image}}">
-                                </div>
-                                <div class="form-group">
-                                    <input type="checkbox" name="showCaption" id="showCaption"
-                                        aria-label="Mostrar Texto en Slide" <?php if ($sliderDetails->show_caption == 1)
-                                    echo 'checked' ?> >
-                                    <label for="showCaption">Mostrar Texto en Slider</label>
-                                </div>
-                                @php
-                                $display = $sliderDetails->show_caption == 1 ? 'block' : 'none';
-                                @endphp
-                                <div class="control-group captionSlider" style="display: {{ $display }}">
-                                    <h3>Contenido del Texto</h3>
-                                    <div class="form-group">
-                                        <label for="titleCaption">Titulo de Texto</label>
-                                        <input type="text" class="form-control" name=" titleCaption" id="titleCaption"
-                                            placeholder="Ingrese titulo"
-                                            value="{{ $sliderDetails->title_caption ?? '' }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="subTitleCaption">Subtitulo</label>
-                                        <input type="text" class="form-control" name=" subTitleCaption"
-                                            id="subTitleCaption" placeholder="Ingrese Subtitulo"
-                                            value="{{ $sliderDetails->subtitle_caption ?? '' }}">
-                                    </div>
+                                        value="{{$sliderDetails->imagen_slider }}">
                                 </div>
                             </div>
                             <!-- /.card-body -->

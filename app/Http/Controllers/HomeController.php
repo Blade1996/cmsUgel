@@ -30,8 +30,8 @@ class HomeController extends Controller
     public function index()
     {
         $partners = Partner::get();
-        $articles = Article::orderBy('creado', 'desc')->where([['id', '<>', 5], ['estado', '=', 1]])->take(3)->get(['id', 'titulo', 'imagen', 'creado']);
-        $announcements = Announcements::select('id', 'nombre', 'imagen', 'fecha')->where('estado', 1)->take(3)->get();
+        $articles = Article::orderBy('creado', 'desc')->where([['idarticulo_categoria', '=', 5], ['estado', '=', 1]])->take(3)->get();
+        $announcements = Announcements::select('id', 'nombre', 'imagen', 'fecha', 'descripcion')->where('estado', 1)->take(3)->get();
         $links = Article::orderBy('creado', 'desc')->where('idarticulo_categoria', 10)->where('estado', 1)->get();
         $collection = collect($links);
         $linksArray = $collection;
@@ -39,7 +39,7 @@ class HomeController extends Controller
         $normativities = Normativity::orderBy('fecha', 'desc')->where('estado', 1)->take(3)->get(['id', 'nombre', 'imagen', 'fecha', 'archivo']);
         $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
-            $section->articles =  Article::orderBy('creado', 'desc')->where('estado', 1)->where('idarticulo_categoria', $section->id)->get(['id', 'titulo']);
+            $section->articles =  Article::orderBy('creado', 'desc')->where('estado', 1)->where('idarticulo_categoria', $section->id)->get();
         });
         $gestions = Article::orderBy('creado', 'desc')->where('estado', 1)->where('idarticulo_categoria', 9)->take(3)->get(['id', 'titulo', 'imagen', 'creado']);
         $popUp = Advertising::orderBy('fecha', 'desc')->where([['estado', '=', 1], ['idpublicidad_categoria', '=', 1]])->take(3)->get();
@@ -61,11 +61,23 @@ class HomeController extends Controller
             'companyData' => $companyData, 'sections' => $sections, 'partners' => $partners, 'linksArray' => $linksArray, 'sliders' => $slider, 'articles' => $articles, 'announcements' => $announcements, 'regulations' => $regulations
         ]); */
     }
+    
+     public function advertisingDetail($id)
+    {
+        $advertisingDetail = Advertising::where('id', $id)->first();
+         $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
+        $treeDetail = DocumentTree::where('parent_id', $advertisingDetail->tree_id)->get();
+        $sections->each(function ($section) {
+            $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
+        });
+        $companyData = getCompanyData();
+        return view('frontend.advertising_detail')->with(compact('advertisingDetail', 'companyData', 'sections', 'treeDetail'));
+    }
 
     public function indexDocuments()
     {
         $documents = Documents::where('category_id', 1)->latest()->paginate(4);
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
+ $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
@@ -75,7 +87,7 @@ class HomeController extends Controller
 
     public function indexContact()
     {
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
+       $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
@@ -86,7 +98,7 @@ class HomeController extends Controller
     public function indexArticles()
     {
         $articles = Article::where('idarticulo_categoria', 5)->orderBy('creado', 'desc')->paginate(4);
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
@@ -107,7 +119,7 @@ class HomeController extends Controller
             $normativities = Normativity::orderBy('fecha')->paginate(4);
         }
         $categories = DB::table('dx_disposicion_categoria')->get(['id', 'titulo']);
-        $sections = DB::table('dx_articulo_categoria')->where([['id', '<>', 5], ['id', '<>', 9]])->get(['id', 'titulo']);
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
@@ -127,7 +139,7 @@ class HomeController extends Controller
             $reasigns = Reassign::orderBy('fecha')->paginate(4);
         }
         $categories = DB::table('dx_reasi_categoria')->get(['id', 'titulo']);
-        $sections = DB::table('dx_articulo_categoria')->where([['id', '<>', 5], ['id', '<>', 9]])->get(['id', 'titulo']);
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
@@ -147,7 +159,7 @@ class HomeController extends Controller
             $charges = Charge::orderBy('fecha')->paginate(4);
         }
         $categories = DB::table('dx_encargatura_categoria')->get(['id', 'titulo']);
-        $sections = DB::table('dx_articulo_categoria')->where([['id', '<>', 5], ['id', '<>', 9]])->get(['id', 'titulo']);
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
@@ -158,7 +170,7 @@ class HomeController extends Controller
     public function indexAnnouncements(Request $request)
     {
         $announcements = Announcements::get();
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
@@ -191,7 +203,7 @@ class HomeController extends Controller
     public function announcementDetail($id)
     {
         $announcementDetail = Announcements::where('id', $id)->first();
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });
@@ -200,23 +212,11 @@ class HomeController extends Controller
         return view('frontend.announcement_detail')->with(compact('announcementDetail', 'companyData', 'sections', 'files'));
     }
 
-    public function advertisingDetail($id)
-    {
-        $advertisingDetail = Advertising::where('id', $id)->first();
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
-        $treeDetail = DocumentTree::where('parent_id', $advertisingDetail->tree_id)->get();
-        $sections->each(function ($section) {
-            $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
-        });
-        $companyData = getCompanyData();
-        return view('frontend.advertising_detail')->with(compact('advertisingDetail', 'companyData', 'sections', 'treeDetail'));
-    }
-
     public function articleDetail($id)
     {
         $articleDetail = Article::find($id);
         $treeDetail = DocumentTree::where('parent_id', $articleDetail->tree_id)->get();
-        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9]])->get();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
         });

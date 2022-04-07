@@ -56,7 +56,7 @@
                         </span>
                         <!-- checkbox -->
                         <!-- todo text -->
-                        <span class="text">{{$slider->title}}</span>
+                        <span class="text">{{$slider->titulo}}</span>
                         <!-- Emphasis label -->
                         <!-- General tools such as edit or delete-->
                         <div class="tools">

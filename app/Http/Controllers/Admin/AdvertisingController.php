@@ -59,8 +59,7 @@ class AdvertisingController extends Controller
             $advertising->url = $data['advertisingRedirect'];
             $advertising->tree_id = $data['treeId'];
             $advertising->tipo = $data['typelink'] ?? '';
-            $advertising->creado = $date_now;
-            $advertising->modificado = $date_now;
+            $advertising->fecha = $date_now;
             $advertising->estado = 1;
 
             $advertising->save();

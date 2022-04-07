@@ -22,7 +22,7 @@
         $i = 1
         @endphp
         @foreach ($sliders as $slider)
-        <div class="carousel-item {{ $i === 1 ? 'active': '' }}" style="background-image: url({{ $slider->url_image }});
+        <div class="carousel-item {{ $i === 1 ? 'active': '' }}" style="background-image: url({{ $slider->imagen }});
             background-size: cover;background-repeat: no-repeat;">
             @php
             $i++
@@ -30,10 +30,19 @@
             @if ($slider->show_caption == 1)
             <div class="container">
                 <div class="carousel-caption text-start my-5">
-                    <h1>{{ $slider->title_caption }}</h1>
-                    <p>{{ $slider->subtitle_caption }}</p>
-                    <p><a class="btn btn-lg btn-primary" href="{{ route('home.article.detail', $slider->id)}}">+
+                    <h1>{{ $slider->titulo }}</h1>
+                    <p>{{ $slider->resumen }}</p>
+                    @if ($slider->tipo == 'external')
+                    <p><a class="btn btn-lg btn-primary" href="{{ $slider->redireccion }}" target="_blank">+
                             Información</a></p>
+                    @elseif ($slider->tipo == 'pdf')
+                    <p><a class="btn btn-lg btn-primary" href="{{ $slider->archivo }}" target="_blank">+ Información</a>
+                    </p>
+                    @else
+                    <p><a class="btn btn-lg btn-primary" href="{{ route('home.article.detail', $slider->id) }}">+
+                            Información</a></p>
+                    @endif
+
                 </div>
             </div>
             @endif
@@ -64,14 +73,14 @@
                 @if ($link->tipo == 'external')
                 <a href="{{ $link->redireccion }}" target="_blank"><i
                         class="nav-icon fas {{ $link->icon_class }}"></i>{{
-                    $link->titulo }}<i class="fas fa-chevron-right"></i></a>
+                    $link->titulo }}<i class="fas fa-chevron-right float-end align-middle"></i></a>
                 @elseif ($link->tipo == 'pdf')
                 <a href="{{ $link->archivo }}" target="_blank"><i class="nav-icon fas {{ $link->icon_class }}"></i>{{
-                    $link->titulo }}<i class="fas fa-chevron-right"></i></a>
+                    $link->titulo }}<i class="fas fa-chevron-right float-end align-middle"></i></a>
                 @else
                 <a href="{{ route('home.article.detail', $link->id) }}" target="_blank"><i
                         class="nav-icon fas {{ $link->icon_class }}"></i>{{
-                    $link->titulo }}<i class="fas fa-chevron-right float-end"></i></a>
+                    $link->titulo }}<i class="fas fa-chevron-right float-end align-middle"></i></a>
                 @endif
                 @endforeach
             </div>
@@ -132,9 +141,9 @@
                 @foreach ($announcements as $announcement)
                 <div class="col-lg-4 col-md-6 col-xs-12">
                     <div class="card-body">
-                        <div class="small text-muted">{{ $announcement->creado ?? "" }}</div>
+                        <div class="small text-muted">{{ $announcement->fecha }}</div>
                         <h2 class="card-title h4">{{ $announcement->nombre }}</h2>
-                        <p class="card-text">{{ $announcement->created_at }} RESULTADOS FINALES</p>
+                        <p class="card-text">{{ $announcement->descripcion }}</p>
                         <a href="{{ route('home.announcement.detail', $announcement->id) }}" class="stretched-link"><i
                                 class="bi bi-app"></i>
                             Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
@@ -156,7 +165,7 @@
                     <div class="card-body">
                         <div class="small text-muted">{{ $normativity->fecha }}</div>
                         <h2 class="card-title h4">{{ $normativity->nombre }}</h2>
-                        <p class="card-text">28 Oct, 2021 - 08:19 pm RESULTADOS FINALES</p>
+                        <p class="card-text">{{ $normativity->descripcion }}</p>
                         <a href="{{ $normativity->archivo }}" class="stretched-link"><i class="bi bi-app"></i>
                             Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
                     </div>
@@ -227,13 +236,14 @@
             <hr />
             <div class="col-md-12 border p-3 mb-4">
                 <a href="http://200.48.65.242/sisgedonew/app/main.php?_op=1I&_type=L&_nameop=Login%20de%20Acceso"
-                    target="_blank"><img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/link.jpg') }}"
+                    target="_blank"><img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/sisgedo2.png') }}"
                         width="700"></a>
-                <a href="http://miboleta.minedu.gob.pe/" target="_blank"><img class="img-fluid" style="margin-top: 8px;"
-                        src="{{ asset('images/link1.jpg') }}" width="700"></a>
+                <a href="https://servicios-ayni.minedu.gob.pe/" target="_blank"><img class="img-fluid" style="margin-top: 8px;"
+                        src="{{ asset('images/boleta.png') }}" width="700"></a>
                 <a href="http://siagie.minedu.gob.pe/inicio/" target="_blank"><img class="img-fluid"
-                        style="margin-top: 8px;" src="{{ asset('images/link2.jpg') }}" width="700"></a>
-
+                        style="margin-top: 8px;" src="{{ asset('images/Siagie.png') }}" width="700"></a>
+                <a href="https://simon.minedu.gob.pe/" target="_blank"><img class="img-fluid"
+                        style="margin-top: 8px;" src="{{ asset('images/simon11.png') }}" width="700"></a>
             </div>
             <!--            <a class="btn btn-outline-primary w-100 mb-5" href="filtro-noticias.html">Ver todas las noticias →</a>-->
         </div>
@@ -255,10 +265,15 @@
                             @php
                             $i++
                             @endphp
-                            <a href="{{ $popUp->image }}">
-                                <img class="w-100" src="{{ $popUp->image }}" alt="">
-                            </a>
-
+                            @if ($popUp->tipo == 'external')
+                            <a href="{{ $popUp->url }}" target="_blank">
+                                @elseif ($popUp->tipo == 'pdf')
+                                <a href="{{ $popUp->archivo }}" target="_blank">
+                                    @else
+                                    <a href="{{ route('home.advertising.detail', $popUp->id) }}" target="_blank">
+                                        @endif
+                                        <img class="w-100" src="{{ $popUp->image }}" alt="">
+                                    </a>
                         </div>
                         @endforeach
                     </div>

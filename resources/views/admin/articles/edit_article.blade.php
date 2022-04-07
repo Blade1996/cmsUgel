@@ -83,8 +83,22 @@
                                             Archivo PDF
                                         </label>
                                     </div>
-
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="tree"
+                                                value="tree" <?php if($articleDetail->tipo == 'tree' )
+                                            echo 'checked' ; ?> >
+                                            Arbol de Documentos
+                                        </label>
+                                    </div>
                                 </div>
+                                @if ($articleDetail->idarticulo_categoria == 11)
+                                <div class="form-group" id="checkCaption">
+                                    <input type="checkbox" name="showCaption" id="showCaption" <?php
+                                        if($articleDetail->show_caption === 1) echo 'checked' ?> >
+                                    <label for="showCaption">Mostrar Texto en Slider</label>
+                                </div>
+                                @endif
                                 {{-- <div class="form-group">
                                     <label for="exampleInputFile">Insertar Imagen para Slider</label>
                                     <input type="file" class="form-control" onchange="preview_image3(event)"
@@ -130,10 +144,22 @@
                                     <input type="file" class="form-control" onchange="preview_image(event)"
                                         name="articleImage" id="articleImage">
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image" width=300
-                                        src="{{asset($articleDetail->page_image)}}" />
+                                        src="{{asset($articleDetail->imagen)}}" />
                                     <input type="hidden" name="currentArticleImage"
                                         value="{{ $articleDetail->imagen }}">
                                 </div>
+                                @if ($articleDetail->idarticulo_categoria == 11)
+                                <div class="form-group" id="imgSlider">
+                                    <label for="exampleInputFile">Imagen para Slider</label>
+                                    <input type="file" class="form-control" onchange="preview_image_2(event)"
+                                        name="sliderImage" id="sliderImage">
+                                    <img style="margin-top: 10px;" class="img-fluid" id="output_image_2"
+                                        src="{{ $articleDetail->imagen_slider }}" />
+                                    <input type="hidden" name="currentSliderImage"
+                                        value="{{ $articleDetail->imagen_slider }}">
+                                </div>
+
+                                @endif
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">URL de Video</label>
                                     <input type="url" class="form-control" id="articleUrlVideo" name="articleUrlVideo"
@@ -163,6 +189,12 @@
                                     <label for="exampleInputEmail1">Link Texto</label>
                                     <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
                                         placeholder="Ingrese Texto Link" value="{{ $articleDetail->redireccion }}">
+                                </div>
+                                <div class="form-group" id="selectTree" style="display: none">
+                                    <label>Seleccione Sección</label>
+                                    <select name="treeId" id="treeId" class="form-control" style="width: 100%;">
+                                        <?php echo $tree_drop_down; ?>
+                                    </select>
                                 </div>
                             </div>
                             <!-- /.form-group -->
@@ -220,12 +252,12 @@
             }
             reader.readAsDataURL(event.target.files[0]);
         }
-        function preview_image2(event)
+        function preview_image_2(event)
         {
             var reader = new FileReader();
             reader.onload = function()
             {
-            var output = document.getElementById('output_image2');
+            var output = document.getElementById('output_image_2');
             output.src = reader.result;
             output.width = 400;
             output.width = 300

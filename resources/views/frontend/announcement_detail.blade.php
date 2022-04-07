@@ -16,49 +16,28 @@
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">etiqueta</a>
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">etiqueta</a>
                 </header>
-                @php
-                $document_url = $announcementDetail->archivo;
-                $document_eval = $announcementDetail->archivo_eval;
-                $document_final = $announcementDetail->archivo_final;
-                @endphp
-                <input type="hidden" name="filePdf" id="base" value="{{ $announcementDetail->archivo ?? '' }}">
-                <input type="hidden" name="filePdf" id="eval" value="{{ $announcementDetail->archivo_eval }}">
-                <input type="hidden" name="filePdf" id="final" value="{{ $announcementDetail->archivo_final }}">
-                <!-- Preview image figure-->
-                <!-- Post content-->
                 <section class="mb-5">
                     {!!$announcementDetail->descripcion !!}
                 </section>
-                @if ($announcementDetail->archivo)
-                <section class="mb-5">
-                    <h2>Bases</h2>
-                    <div id="pdf-file-base" style="margin: 30px"></div>
-                </section>
-                @endif
-                @if ($announcementDetail->archivo_eval)
-                <section class="mb-5">
-                    <h2>Evaluacion</h2>
-                    <div id="pdf-file-eval" style="margin: 30px"></div>
-                </section>
-                @endif
-                @if ($announcementDetail->archivo_final)
-                <section class="mb-5">
-                    <h2>Final</h2>
-                    <div id="pdf-file-final" style="margin: 30px"></div>
-                </section>
-                @endif
-            </article>
 
+                <input type="hidden" id="countFiles" value="{{ $announcementDetail->getMedia($files)->count() }}">
+                @foreach ($announcementDetail->getMedia($files) as $index=>$file)
+                <input type="hidden" name="filePdf" id="base{{ $index }}" value="{{ $file->getUrl() }}">
+                <section class="mb-5">
+                    <h2>{{ $file->name }}</h2>
+                    <div id="pdf-file-{{ $index }}" style="margin: 30px"></div>
+                </section>
+                @endforeach
+            </article>
         </div>
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.js"></script>
 <script>
-    let urlBase = document.getElementById('base').value;
-    PDFObject.embed(urlBase, `#pdf-file-base`, {height: "30rem", width: "120%"});
-    let urlEval = document.getElementById('eval').value;
-    PDFObject.embed(urlEval, `#pdf-file-eval`, {height: "30rem", width: "120%"});
-    let urlFinal = document.getElementById('final').value;
-    PDFObject.embed(urlFinal, `#pdf-file-final`, {height: "30rem", width: "120%"});
+    let countFiles = document.getElementById('countFiles').value;
+    for(let i = 0; i < countFiles; i++){
+        let urlBase = document.getElementById(`base${i}`).value;
+        PDFObject.embed(urlBase, `#pdf-file-${i}`, {height: "30rem", width: "120%"});
+    }
 </script>
 @endsection

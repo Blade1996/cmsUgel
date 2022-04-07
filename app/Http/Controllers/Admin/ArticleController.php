@@ -90,7 +90,7 @@ class ArticleController extends Controller
             $article->resumen = $data['articleResume'] ?? '';
             $article->tipo = $data['typelink'] ?? '';
             $article->redireccion = $data['articleTextLink'] ?? '';
-            $article->video = $data['articleUrlVideo'] ?? '';
+            $article->video = $data['articleUrlVideo'];
             $article->tree_id = $data['treeId'];
             $article->creado = new DateTime('now', new DateTimeZone('America/Lima'));
             $article->modificado = new DateTime('now', new DateTimeZone('America/Lima'));
@@ -134,13 +134,13 @@ class ArticleController extends Controller
                 $article->archivo = $data['currentArticleFile'] ?? "";
             }
 
-            /* if ($request->hasFile('sliderImage')) {
+            if ($request->hasFile('sliderImage')) {
                 $article->imagen_slider = $this->loadFile($request, 'sliderImage', 'sliders', 'sliders');
             } else if (!empty($data['currentSliderImage'])) {
                 $article->imagen_slider = $data['currentSliderImage'];
             } else {
                 $article->imagen_slider = '';
-            }*/
+            }
 
             if (!empty($data['treeId'])) {
                 $article->tree_id = $data['treeId'];

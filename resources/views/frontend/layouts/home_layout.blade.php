@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>@yield('title')</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="https://pandora.pe/ugel/assets/img/faviconx72.png" />
+    <link rel="icon" type="image/x-icon" href="{{ $companyData->companyInfo->url_icon }}" />
     <!-- CSS ugel ILO-->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
 
@@ -77,8 +77,6 @@
         height: 100% !important;
         max-width: 960px !important;
     }
-
-    */
 </style>
 
 @include('frontend.layouts.home_header')
@@ -161,9 +159,10 @@
                         }
 
 
+
                     })
 
-    }
+                }
 
     $("#searchBar").submit(function(e) {
         e.preventDefault();
@@ -188,10 +187,6 @@
     $('#announcenentsTable').dataTable({
       responsive: true,
     });
-
-
-
-
   })
 
     </script>

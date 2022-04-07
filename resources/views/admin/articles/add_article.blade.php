@@ -75,14 +75,18 @@
                                             Archivo PDF
                                         </label>
                                     </div>
-
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="tree"
+                                                value="tree">
+                                            Arbol de Documentos
+                                        </label>
+                                    </div>
                                 </div>
-                                {{-- <div class="form-group" id="selectSub" style="display: none">
-                                    <label>Seleccione Sub Cateogoria</label>
-                                    <select name="subCategoryId" id="subCategoryId" class="form-control select2"
-                                        style="width: 100%;">
-                                    </select>
-                                </div> --}}
+                                <div class="form-group" id="checkCaption" style="display: none">
+                                    <input type="checkbox" name="showCaption" id="showCaption">
+                                    <label for="showCaption">Mostrar Texto en Slider</label>
+                                </div>
                                 {{-- <div class="form-group">
                                     <label for="exampleInputFile">Insertar Imagen para Slider</label>
                                     <input type="file" class="form-control" onchange="preview_image3(event)"
@@ -107,7 +111,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">URL de Video</label>
-                                    <input type="url" class="form-control" idlinkType </div>
+                                    <input type="url" class="form-control" name="articleUrlVideo" id="articleUrlVideo">
                                 </div>
                             </div>
                             <!-- /.col -->
@@ -118,7 +122,12 @@
                                         name="articleImage" id="articleImage">
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image" />
                                 </div>
-
+                                <div class="form-group" id="imgSlider" style="display: none">
+                                    <label for="exampleInputFile">Imagen de Articulo</label>
+                                    <input type="file" class="form-control" onchange="preview_image_2(event)"
+                                        name="sliderImage" id="sliderImage">
+                                    <img style="margin-top: 10px;" class="img-fluid" id="output_image_2" />
+                                </div>
                             </div>
                             <!-- /.col -->
                         </div>
@@ -141,6 +150,15 @@
                                     <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
                                         placeholder="Ingrese Texto Link">
                                 </div>
+                                <div class="form-group" id="selectTree" style="display: none">
+                                    <label>Seleccione Arbol</label>
+                                    <select name="treeId" id="treeId" class="form-control" style="width: 100%;">
+                                        @foreach ($trees as $id=>$tree)
+                                        <option value="{{ $id }}">{{ $tree }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                             </div>
                             <!-- /.form-group -->
                         </div>
@@ -202,12 +220,12 @@
             reader.readAsDataURL(event.target.files[0]);
         }
 
-        function preview_image2(event)
+        function preview_image_2(event)
         {
             var reader = new FileReader();
             reader.onload = function()
             {
-            var output = document.getElementById('output_image2');
+            var output = document.getElementById('output_image_2');
             output.src = reader.result;
             output.width = 400;
             output.height = 300

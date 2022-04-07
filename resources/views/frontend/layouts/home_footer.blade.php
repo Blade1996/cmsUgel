@@ -1,11 +1,11 @@
 <!-- Footer-->
 <footer class="py-5 bg-dark">
-    <div cdlass="container">
+    <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <img class="img-fluid" src="https://pandora.pe/ugel/assets/img/logo-footer.png" alt=""
                     style="height: 50px; width: auto;">
-                <a href="https://ugelilo.edu.pe/libroreclamaciones" target="_blank"><img src="{{asset('libro.png')}}"
+                <a href="https://reclamaciones.ugelilo.edu.pe" target="_blank"><img src="{{asset('libro.png')}}"
                         width="200" height="150" alt="" /></a>
             </div>
             <div class="col-md-3">

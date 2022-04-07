@@ -25,9 +25,7 @@
                         <tr>
                             <th>Fecha</th>
                             <th>Unidad / Referencia de la convocatoria</th>
-                            <th>Bases</th>
-                            <th>Resultados Evaluacion</th>
-                            <th>Resultado Final</th>
+                            <th>Documentos Relacionados</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,14 +36,11 @@
                                 <br>
                                 {{ $announcement->descripcion }}
                             </td>
-                            <td><a href="{{ $announcement->archivo }}" tooltrip target="_blank"><i
-                                        class="far fa-file-pdf"></i></a>
-                            </td>
-                            <td><a href="{{ $announcement->archivo_eval }}" tooltrip target="_blank"><i
-                                        class="far fa-file-pdf"></i></a>
-                            </td>
-                            <td><a href="{{ $announcement->archivo_final }}" tooltrip target="_blank"><i
-                                        class="far fa-file-pdf"></i></a>
+                            <td style="vertical-align:middle;">
+                                @foreach ($announcement->getMedia($files) as $file)
+                                <a href="{{ $file->getUrl() }}" data-toggle="tooltip" title="{{ $file->name }}"
+                                    target="_blank"><img style="width: 25px;" src="{{ asset('images/pdf-file-icon.png') }}" /></a>
+                                @endforeach
                             </td>
                         </tr>
                         @endforeach

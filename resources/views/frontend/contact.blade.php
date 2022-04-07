@@ -116,26 +116,26 @@
                             <div class="icon-opening-wrapper">
                                 <div class="icon-opening-container">
                                     <p class="icon-opening"><i class="fa fa-phone"></i></p>
-                                    <p class="icon-opening-content">T: 555 555 555</p>
+                                    <p class="icon-opening-content">T: 053 - 484090</p>
                                 </div>
                             </div>
                             <div class="icon-opening-wrapper">
                                 <div class="icon-opening-container">
                                     <p class="icon-opening"><i class="fa fa-location-arrow"></i></p>
-                                    <p class="icon-opening-content">Jr. Lampa 555<br>
-                                        Cercado de Lima, Perú</p>
+                                    <p class="icon-opening-content">Jr. 28 de Julio Nº 449<br>
+                                        Ilo, Perú</p>
                                 </div>
                             </div>
                             <div class="icon-opening-wrapper">
                                 <div class="icon-opening-container">
                                     <p class="icon-opening"><i class="fa fa-envelope"></i></p>
-                                    <p class="icon-opening-content">info@ugelica.com</p>
+                                    <p class="icon-opening-content">info@ugelilo.edu.pe</p>
                                 </div>
                             </div>
                             <div class="icon-opening-wrapper">
                                 <div class="icon-opening-container">
                                     <p class="icon-opening"><i class="fa fa-globe"></i></p>
-                                    <p class="icon-opening-content">www.ugelica.com</p>
+                                    <p class="icon-opening-content">www.ugelilo.edu.pe</p>
                                 </div>
                             </div>
                             <div class="margin-40"></div>
@@ -151,7 +151,8 @@
             </article>
 
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        -->
     </div>
 </div>
 @endsection

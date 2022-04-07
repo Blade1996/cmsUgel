@@ -61,16 +61,15 @@ class AnnouncementController extends Controller
             print_r($data);
             die;*/
 
-            foreach ($request->input('file', []) as $file) {
-                $document->addMedia(public_path('tmp/uploads/announcements/' . $file))->toMediacollection($this->mediaCollection);
-            }
-
             $document->nombre = $data['announcementTitle'];
             $document->idconvocatoria_categoria = $data['categoryId'];
             $document->descripcion = $data['announcementDescription'];
             $document->fecha = Carbon::now('America/lima');
             $document->save();
-
+            
+            foreach ($request->input('file', []) as $file) {
+                $document->addMedia(public_path('tmp/uploads/announcements/' . $file))->toMediacollection($this->mediaCollection);
+            }
 
             Session::flash('success_message', 'La Convocatoria se creo Correctamente');
             return redirect()->route('dashboard.announcement.index');
@@ -88,7 +87,13 @@ class AnnouncementController extends Controller
 
             $data = $request->all();
             // echo '<pre>'; print_r($data); die;
-            if (count($document->files) > 0) {
+         
+            $document->nombre = $data['announcementTitle'];
+            $document->idconvocatoria_categoria = $data['categoryId'];
+            $document->descripcion = $data['announcementDescription'];
+            $document->update();
+            
+               if (count($document->files) > 0) {
                 foreach ($document->files as $media) {
                     if (!in_array($media->file_name, $request->input('files', []))) {
                         $media->delete();
@@ -103,11 +108,6 @@ class AnnouncementController extends Controller
                     $document->addMedia(public_path('tmp/uploads/announcements/' . $file))->toMediaCollection($this->mediaCollection);
                 }
             }
-
-            $document->nombre = $data['announcementTitle'];
-            $document->idconvocatoria_categoria = $data['categoryId'];
-            $document->descripcion = $data['announcementDescription'];
-            $document->update();
 
             Session::flash('success_message', 'La Convocatoria se Actualizo Correctamente');
             return redirect()->route('dashboard.announcement.index');
@@ -147,7 +147,6 @@ class AnnouncementController extends Controller
             'original_name' => $file->getClientOriginalName(),
         ]);
     }
-
 
     public function regulations()
     {

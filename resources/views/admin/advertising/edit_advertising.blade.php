@@ -66,10 +66,71 @@
                                         id="advertisingTitle" name="advertisingTitle"
                                         value="{{ $advertisingDetail['titulo'] }}">
                                 </div>
+                                <label for="form-check-input">Tipo de Contenido</label>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">URL</label>
-                                    <input type="text" class="form-control" placeholder="Ingrese Url"
-                                        id="advertisingRedirect" name="advertisingRedirect" value="">
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="internal"
+                                                value="internal" <?php if($advertisingDetail->tipo == 'internal' ||
+                                            $advertisingDetail->tipo == '')
+                                            echo 'checked' ; ?> >
+                                            Enlace Interno
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="external"
+                                                value="external" <?php if($advertisingDetail->tipo == 'external' )
+                                            echo 'checked' ; ?> >
+                                            Enlace Enterno
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="pdf"
+                                                value="pdf" <?php if($advertisingDetail->tipo == 'pdf' )
+                                            echo 'checked' ; ?> >
+                                            Archivo PDF
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="typelink" id="tree"
+                                                value="tree" <?php if($advertisingDetail->tipo == 'tree' )
+                                            echo 'checked' ; ?> >
+                                            Arbol de Documentos
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group" id="areaArticleContent">
+                                            <label for="exampleInputEmail1">Descripción</label>
+                                            <textarea class="form-control textAreaEditor" name="advertisingContent"
+                                                id="advertisingContent" placeholder="Ingrese Descripcion"
+                                                style="margin-top: 0px; margin-bottom: 0px; height: 93px;">{{ $advertisingDetail->descripcion }}</textarea>
+                                        </div>
+                                        <div class="form-group" id="articleFileContent" style="display: none">
+                                            <label for="exampleInputFile">Subir Archivo</label>
+                                            <input type="file" class="form-control" name="advertisingFile"
+                                                id="advertisingFile">
+                                            <input type="hidden" class="form-control" name="currentAdvertisingFile"
+                                                id="currentAdvertisingFile" value="{{ $advertisingDetail->archivo }}">
+                                        </div>
+                                        <div class="form-group" id="articleUrlContent" style="display: none">
+                                            <label for="exampleInputEmail1">URL</label>
+                                            <input type="text" class="form-control" id="advertisingRedirect"
+                                                name="advertisingRedirect" placeholder="Ingrese Texto Link"
+                                                value="{{ $advertisingDetail->redireccion }}">
+                                        </div>
+                                        <div class="form-group" id="selectTree" style="display: none">
+                                            <label>Seleccione Árbol</label>
+                                            <select name="treeId" id="treeId" class="form-control" style="width: 100%;">
+                                                <?php echo $tree_drop_down; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- /.form-group -->
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">Imagen de Publicidad</label>
@@ -97,7 +158,6 @@
     <!-- /.content -->
     <!-- /.content -->
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 <script type='text/javascript'>
     function preview_image(event)
       {
@@ -111,50 +171,6 @@
 
        }
        reader.readAsDataURL(event.target.files[0]);
-      }
-      var uploadedDocumentMap = {}
-      Dropzone.options.documentDropzone = {
-         url: '{{ route('documents.storeMedia', 'advertising') }}',
-         maxFilesize: 15, // MB
-         addRemoveLinks: true,
-         acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
-         headers: {
-            'X-CSRF-TOKEN': "{{ csrf_token() }}"
-         },
-         success: function(file, response) {
-            $('form').append('<input type="hidden" name="files[]" value="' + response.name + '">')
-            uploadedDocumentMap[file.name] = response.name
-         },
-         removedfile: function(file) {
-            file.previewElement.remove()
-            var name = ''
-            if (typeof file.file_name !== 'undefined') {
-               name = file.file_name
-            } else {
-               name = uploadedDocumentMap[file.name]
-            }
-            $('form').find('input[name="files[]"][value="' + name + '"]').remove()
-         },
-         init: function() {
-            @if (isset($files))
-               var files =
-               {!! json_encode($files) !!}
-               for (var i in files) {
-               var file = files[i]
-               console.log(file);
-               file = {
-               ...file,
-               width: 226,
-               height: 324
-               }
-               this.options.addedfile.call(this, file)
-               this.options.thumbnail.call(this, file,'https://firebasestorage.googleapis.com/v0/b/url-short-286413.appspot.com/o/pdf-128.png?alt=media&token=2c85269d-2f5b-4c86-9400-4f1a1c65927d')
-               file.previewElement.classList.add('dz-complete')
-
-               $('form').append('<input type="hidden" name="files[]" value="' + file.file_name + '">')
-               }
-            @endif
-         }
       }
 </script>
 @endsection

@@ -14,16 +14,16 @@
                 @foreach ($sections as $section)
                 @if (count($section->articles) > 0)
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" id="dropdown05" data-bs-toggle="dropdown"
                         aria-expanded="false">{{ $section->titulo }}</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown05">
                         @foreach ($section->articles as $article)
                         @if ($article->tipo == 'external')
-                        <li><a class="dropdown-item" href="{{ $article->redireccion }}">{{
+                        <li><a class="dropdown-item" href="{{ $article->redireccion }}" target="_blank">{{
                                 $article->titulo
                                 }}</a></li>
                         @elseif ($article->tipo == 'pdf')
-                        <li><a class="dropdown-item" href="{{ $article->archivo }}">{{
+                        <li><a class="dropdown-item" href="{{ $article->archivo }}" target="_blank">{{
                                 $article->titulo
                                 }}</a></li>
                         @else
