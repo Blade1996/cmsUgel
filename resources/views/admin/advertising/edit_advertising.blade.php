@@ -124,7 +124,7 @@
                                                 value="{{ $advertisingDetail->redireccion }}">
                                         </div>
                                         <div class="form-group" id="selectTree" style="display: none">
-                                            <label>Seleccione Árbol</label>
+                                            <label>Seleccione árbol</label>
                                             <select name="treeId" id="treeId" class="form-control" style="width: 100%;">
                                                 <?php echo $tree_drop_down; ?>
                                             </select>
