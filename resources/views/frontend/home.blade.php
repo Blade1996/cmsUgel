@@ -236,14 +236,14 @@
             <hr />
             <div class="col-md-12 border p-3 mb-4">
                 <a href="http://200.48.65.242/sisgedonew/app/main.php?_op=1I&_type=L&_nameop=Login%20de%20Acceso"
-                    target="_blank"><img class="img-fluid" style="margin-top: 8px;" src="{{ asset('images/sisgedo2.png') }}"
-                        width="700"></a>
-                <a href="https://servicios-ayni.minedu.gob.pe/" target="_blank"><img class="img-fluid" style="margin-top: 8px;"
-                        src="{{ asset('images/boleta.png') }}" width="700"></a>
+                    target="_blank"><img class="img-fluid" style="margin-top: 8px;"
+                        src="{{ asset('images/sisgedo2.png') }}" width="700"></a>
+                <a href="https://servicios-ayni.minedu.gob.pe/" target="_blank"><img class="img-fluid"
+                        style="margin-top: 8px;" src="{{ asset('images/boleta.png') }}" width="700"></a>
                 <a href="http://siagie.minedu.gob.pe/inicio/" target="_blank"><img class="img-fluid"
                         style="margin-top: 8px;" src="{{ asset('images/Siagie.png') }}" width="700"></a>
-                <a href="https://simon.minedu.gob.pe/" target="_blank"><img class="img-fluid"
-                        style="margin-top: 8px;" src="{{ asset('images/simon11.png') }}" width="700"></a>
+                <a href="https://simon.minedu.gob.pe/" target="_blank"><img class="img-fluid" style="margin-top: 8px;"
+                        src="{{ asset('images/simon11.png') }}" width="700"></a>
             </div>
             <!--            <a class="btn btn-outline-primary w-100 mb-5" href="filtro-noticias.html">Ver todas las noticias →</a>-->
         </div>

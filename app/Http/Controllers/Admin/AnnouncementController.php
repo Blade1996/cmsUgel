@@ -66,10 +66,11 @@ class AnnouncementController extends Controller
             $document->descripcion = $data['announcementDescription'];
             $document->fecha = Carbon::now('America/lima');
             $document->save();
-            
+
             foreach ($request->input('file', []) as $file) {
                 $document->addMedia(public_path('tmp/uploads/announcements/' . $file))->toMediacollection($this->mediaCollection);
             }
+
 
             Session::flash('success_message', 'La Convocatoria se creo Correctamente');
             return redirect()->route('dashboard.announcement.index');
@@ -87,13 +88,12 @@ class AnnouncementController extends Controller
 
             $data = $request->all();
             // echo '<pre>'; print_r($data); die;
-         
             $document->nombre = $data['announcementTitle'];
             $document->idconvocatoria_categoria = $data['categoryId'];
             $document->descripcion = $data['announcementDescription'];
             $document->update();
-            
-               if (count($document->files) > 0) {
+
+            if (count($document->files) > 0) {
                 foreach ($document->files as $media) {
                     if (!in_array($media->file_name, $request->input('files', []))) {
                         $media->delete();
@@ -147,6 +147,7 @@ class AnnouncementController extends Controller
             'original_name' => $file->getClientOriginalName(),
         ]);
     }
+
 
     public function regulations()
     {

@@ -39,7 +39,8 @@
                             <td style="vertical-align:middle;">
                                 @foreach ($announcement->getMedia($files) as $file)
                                 <a href="{{ $file->getUrl() }}" data-toggle="tooltip" title="{{ $file->name }}"
-                                    target="_blank"><img style="width: 25px;" src="{{ asset('images/pdf-file-icon.png') }}" /></a>
+                                    target="_blank"><img style="width: 25px;"
+                                        src="{{ asset('images/pdf-file-icon.png') }}" /></a>
                                 @endforeach
                             </td>
                         </tr>
