@@ -38,6 +38,7 @@ Route::get('/articulo/{id}', 'HomeController@articleDetail')->name('home.article
 Route::get('/convocatoria/{id}', 'HomeController@announcementDetail')->name('home.announcement.detail');
 Route::get('/articulos', 'HomeController@findArticles')->name('home.articles.find');
 Route::get('/publicidad/{id}', 'HomeController@advertisingDetail')->name('home.advertising.detail');
+Route::get('/link/{id}', 'HomeController@linkDetail')->name('home.link.detail');
 Route::get('/document/find', 'HomeController@findDocument')->name('home.document.find');
 
 

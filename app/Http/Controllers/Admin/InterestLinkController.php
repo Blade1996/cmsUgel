@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use File;
 use DateTime;
-use App\Article;
+use Image;
 use DateTimeZone;
 use App\DocumentTree;
 use App\InterestLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 
 class InterestLinkController extends Controller
@@ -24,7 +25,7 @@ class InterestLinkController extends Controller
     public function index()
     {
         Session::put('page', 'links');
-        $links = Article::where('idarticulo_categoria', 10)->get();
+        $links = InterestLink::orderBy('creado', 'desc')->get(['id', 'titulo', 'estado']);
         $companyData = getCompanyData();
         return view('admin.interestLink.interestLink', compact('links', 'companyData'));
     }
@@ -38,7 +39,7 @@ class InterestLinkController extends Controller
             } else {
                 $status = 1;
             }
-            Article::where('id', $data['id'])->update(['estado' => $status]);
+            InterestLink::where('id', $data['id'])->update(['estado' => $status]);
             return response()->json(['status' => $status, 'id' => $data['id']]);
         }
     }
@@ -52,49 +53,49 @@ class InterestLinkController extends Controller
             print_r($data);
             die; */
 
-            $article = new Article;
+            $link = new InterestLink;
 
-            if (!File::exists('images/backend_images/articles')) {
-                $path = 'images/admin_images/articles';
+            if (!File::exists('images/backend_images/links')) {
+                $path = 'images/admin_images/links';
                 File::makeDirectory($path, 0755, true, true);
             }
 
             // Upload Image
-            if ($request->hasFile('articleImage')) {
-                $image_tmp = $request->file('articleImage');
+            if ($request->hasFile('linkImage')) {
+                $image_tmp = $request->file('linkImage');
                 if ($image_tmp->isValid()) {
                     // Upload Images after Resize
                     $extension = $image_tmp->getClientOriginalExtension();
                     $fileName = rand(111, 99999) . '.' . $extension;
-                    $large_image_path = 'images/admin_images/articles/' . $fileName;
+                    $large_image_path = 'images/admin_images/links/' . $fileName;
                     Image::make($image_tmp)->save($large_image_path);
-                    $article->imagen = env('URL_DOMAIN') . '/' . $large_image_path;
+                    $link->imagen = env('URL_DOMAIN') . '/' . $large_image_path;
                 }
             }
 
-            if ($request->hasFile('articleFile')) {
-                $article->archivo = $this->loadFile($request, 'articleFile', 'article/files', 'articles');
+            if ($request->hasFile('linkFile')) {
+                $link->archivo = $this->loadFile($request, 'linkFile', 'link/files', 'links');
             }
 
-            $article->titulo = $data['articleTitle'];
-            $article->idarticulo_categoria = 10;
-            $article->idusuario = Auth::guard('admin')->user()->id;
-            $article->resumen = $data['articleResume'];
-            $article->tipo = $data['typelink'] ?? '';
-            $article->tree_id = $data['treeId'];
-            $article->redireccion = $data['articleTextLink'] ?? '';
-            $article->video = $data['articleUrlVideo'] ?? '';
-            $article->creado = new DateTime('now', new DateTimeZone('America/Lima'));
-            $article->modificado = new DateTime('now', new DateTimeZone('America/Lima'));
-            $article->descripcion = htmlspecialchars_decode(e($data['articleContent']));
+            $link->titulo = $data['linkTitle'];
+            $link->idservicio_categoria = $data['categoryId'];
+            $link->idusuario = Auth::guard('admin')->user()->id;
+            $link->resumen = $data['linkResume'];
+            $link->tipo = $data['typelink'] ?? '';
+            $link->tree_id = $data['treeId'];
+            $link->redireccion = $data['linkTextLink'] ?? '';
+            $link->video = $data['linkUrlVideo'] ?? '';
+            $link->creado = Carbon::now('America/Lima');
+            $link->modificado = Carbon::now('America/Lima');
+            $link->descripcion = htmlspecialchars_decode(e($data['linkContent']));
 
-            $article->save();
+            $link->save();
             Session::flash('success_message', 'El articulo se creo Correctamente');
             return redirect()->route('dashboard.link.index');
         }
 
         $trees = DocumentTree::where('parent_id', '=', 0)->pluck('name', 'id')->all();
-        $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->get();
+        $categories = DB::table('dx_servicio_categoria')->select('id', 'descripcion')->get();
         $companyData = getCompanyData();
         return view('admin.interestLink.add_interestLink')->with(compact('categories', 'companyData', 'trees'));
     }
@@ -108,46 +109,46 @@ class InterestLinkController extends Controller
             /*  echo '<pre>';
             print_r($data);
             die; */
-            $article = Article::find($id);
+            $link = InterestLink::find($id);
 
             // Upload Image
-            if ($request->hasFile('articleImage')) {
-                $articleImage = $this->loadFile($request, 'articleImage', 'article/files', 'articles');
-            } else if (!empty($data['currentArticleImage'])) {
-                $articleImage = $data['currentArticleImage'];
+            if ($request->hasFile('linkImage')) {
+                $linkImage = $this->loadFile($request, 'linkImage', 'link/files', 'links');
+            } else if (!empty($data['currentLinkImage'])) {
+                $linkImage = $data['currentLinkImage'];
             } else {
-                $articleImage = '';
+                $linkImage = '';
             }
 
-            if ($request->hasFile('articleFile')) {
-                $article->archivo = $this->loadFile($request, 'articleFile', 'article/files', 'articles');
+            if ($request->hasFile('linkFile')) {
+                $link->archivo = $this->loadFile($request, 'linkFile', 'link/files', 'links');
             } else {
-                $article->archivo = $data['currentArticleFile'] ?? "";
+                $link->archivo = $data['currentLinkFile'] ?? "";
             }
 
             if (!empty($data['treeId'])) {
-                $article->tree_id = $data['treeId'];
+                $link->tree_id = $data['treeId'];
             }
 
-            $article->titulo = $data['articleTitle'];
-            $article->idarticulo_categoria = 10;
-            $article->imagen = $articleImage;
-            $article->idusuario = Auth::guard('admin')->user()->id;
-            $article->resumen = $data['articleResume'];
-            $article->tipo = $data['typelink'] ?? '';
-            $article->redireccion = $data['articleTextLink'] ?? '';
-            $article->video = $data['articleUrlVideo'] ?? '';
-            $article->modificado = new DateTime('now', new DateTimeZone('America/Lima'));
-            $article->descripcion = htmlspecialchars_decode(e($data['articleContent']));
+            $link->titulo = $data['linkTitle'];
+            $link->idservicio_categoria = $data['categoryId'];
+            $link->imagen = $linkImage;
+            $link->idusuario = Auth::guard('admin')->user()->id;
+            $link->resumen = $data['linkResume'];
+            $link->tipo = $data['typelink'] ?? '';
+            $link->redireccion = $data['linkTextLink'] ?? '';
+            $link->video = $data['linkUrlVideo'] ?? '';
+            $link->modificado = new DateTime('now', new DateTimeZone('America/Lima'));
+            $link->descripcion = htmlspecialchars_decode(e($data['linkContent']));
 
-            $article->update();
+            $link->update();
 
             Session::flash('success_message', 'El articulo se Actualizo Correctamente');
             return redirect()->route('dashboard.link.index');
         }
 
         $trees = DocumentTree::where('parent_id', '=', 0)->pluck('name', 'id')->all();
-        $linkDetail = Article::where(['id' => $id])->first();
+        $linkDetail = InterestLink::where(['id' => $id])->first();
         $tree_drop_down = "<option value='' selected disabled>Selected</option>";
         foreach ($trees as $id => $tree) {
             if ($id == $linkDetail->tree_id) {
@@ -157,24 +158,24 @@ class InterestLinkController extends Controller
             }
             $tree_drop_down .= "<option value='" . $id . "' " . $selected . ">" . $tree . "</option>";
         }
-        /*         $categories = DB::table('dx_articulo_categoria')->select('id', 'titulo')->get();
+        $categories = DB::table('dx_servicio_categoria')->select('id', 'descripcion')->get();
         $categories_drop_down = "<option value='' selected disabled>Select</option>";
         foreach ($categories as $category) {
-            if ($category->id == $linkDetail->idarticulo_categoria) {
+            if ($category->id == $linkDetail->idservicio_categoria) {
                 $selected = "selected";
             } else {
                 $selected = "";
             }
 
-            $categories_drop_down .= "<option value='" . $category->id . "' " . $selected . ">" . $category->titulo . "</option>";
-        } */
+            $categories_drop_down .= "<option value='" . $category->id . "' " . $selected . ">" . $category->descripcion . "</option>";
+        }
         $companyData = getCompanyData();
-        return view('admin.interestLink.edit_interestLink')->with(compact('linkDetail', 'companyData', 'tree_drop_down'));
+        return view('admin.interestLink.edit_interestLink')->with(compact('linkDetail', 'companyData', 'tree_drop_down', 'categories_drop_down'));
     }
 
     public function destroy($id)
     {
-        Article::find($id)->delete();
+        InterestLink::find($id)->delete();
         $message = 'El Articulo covid se elimino correctamente';
         Session::flash('success_message', $message);
         return redirect()->route('dashboard.link.index');

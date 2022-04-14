@@ -13,6 +13,7 @@ use App\Normativity;
 use App\Announcements;
 use App\Contract;
 use App\DocumentTree;
+use App\InterestLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +33,8 @@ class HomeController extends Controller
         $partners = Partner::get();
         $articles = Article::orderBy('creado', 'desc')->where([['idarticulo_categoria', '=', 5], ['estado', '=', 1]])->take(3)->get();
         $announcements = Announcements::select('id', 'nombre', 'imagen', 'fecha', 'descripcion')->where('estado', 1)->take(3)->get();
-        $links = Article::orderBy('creado', 'desc')->where('idarticulo_categoria', 10)->where('estado', 1)->get();
+        $links = InterestLink::orderBy('creado', 'desc')->where([['idservicio_categoria', '=', 1], ['estado', '=', 1]])->get();
+        $directLinks = InterestLink::orderBy('creado')->where([['idservicio_categoria', '=', 2], ['estado', '=', 1]])->get();
         $collection = collect($links);
         $linksArray = $collection;
         $linksArray->toArray();
@@ -47,19 +49,8 @@ class HomeController extends Controller
         $slider = Article::orderBy('order')->where([['estado', '=', 1], ['idarticulo_categoria', '=', 11]])->get();
         $companyData = getCompanyData();
         return view('frontend.home')->with([
-            'companyData' => $companyData, 'sections' => $sections, 'partners' => $partners, 'sliders' => $slider, 'articles' => $articles, 'gestions' => $gestions, 'announcements' => $announcements, 'normativities' => $normativities, 'linksArray' => $linksArray, 'popUps' => $popUp
+            'companyData' => $companyData, 'sections' => $sections, 'partners' => $partners, 'sliders' => $slider, 'articles' => $articles, 'gestions' => $gestions, 'announcements' => $announcements, 'normativities' => $normativities, 'linksArray' => $linksArray, 'popUps' => $popUp, 'directLinks' => $directLinks
         ]);
-        /*   $companyData = getCompanyData();
-        $sections = Section::where([['id', '<>', 5], ['id', '<>', 6], ['id', '<>', 7]])->get();
-        $links = Article::where('section_id', 7)->get();
-        $collection = collect($links);
-        $linksArray = $collection;
-        $linksArray->toArray();
-        $regulations = Documents::where('category_id', 3)->get();
-        $announcements = Documents::where('category_id', 2)->latest()->take(3)->get();
-        return view('frontend.home')->with([
-            'companyData' => $companyData, 'sections' => $sections, 'partners' => $partners, 'linksArray' => $linksArray, 'sliders' => $slider, 'articles' => $articles, 'announcements' => $announcements, 'regulations' => $regulations
-        ]); */
     }
 
     public function advertisingDetail($id)
