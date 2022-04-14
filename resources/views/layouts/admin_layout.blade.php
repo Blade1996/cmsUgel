@@ -180,7 +180,16 @@
 
     });
     }
+    if($("#linkContent").length){
+        CKEDITOR.replace('linkContent',{
+        filebrowserUploadUrl: "{{ route('documents.storeFiles',  ['_token' => csrf_token() ]) }}",
+        filebrowserUploadRedirect: true,
+        filebrowserUploadMethod: 'form',
+        extraPlugins: 'colordialog',
+        language: 'es-mx'
 
+    });
+    }
 
     });
       //QUESTIONS

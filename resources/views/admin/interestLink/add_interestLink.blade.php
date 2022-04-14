@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('dashboard.link.index') }}">Enlaces</a></li>
                         <li class="breadcrumb-item active">Agregar Enlace</li>
                     </ol>
@@ -45,6 +45,14 @@
                         id="createArticle" enctype="multipart/form-data">@csrf
                         <div class="row">
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Seleccione Sección</label>
+                                    <select name="categoryId" id="categoryId" class="form-control" style="width: 100%;">
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->descripcion }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <label for="form-check-input">Tipo de Contenido</label>
                                 <div class="form-group">
                                     <div class="form-check-inline">
@@ -206,17 +214,17 @@
                                 </div> --}}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Título</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="articleTitle"
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="linkTitle"
                                         placeholder="Ingrese Titulo">
                                 </div>
                                 {{-- <div class="form-group">
                                     <label for="exampleInputEmail1">Subtítulo</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                        name="articleSubTitle" placeholder="Ingrese Subtitulo">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="linkSubTitle"
+                                        placeholder="Ingrese Subtitulo">
                                 </div> --}}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Resumen de Enlace</label>
-                                    <textarea class="form-control" name="articleResume" id="articleResume"
+                                    <textarea class="form-control" name="linkResume" id="linkResume"
                                         placeholder="Ingrese Resumen"
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
                                 </div>
@@ -230,7 +238,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputFile">Imagen de Enlace</label>
                                     <input type="file" class="form-control" onchange="preview_image(event)"
-                                        name="articleImage" id="articleImage">
+                                        name="linkImage" id="linkImage">
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image" />
                                 </div>
 
@@ -241,19 +249,19 @@
                         <h5>Contenido del Enlace</h5>
                         <div class="row">
                             <div class="col-12">
-                                <div class="form-group" id="areaArticleContent">
+                                <div class="form-group" id="areaLinkContent">
                                     <label for="exampleInputEmail1">Descripción</label>
-                                    <textarea class="form-control textAreaEditor" name="articleContent"
-                                        id="articleContent" placeholder="Ingrese Descripcion"
+                                    <textarea class="form-control textAreaEditor" name="linkContent" id="linkContent"
+                                        placeholder="Ingrese Descripcion"
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
                                 </div>
-                                <div class="form-group" id="articleFileContent" style="display: none">
+                                <div class="form-group" id="linkFileContent" style="display: none">
                                     <label for="exampleInputFile">Subir Archivo</label>
-                                    <input type="file" class="form-control" name="articleFile" id="articleFile">
+                                    <input type="file" class="form-control" name="linkFile" id="linkFile">
                                 </div>
-                                <div class="form-group" id="articleUrlContent" style="display: none">
+                                <div class="form-group" id="linkUrlContent" style="display: none">
                                     <label for="exampleInputEmail1">Link Texto</label>
-                                    <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
+                                    <input type="text" class="form-control" id="linkTextLink" name="linkTextLink"
                                         placeholder="Ingrese Texto Link">
                                 </div>
                                 <div class="form-group" id="selectTree" style="display: none">
@@ -271,19 +279,19 @@
 
                         {{-- <div class="form-group">
                             <label for="exampleInputEmail1">Título para SEO</label>
-                            <input type="text" class="form-control" placeholder="Ingrese Titulo" id="articleSeoTitle"
-                                name="articleSeoTitle">
+                            <input type="text" class="form-control" placeholder="Ingrese Titulo" id="linkSeoTitle"
+                                name="linkSeoTitle">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Descripción para SEO</label>
-                            <textarea class="form-control" name="articleSeoDescription" id="articleSeoDescription"
+                            <textarea class="form-control" name="linkSeoDescription" id="linkSeoDescription"
                                 placeholder="Ingrese Descripcion"
                                 style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputFile">Insertar Imagen para SEO</label>
-                            <input type="file" class="form-control" onchange="preview_image2(event)"
-                                name="articleSeoImage" id="articleSeoImage">
+                            <input type="file" class="form-control" onchange="preview_image2(event)" name="linkSeoImage"
+                                id="linkSeoImage">
                             <img style="margin-top: 10px;" class="img-fluid" id="output_image2" />
                         </div> --}}
                 </div>

@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('dashboard.link.index') }}">Enlaces</a></li>
                         <li class="breadcrumb-item active">Editar Enlace</li>
                     </ol>
@@ -46,9 +46,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Título</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="articleTitle"
-                                        value="{{$linkDetail->titulo}}" placeholder="Ingrese Titulo">
+                                    <label>Seleccione Seccion</label>
+                                    <select name="categoryId" id="categoryId" class="form-control select2"
+                                        style="width: 100%;">
+                                        <?php echo $categories_drop_down; ?>
+                                    </select>
                                 </div>
                                 <label for="form-check-input">Tipo de Contenido</label>
                                 <div class="form-group">
@@ -461,19 +463,23 @@
                                 </div> --}}
                                 {{-- <div class="form-group">
                                     <label for="exampleInputEmail1">Subtítulo</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                        name="articleSubTitle" value="{{$linkDetail->subtitle}}"
-                                        placeholder="Ingrese Subtitulo">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="linkSubTitle"
+                                        value="{{$linkDetail->subtitle}}" placeholder="Ingrese Subtitulo">
                                 </div> --}}
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Título</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="linkTitle"
+                                        value="{{$linkDetail->titulo}}" placeholder="Ingrese Titulo">
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Resumen de Enlace</label>
-                                    <textarea class="form-control" name="articleResume" id="articleResume"
+                                    <textarea class="form-control" name="linkResume" id="linkResume"
                                         placeholder="Ingrese Resumen"
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;">{{$linkDetail->resumen}}</textarea>
                                 </div>
                                 {{-- <div class="form-group">
                                     <label for="exampleInputEmail1">Link Texto</label>
-                                    <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
+                                    <input type="text" class="form-control" id="linkTextLink" name="linkTextLink"
                                         value="{{$linkDetail->text_link}}" placeholder="Ingrese Texto Link">
                                 </div>
                                 <div class="form-group">
@@ -492,16 +498,15 @@
                                 <div class="form-group">
                                     <label for="exampleInputFile">Insertar Imagen</label>
                                     <input type="file" class="form-control" onchange="preview_image(event)"
-                                        name="articleImage" id="articleImage">
+                                        name="linkImage" id="linkImage">
                                     <img style="margin-top: 10px;" class="img-fluid" id="output_image" width=300
-                                        src="{{asset($linkDetail->page_image)}}" />
-                                    <input type="hidden" name="currentArticleImage" value="{{ $linkDetail->imagen }}">
+                                        src="{{asset($linkDetail->imagen)}}" />
+                                    <input type="hidden" name="currentLinkImage" value="{{ $linkDetail->imagen }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">URL de Video</label>
-                                    <input type="url" class="form-control" id="articleUrlVideo" name="articleUrlVideo"
+                                    <input type="url" class="form-control" id="linkUrlVideo" name="linkUrlVideo"
                                         value="{{ $linkDetail->video}}" placeholder="Ingrese URL">
-                                    <input type="hidden" name="currentUrlVideo" value="{{ $linkDetail->video }}">
                                 </div>
                             </div>
                             <!-- /.col -->
@@ -512,46 +517,48 @@
                             <div class="col-12">
                                 <div class="form-group" id="areaArticleContent">
                                     <label for="exampleInputEmail1">Descripción</label>
-                                    <textarea class="form-control textAreaEditor" name="articleContent"
-                                        id="articleContent" placeholder="Ingrese Descripcion"
+                                    <textarea class="form-control textAreaEditor" name="linkContent" id="linkContent"
+                                        placeholder="Ingrese Descripcion"
                                         style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
                                 </div>
-                                <div class="form-group" id="articleFileContent" style="display: none">
+                                <div class="form-group" id="linkFileContent" style="display: none">
                                     <label for="exampleInputFile">Subir Archivo</label>
-                                    <input type="file" class="form-control" name="articleFile" id="articleFile">
+                                    <input type="file" class="form-control" name="linkFile" id="linkFile">
                                     <input type="hidden" class="form-control" name="currentArticleFile"
                                         id="currentArticleFile" value="{{ $linkDetail->archivo }}">
                                 </div>
-                                <div class="form-group" id="articleUrlContent" style="display: none">
+                                <div class="form-group" id="linkUrlContent" style="display: none">
                                     <label for="exampleInputEmail1">Link Texto</label>
-                                    <input type="text" class="form-control" id="articleTextLink" name="articleTextLink"
+                                    <input type="text" class="form-control" id="linkTextLink" name="linkTextLink"
                                         placeholder="Ingrese Texto Link" value="{{ $linkDetail->redireccion }}">
                                 </div>
-                                <div class="form-group" id="selectTree" style="display: none">
+                                @if ($linkDetail->tipo == 'tree')
+                                <div class="form-group" id="selectTree">
                                     <label>Seleccione Sección</label>
                                     <select name="treeId" id="treeId" class="form-control" style="width: 100%;">
                                         <?php echo $tree_drop_down; ?>
                                     </select>
                                 </div>
+                                @endif
                             </div>
                             <!-- /.form-group -->
                         </div>
                         <!-- /.col -->
                         {{-- <div class="form-group">
                             <label for="exampleInputEmail1">Título para SEO</label>
-                            <input type="text" class="form-control" placeholder="Ingrese Titulo" id="articleSeoTitle"
-                                value="{{$linkDetail->title_seo }}" name="articleSeoTitle">
+                            <input type="text" class="form-control" placeholder="Ingrese Titulo" id="linkSeoTitle"
+                                value="{{$linkDetail->title_seo }}" name="linkSeoTitle">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Descripción para SEO</label>
-                            <textarea class="form-control" name="articleSeoDescription" id="articleSeoDescription"
+                            <textarea class="form-control" name="linkSeoDescription" id="linkSeoDescription"
                                 placeholder="Ingrese Descripcion"
                                 style="margin-top: 0px; margin-bottom: 0px; height: 93px;">{{$linkDetail->content_seo }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputFile">Insertar Imagen para SEO</label>
-                            <input type="file" class="form-control" onchange="preview_image2(event)"
-                                name="articleSeoImage" id="articleSeoImage">
+                            <input type="file" class="form-control" onchange="preview_image2(event)" name="linkSeoImage"
+                                id="linkSeoImage">
                             <img style="margin-top: 10px;" class="img-fluid" id="output_image2" width="400"
                                 src="{{$linkDetail->image_seo }}" />
                         </div> --}}

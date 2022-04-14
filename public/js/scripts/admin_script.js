@@ -194,6 +194,54 @@ $(document).on('change', 'input[type=radio][name=typelink]', function(){
     }
 })
 
+let interestType = $("input[name='typelink']:checked").val();
+
+if(interestType === 'external'){
+    $('#areaLinkContent').css('display', 'none');
+    $("#linkUrlContent").css('display', 'block');
+    $("#linkFileContent").css('display', 'none');
+} else if (interestType == 'pdf'){
+    $('#areaLinkContent').css('display', 'none');
+    $("#linkUrlContent").css('display', 'none');
+    $("#linkFileContent").css('display', 'block');
+
+} else if (interestType == 'tree') {
+    $('#areaLinkContent').css('display', 'block');
+    $("#linkUrlContent").css('display', 'none');
+    $("#linkFileContent").css('display', 'none');
+    $("#selectTree").css('display', 'block');
+}
+else{
+    $('#areaLinkContent').css('display', 'block');
+    $("#linkUrlContent").css('display', 'none');
+    $("#linkFileContent").css('display', 'none');
+}
+
+$(document).on('change', 'input[type=radio][name=typelink]', function(){
+    let typeLinkInt = $(this).val();
+    if(typeLinkInt === 'external'){
+        $('#areaLinkContent').css('display', 'none');
+        $("#linkUrlContent").css('display', 'block');
+        $("#linkFileContent").css('display', 'none');
+        $("#selectTree").css('display', 'none');
+    } else if (typeLinkInt == 'pdf'){
+        $('#areaLinkContent').css('display', 'none');
+        $("#linkUrlContent").css('display', 'none');
+        $("#linkFileContent").css('display', 'block');
+        $("#selectTree").css('display', 'none');
+    }else if (typeLinkInt == 'tree'){
+        $('#linkFileContent').css('display', 'none');
+        $('#areaLinkContent').css('display', 'block');
+        $("#linkUrlContent").css('display', 'none');
+        $("#linkFileContent").css('display', 'none');
+        $("#selectTree").css('display', 'block');
+    } else{
+        $('#areaLinkContent').css('display', 'block');
+        $("#linkUrlContent").css('display', 'none');
+        $("#linkFileContent").css('display', 'none');
+        $("#selectTree").css('display', 'none');
+    }
+})
 /* $(document).on('click', '#showCaption', function(){
     let showCaption  = $(this).is(':checked');
     if(showCaption) {
@@ -216,3 +264,4 @@ $(document).on('click', '#isParent', function(){
     }
 })
 })
+
