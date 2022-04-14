@@ -159,7 +159,7 @@
           ['para', ['paragraph']],
       ]
     }); */
-    
+
      if($("#articleContent").length){
         CKEDITOR.replace('articleContent',{
         filebrowserUploadUrl: "{{ route('documents.storeFiles',  ['_token' => csrf_token() ]) }}",
@@ -181,7 +181,7 @@
     });
     }
 
-    
+
     });
       //QUESTIONS
   $(function(){
