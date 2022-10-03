@@ -85,6 +85,7 @@ class RotateController extends Controller
 
             $rotate->nombre = $data['rotateTitle'];
             $rotate->idrotacion_categoria = $data['categoryId'];
+            $rotate->fecha = $date_now;
 
             $rotate->update();
 

@@ -43,7 +43,7 @@
             @foreach ($articles as $article)
             <div class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative">
                 <div class="col-auto d-none d-lg-block">
-                    <img class="card-top-image" width="140" height="180" src="{{ $article->imagen }}" alt="...">
+                    <img class="card-top-image" height="180" src="{{ $article->imagen }}" alt="...">
                 </div>
                 <div class="col p-4 d-flex flex-column position-static">
                     <h3 class="mb-0">{{$article->titulo}}</h3>

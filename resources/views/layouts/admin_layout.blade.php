@@ -126,11 +126,13 @@
     <script src="{{ url('js/treeView.js') }}"></script>
     <script src="{{url('js/toastr.min.js')}}"></script>
     <!--CkEditor-->
+    {{-- <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script> --}}
     <script src="{{ url('ckeditor/ckeditor.js') }}"></script>
     <script>
         $(function(){
     $('#sectionsTable').dataTable({
       responsive: true,
+      order: []
     });
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -160,12 +162,15 @@
       ]
     }); */
 
+    //CKEDITOR plugins
+    CKEDITOR.plugins.addExternal( 'colordialog', 'youtube');
+
      if($("#articleContent").length){
         CKEDITOR.replace('articleContent',{
         filebrowserUploadUrl: "{{ route('documents.storeFiles',  ['_token' => csrf_token() ]) }}",
         filebrowserUploadRedirect: true,
         filebrowserUploadMethod: 'form',
-        extraPlugins: 'colordialog',
+        extraplugins: ['youtube','colordialog'],
         language: 'es-mx'
 
     });
@@ -175,7 +180,7 @@
         filebrowserUploadUrl: "{{ route('documents.storeFiles',  ['_token' => csrf_token() ]) }}",
         filebrowserUploadRedirect: true,
         filebrowserUploadMethod: 'form',
-        extraPlugins: 'colordialog',
+        extraplugins: ['youtube','colordialog'],
         language: 'es-mx'
 
     });
@@ -185,7 +190,7 @@
         filebrowserUploadUrl: "{{ route('documents.storeFiles',  ['_token' => csrf_token() ]) }}",
         filebrowserUploadRedirect: true,
         filebrowserUploadMethod: 'form',
-        extraPlugins: 'colordialog',
+        extraplugins: ['youtube','colordialog'],
         language: 'es-mx'
 
     });

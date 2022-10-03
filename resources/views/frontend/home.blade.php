@@ -67,7 +67,7 @@
                 <img style="float: left;" src="assets/img/iconenlaces.png" width="70" height="70" alt="" />
                 <h3 class="title-color mb-3" style="float: left; margin-top: 25px;">Enlaces de interés</h3>
             </div>
-            @foreach ($linksArray->chunk(5) as $links)
+            @foreach ($linksArray->chunk(count($linksArray)/2) as $links)
             <div class="col-xs-12 col-sm-6 col-md-4">
                 @foreach ($links as $link)
                 @if ($link->tipo == 'external')
@@ -188,7 +188,7 @@
                                 <img class="card-img-top-news" src="{{ $article->imagen }}" alt="..." />
                             </div>
                             <div class="col d-flex flex-column position-static">
-                                <div class="mb-1 text-muted">{{ $article->creado }}</div>
+                                <div class="mb-1 text-muted">{{ $article->modificado}}</div>
                                 <h4 class="card-title h4">{{ $article->titulo }}</h4>
 
                                 <p class="card-text">{{ $article->resumen }}</p>
@@ -208,25 +208,150 @@
                         class="fas fa-angle-right"></i></a>
             </div>
             <div class="row">
-                @foreach ($gestions as $gestion)
-                <div class="col-lg-4 col-md-6 col-xs-12">
-                    <div class="card-body">
-                        <div class="row g-0 rounded overflow-hidden flex-md-row h-md-250 position-relative mb-4 pt-2">
-                            <div class="col-auto d-none d-lg-block">
-                                <img class="card-img-top-news" src="{{ $gestion->imagen }}" alt="..." />
-                            </div>
-                            <div class="col d-flex flex-column position-static">
-                                <div class="mb-1 text-muted">{{ $gestion->creado }}</div>
-                                <h4 class="card-title h4">{{ $gestion->titulo }}</h4>
+                <div id="pedagogicCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @php
+                        $i = 1
+                        @endphp
+                        @foreach ($gestions as $gestion)
+                        <div class="carousel-item {{ $i === 1 ? 'active' : '' }}">
+                            @php
+                            $i++
+                            @endphp
+                            <img class="d-block w-100" src="{{ $gestion->imagen }}">
+                            <div class="overlay">
+                                @if ($gestion->tipo == 'external')
+                                <a target="_blank" href="{{ $gestion->redireccion }}">
+                                    <h5>{{ $gestion->titulo }}</h5>
+                                    <p>{{ $gestion->resumen }}</p>
+                                </a>
 
-                                <p class="card-text">{{ $gestion->resumen }}</p>
-                                <a href="{{ route('home.article.detail', $gestion->id) }}"
-                                    class="stretched-link">Ver&nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                                @elseif ($gestion->tipo == 'pdf')
+                                <a target="_blank" href="{{ $gestion->archivo }}">
+                                    <h5>{{ $gestion->titulo }}</h5>
+                                    <p>{{ $gestion->resumen }}</p>
+                                </a>
+
+                                @else
+                                <a target="_blank" href="{{ route('home.article.detail', $gestion->id) }}">
+                                    <h5>{{ $gestion->titulo }}</h5>
+                                    <p>{{ $gestion->resumen }}</p>
+                                </a>
+
+                                @endif
                             </div>
                         </div>
+                        @endforeach
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#pedagogicCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#pedagogicCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                @endforeach
+                {{-- <div id="pedagogicCarousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        @foreach ($gestions as $key=>$gestion)
+                        <li data-target="#pedagogicCarousel" data-slide-to="{{ $key }}"
+                            class="{{ $key === 0 ? 'active' : '' }}"></li>
+                        @endforeach
+                    </ol>
+                    <div class="carousel-inner">
+                        @php
+                        $i = 1;
+                        @endphp
+                        @foreach ($gestions as $gestion)
+                        <div class="carousel-item {{ $i === 1 ? 'active' : '' }}">
+                            @php
+                            $i++
+                            @endphp
+                            <img class="d-block w-100" src="{{ $gestion->imagen }}">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>{{ $gestion->titulo }}</h5>
+                                @if ($gestion->tipo == 'external')
+                                <p><a class="btn btn-lg btn-primary" href="{{ $gestion->redireccion }}"
+                                        target="_blank">+
+                                        información</a></p>
+                                @elseif ($gestion->tipo == 'pdf')
+                                <p><a class="btn btn-lg btn-primary" href="{{ $gestion->archivo }}" target="_blank">+
+                                        información</a>
+                                </p>
+                                @else
+                                <p><a class="btn btn-lg btn-primary"
+                                        href="{{ route('home.article.detail', $gestion->id) }}">+
+                                        información</a></p>
+                                @endif
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <a class="carousel-control-prev" data-target="#pedagogicCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" data-target="#pedagogicCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div> --}}
+                {{-- <div id="gestionCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        @foreach ($gestions as $key=>$gestion)
+                        <button type="button" data-bs-target="#gestionCarousel" data-bs-slide-to="{{  $key }}"
+                            aria-current="{{ $key === 1 ? 'true' : '' }}" aria-label="Slide {{ $key }}"
+                            class="{{ $key === 0 ? 'active'  : '' }}"></button>
+                        @endforeach
+                    </div>
+                    <div class="carousel-inner">
+                        @php
+                        $i = 1
+                        @endphp
+                        @foreach ($gestions as $gestion)
+                        <div class="carousel-item {{ $i === 1 ? 'active': '' }}" style="background-image: url({{ $gestion->imagen }});
+            background-size: cover;background-repeat: no-repeat;">
+                            @php
+                            $i++
+                            @endphp
+                            <div class="container">
+                                <div class="carousel-caption text-start my-5">
+                                    <h1>{{ $gestion->titulo }}</h1>
+                                    <p>{{ $gestion->resumen }}</p>
+                                    @if ($gestion->tipo == 'external')
+                                    <p><a class="btn btn-lg btn-primary" href="{{ $gestion->redireccion }}"
+                                            target="_blank">+
+                                            información</a></p>
+                                    @elseif ($gestion->tipo == 'pdf')
+                                    <p><a class="btn btn-lg btn-primary" href="{{ $gestion->archivo }}"
+                                            target="_blank">+
+                                            información</a>
+                                    </p>
+                                    @else
+                                    <p><a class="btn btn-lg btn-primary"
+                                            href="{{ route('home.article.detail', $gestion->id) }}">+
+                                            información</a></p>
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#gestionCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#gestionCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div> --}}
             </div>
 
         </div>
@@ -256,7 +381,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div id="cpedagogicCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         @php
                         $i = 1
@@ -278,12 +403,12 @@
                         </div>
                         @endforeach
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    <button class="carousel-control-prev" type="button" data-bs-target="#cpedagogicCarousel"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    <button class="carousel-control-next" type="button" data-bs-target="#cpedagogicCarousel"
                         data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>

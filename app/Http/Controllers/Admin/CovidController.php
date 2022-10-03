@@ -87,6 +87,7 @@ class CovidController extends Controller
             $covid->nombre = $data['covidTitle'];
             $covid->idcovid_categoria = $data['categoryId'];
 
+            $covid->fecha = $date_now;
             $covid->update();
 
             Session::flash('success_message', 'La Convocatoria se Actualizo Correctamente');

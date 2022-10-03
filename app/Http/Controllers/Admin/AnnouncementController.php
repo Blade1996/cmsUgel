@@ -91,6 +91,7 @@ class AnnouncementController extends Controller
             $document->nombre = $data['announcementTitle'];
             $document->idconvocatoria_categoria = $data['categoryId'];
             $document->descripcion = $data['announcementDescription'];
+            $document->fecha = Carbon::now('America/lima');
             $document->update();
 
             if (count($document->files) > 0) {

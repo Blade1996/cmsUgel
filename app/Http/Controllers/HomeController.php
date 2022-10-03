@@ -31,19 +31,19 @@ class HomeController extends Controller
     public function index()
     {
         $partners = Partner::get();
-        $articles = Article::orderBy('creado', 'desc')->where([['idarticulo_categoria', '=', 5], ['estado', '=', 1]])->take(3)->get();
+        $articles = Article::orderBy('modificado', 'desc')->where([['idarticulo_categoria', '=', 5], ['estado', '=', 1]])->take(3)->get();
         $announcements = Announcements::select('id', 'nombre', 'imagen', 'fecha', 'descripcion')->where('estado', 1)->take(3)->get();
-        $links = InterestLink::orderBy('creado', 'desc')->where([['idservicio_categoria', '=', 1], ['estado', '=', 1]])->get();
-        $directLinks = InterestLink::orderBy('creado')->where([['idservicio_categoria', '=', 2], ['estado', '=', 1]])->get();
+        $links = InterestLink::orderBy('modificado', 'desc')->where([['idservicio_categoria', '=', 1], ['estado', '=', 1]])->get();
+        $directLinks = InterestLink::orderBy('modificado')->where([['idservicio_categoria', '=', 2], ['estado', '=', 1]])->get();
         $collection = collect($links);
         $linksArray = $collection;
         $linksArray->toArray();
         $normativities = Normativity::orderBy('fecha', 'desc')->where('estado', 1)->take(3)->get(['id', 'nombre', 'imagen', 'fecha', 'archivo']);
         $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
-            $section->articles =  Article::orderBy('creado', 'desc')->where('estado', 1)->where('idarticulo_categoria', $section->id)->get();
+            $section->articles =  Article::orderBy('modificado', 'desc')->where('estado', 1)->where('idarticulo_categoria', $section->id)->get();
         });
-        $gestions = Article::orderBy('creado', 'desc')->where('estado', 1)->where('idarticulo_categoria', 9)->take(3)->get(['id', 'titulo', 'imagen', 'creado']);
+        $gestions = Article::orderBy('modificado', 'desc')->where('estado', 1)->where('idarticulo_categoria', 9)->take(3)->get(['id', 'titulo', 'imagen', 'modificado', 'resumen']);
         $popUp = Advertising::orderBy('fecha', 'desc')->where([['estado', '=', 1], ['idpublicidad_categoria', '=', 1]])->take(3)->get();
         $partners = Partner::get();
         $slider = Article::orderBy('order')->where([['estado', '=', 1], ['idarticulo_categoria', '=', 11]])->get();
@@ -88,7 +88,7 @@ class HomeController extends Controller
 
     public function indexArticles()
     {
-        $articles = Article::where('idarticulo_categoria', 5)->orderBy('creado', 'desc')->paginate(4);
+        $articles = Article::where('idarticulo_categoria', 5)->orderBy('modificado', 'desc')->paginate(4);
         $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
@@ -160,7 +160,7 @@ class HomeController extends Controller
 
     public function indexAnnouncements(Request $request)
     {
-        $announcements = Announcements::get();
+        $announcements = Announcements::all();
         $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
@@ -193,7 +193,7 @@ class HomeController extends Controller
 
     public function announcementDetail($id)
     {
-        $announcementDetail = Announcements::where('id', $id)->first();
+        $announcementDetail = Announcements::find($id);
         $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
         $sections->each(function ($section) {
             $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();

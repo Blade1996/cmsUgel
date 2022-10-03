@@ -9,7 +9,7 @@
 
             <div class="col-md-8 mb-2 mb-md-0 text-center">
                 <p class="text-center">
-                    "Año del Fortalecimiento de la Soberanía Nacional"
+                    {{ $companyData->companyInfo->year_name ?? '' }}
                 </p>
                 <p>Ilo, {{ fecha_string() }}</p>
             </div>

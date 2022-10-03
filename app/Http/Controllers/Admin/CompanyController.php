@@ -139,7 +139,7 @@ class CompanyController extends Controller
 
             Company::where('code', env('CODE_COMPANY'))->update([
                 'name' => $data['companyName'], 'companyInfo->url_logo' => $completePathCampaign,
-                'companyInfo->company_address' => $data['companyAddress'], 'companyInfo->company_phone' => $data['companyPhone'], 'companyInfo->url_company' => $completePathCompany, 'companyInfo->url_icon' => $completePathIcon, 'companySeo->title' => $data['companySeoTitle'], 'companySeo->description' => $data['companySeoDescription'], 'companySeo->url_image' => $completePathSeo, 'first_image' => $completePathModal, 'redirect_first_image' => $completeRedirect ?? ''
+                'companyInfo->company_address' => $data['companyAddress'], 'companyInfo->company_phone' => $data['companyPhone'], 'companyInfo->url_company' => $completePathCompany, 'companyInfo->url_icon' => $completePathIcon, 'companySeo->title' => $data['companySeoTitle'], 'companySeo->description' => $data['companySeoDescription'], 'companySeo->url_image' => $completePathSeo, 'first_image' => $completePathModal, 'redirect_first_image' => $completeRedirect ?? '', 'companyInfo->year_name' => $data['yearName'] ?? ''
             ]);
             Session::flash('success_message', 'Los datos se guardaron Correctamente');
             return redirect()->route('dashboard.company');

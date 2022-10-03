@@ -24,7 +24,12 @@
                 @foreach ($announcementDetail->getMedia($files) as $index=>$file)
                 <input type="hidden" name="filePdf" id="base{{ $index }}" value="{{ $file->getUrl() }}">
                 <section class="mb-5">
-                    <h2>{{ $file->name }}</h2>
+                    @php
+                    $nameSplit = explode('_', $file->name);
+                    $nameLength = count($nameSplit);
+                    $name = $nameSplit[$nameLength -1];
+                    @endphp
+                    <h2>{{ $name }}</h2>
                     <div id="pdf-file-{{ $index }}" style="margin: 30px"></div>
                 </section>
                 @endforeach

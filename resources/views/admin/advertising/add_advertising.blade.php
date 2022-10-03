@@ -97,7 +97,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group" id="areaArticleContent">
-                                            <label for="exampleInputEmail1">Descripci¨®n</label>
+                                            <label for="exampleInputEmail1">Descripciï¿½ï¿½n</label>
                                             <textarea class="form-control textAreaEditor" name="advertisingContent"
                                                 id="advertisingContent" placeholder="Ingrese Descripcion"
                                                 style="margin-top: 0px; margin-bottom: 0px; height: 93px;"></textarea>
@@ -127,7 +127,7 @@
                                     <label for="exampleInputFile">Imagen de Publicidad</label>
                                     <input type="file" class="form-control" onchange="preview_image(event)"
                                         name="advertisingImage" id="advertisingImage">
-                                    <img style="margin-top: 10px;" class="img-fluid" id="output_image" />
+                                    <img style="margin-top: 10px; height: 500px" class="img-fluid" id="output_image" />
                                 </div>
                             </div>
                             <!-- /.card-body -->

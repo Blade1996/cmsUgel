@@ -16,10 +16,13 @@
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">etiqueta</a>
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">etiqueta</a>
                 </header>
+
                 <!-- Preview image figure-->
                 @if (!is_null($articleDetail->video))
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="{{ $articleDetail->video }}" width="560" height="315"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
                 </div>
                 @else
@@ -27,9 +30,11 @@
                 </figure>
                 @endif
                 <!-- Post content-->
+                @if ($articleDetail->descripcion)
                 <section class="mb-5 mt-5">
                     {!!$articleDetail->descripcion!!}
                 </section>
+                @endif
                 @if ($articleDetail->tipo == 'tree')
                 <div class="accordion accordion-flush" id="accordionFlushExample"
                     style="margin-top: 50px; margin-bottom: 50px">

@@ -90,6 +90,7 @@ class ElectionController extends Controller
             $election->nombre = $data['electionTitle'];
             $election->ideleccion_categoria = $data['categoryId'];
 
+            $election->fecha = $date_now;
             $election->update();
 
             Session::flash('success_message', 'La Convocatoria se Actualizo Correctamente');

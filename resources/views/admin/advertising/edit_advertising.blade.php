@@ -136,7 +136,7 @@
                                     <label for="exampleInputFile">Imagen de Publicidad</label>
                                     <input type="file" class="form-control" onchange="preview_image(event)"
                                         name="advertisingImage" id="advertisingImage">
-                                    <img style="margin-top: 10px;" src="{{ $advertisingDetail->image }}"
+                                    <img style="margin-top: 10px; height: 500px" src="{{ $advertisingDetail->image }}"
                                         class="img-fluid" id="output_image" />
                                     <input type="hidden" name="currentAdvertisingImage"
                                         value="{{ $advertisingDetail->image }}">

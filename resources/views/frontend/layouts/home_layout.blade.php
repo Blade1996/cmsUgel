@@ -140,6 +140,11 @@
                       }
                 }
                     })
+
+                    $('#pedagogicCarousel').carousel({
+                        interval: 5000,
+                    });
+
                     $(document).ready(function() {
                         let count = $('input[name="countModal"]').val();
 
@@ -154,7 +159,6 @@
                             })
 
                             $('#exampleModal .carousel').carousel()
-
 
                         }
 
@@ -186,6 +190,7 @@
 
     $('#announcenentsTable').dataTable({
       responsive: true,
+      order: [],
     });
   })
 

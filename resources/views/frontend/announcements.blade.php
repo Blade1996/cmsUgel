@@ -19,7 +19,6 @@
                     <!-- Post title-->
                     <h1 class="fw-bolder mb-1">Convocatorias</h1>
                 </header>
-
                 <table id="announcenentsTable" class="table table-bordered table-striped" style="max-width: 100%">
                     <thead>
                         <tr>

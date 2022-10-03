@@ -116,13 +116,14 @@
                             <div class="icon-opening-wrapper">
                                 <div class="icon-opening-container">
                                     <p class="icon-opening"><i class="fa fa-phone"></i></p>
-                                    <p class="icon-opening-content">T: 053 - 484090</p>
+                                    <p class="icon-opening-content">T: {{ $companyData->companyInfo->company_phone }}
+                                    </p>
                                 </div>
                             </div>
                             <div class="icon-opening-wrapper">
                                 <div class="icon-opening-container">
                                     <p class="icon-opening"><i class="fa fa-location-arrow"></i></p>
-                                    <p class="icon-opening-content">Jr. 28 de Julio Nº 449<br>
+                                    <p class="icon-opening-content">{{$companyData->companyInfo->company_address}}<br>
                                         Ilo, Perú</p>
                                 </div>
                             </div>
