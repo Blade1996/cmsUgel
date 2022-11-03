@@ -46,16 +46,20 @@ class AuthController extends Controller
 
 
         if ($validator->fails()) {
-            return response()->json(['statusCode' => 400,
-                'message' => $validator->errors()->first()], 400);
+            return response()->json([
+                'statusCode' => 400,
+                'message' => $validator->errors()->first()
+            ], 400);
         }
 
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return response()->json(['statusCode' => 400,
+            return response()->json([
+                'statusCode' => 400,
                 'code' => 'EMAIL_NOT_FOUND',
-                'message' => 'EL correo no existe'], 400);
+                'message' => 'EL correo no existe'
+            ], 400);
         }
 
 
@@ -82,19 +86,21 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
 
-        $fecha = new DateTime('now', new DateTimeZone('America/Lima'));
+        $fecha = now('America/Lima');
         $user = User::where('email', $request->email)->first();
         if ($user) {
-            return response()->json(['statusCode' => 400,
+            return response()->json([
+                'statusCode' => 400,
                 'code' => 'EMAIL_ALREADY_REGISTERED',
-                'message' => 'EL correo ya esta registrado'], 400);
+                'message' => 'EL correo ya esta registrado'
+            ], 400);
         }
         $data = $request->all();
         $name = $data['name'];
         $email = $data['email'];
         $password = $data['password'];
         $encripted = Hash::make($email . '' . time());
-        $fecha = new DateTime('now', new DateTimeZone('America/Lima'));
+        $fecha = now('America/Lima');
 
         $user = new User;
         $user->name = $request->name;
@@ -122,7 +128,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $data = $request->header('Authorization');
-        
+
         try {
 
             JWTAuth::invalidate($data);
@@ -131,14 +137,12 @@ class AuthController extends Controller
                 'status' => 200,
                 'message' => 'EL usuario cerro sesion correctamente',
             ], 200);
-
         } catch (JWTException $exception) {
 
             return response()->json([
                 'status' => 500,
                 'message' => 'Ocurrio un error al intentar cerrar',
             ], 500);
-
         }
     }
 
@@ -153,7 +157,8 @@ class AuthController extends Controller
         return $sectionData;
     }
 
-    public function getSectionDetail($id){
+    public function getSectionDetail($id)
+    {
         $sectionDetail = Section::select('id', 'name', 'description')->where('id', $id)->first();
         return $sectionDetail;
     }
@@ -177,7 +182,7 @@ class AuthController extends Controller
 
     public function getSections()
     {
-        return Section::select('id', 'name', 'route', 'slug', 'slug', 'text_link' , 'order')->where('activated', 1)->orderBy('order', 'asc')->get();
+        return Section::select('id', 'name', 'route', 'slug', 'slug', 'text_link', 'order')->where('activated', 1)->orderBy('order', 'asc')->get();
     }
 
     public function getSlide()
@@ -192,21 +197,21 @@ class AuthController extends Controller
             $user = User::where('email', $data['email'])->where('is_activated', 1)->first();
             if (isset($user)) {
                 $token = Str::random(10);
-                $fecha = new DateTime('now', new DateTimeZone('America/Lima'));
+                $fecha = now('America/Lima');
                 $email = $data['email'];
-                
+
                 DB::table('password_resets')->insert(['email' => $email, 'token' => $token, 'created_at' =>  $fecha]);
-                                
-                Mail::send('emails.reset',['token' => $token, 'name' => $user->name], function ($message) use ($email) {
+
+                Mail::send('emails.reset', ['token' => $token, 'name' => $user->name], function ($message) use ($email) {
                     $message->to($email);
                     $message->subject('Restaurar Contraseña');
                 });
-                
+
                 return response()->json([
                     'status' => 200,
                     'message' => 'Se ha enviado un enlace a tu correo',
                 ], 200);
-                
+
                 /* $data_send = [
                     'email' => $data['email'],
                     'name' => $user->name
@@ -215,10 +220,8 @@ class AuthController extends Controller
                 if (count(Mail::failures()) > 0) {
                     return new \Error(Mail::failures());
                 } */
-               
             }
             return response(['status' => 400, 'message' => 'Usuario no encontrado'], 400);
-
         }
         return response(['status' => 400, 'message' => 'El email ingresado no es válido'], 400);
     }
@@ -249,7 +252,6 @@ class AuthController extends Controller
             ], 200);
         }
         return response(['status' => 400, 'message' => 'Token no valido'], 400);
-
     }
 
     public function getAreas()
@@ -257,7 +259,8 @@ class AuthController extends Controller
         return Area::select('id', 'name')->get();
     }
 
-    public function getUserDetails(Request $request){
+    public function getUserDetails(Request $request)
+    {
         $data = $request->header('Authorization');
         $token =  explode(' ', $data)[1];
         $user = JWTAuth::toUser($token);
@@ -265,12 +268,13 @@ class AuthController extends Controller
         $company = Company::first();
         $company['helpCenter'] = json_decode($company['helpCenter']);
         $company['companyInfo'] = json_decode($company['companyInfo']);
-        if($user){
+        if ($user) {
             return response()->json(['statusCode' => 200, 'data' => ['user' => $user, 'companyData' => $company]]);
         }
     }
 
-    public function getCompanyData(){
+    public function getCompanyData()
+    {
         $company = Company::first();
         $company['helpCenter'] = json_decode($company['helpCenter']);
         $company['cookiePolicy'] = json_decode($company['cookiePolicy']);
@@ -280,5 +284,4 @@ class AuthController extends Controller
 
         return response()->json(['statusCode' => 200, 'data' => $company]);
     }
-
 }

@@ -11,7 +11,7 @@ class AreasTableSeeder extends Seeder
      */
     public function run()
     {
-        $fecha = new DateTime('now', new DateTimeZone('America/Lima'));
+        $fecha = now('America/Lima');
         DB::table('areas')->delete();
         $areasRecord = [
             [
@@ -31,7 +31,7 @@ class AreasTableSeeder extends Seeder
                 'name' => 'RRHH',
                 'created_at' => $fecha,
                 'updated_at' => $fecha,
-            ],[
+            ], [
                 'id' => 4,
                 'name' => 'Contabilidad',
                 'created_at' => $fecha,

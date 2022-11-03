@@ -92,17 +92,45 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Horario de oficina prescencial</label>
-                                    <input type="text" class="form-control" id="companyEmail" name="companyEmail"
-                                        value="{{$companyData->redirect_first_image}}" placeholder="Ingrese Direccion">
-                                    <input type="hidden" name="currentRedirectModal"
-                                        value="{{$companyData->redirect_first_image}}">
+                                    <div class="row">
+                                        <div class="input-group date col" id="datetimepicker" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#datetimepicker" name="fromPresencial" />
+                                            <div class="input-group-append" data-target="#datetimepicker"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group date col" id="datetimepicker2" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#datetimepicker2" name="toPrescencial" value="12:38 AM" />
+                                            <div class="input-group-append" data-target="#datetimepicker2"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Horario de oficina virtual</label>
-                                    <input type="text" class="form-control" id="companyEmail" name="companyEmail"
-                                        value="{{$companyData->redirect_first_image}}" placeholder="Ingrese Direccion">
-                                    <input type="hidden" name="currentRedirectModal"
-                                        value="{{$companyData->redirect_first_image}}">
+                                   <div class="row">
+                                        <div class="input-group date col" id="datetimepicker3" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#datetimepicker3" name="fromVirtual" />
+                                            <div class="input-group-append" data-target="#datetimepicker3"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group date col" id="datetimepicker4" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#datetimepicker4" name="toVirtual" />
+                                            <div class="input-group-append" data-target="#datetimepicker4"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Horario de whatsapp</label>

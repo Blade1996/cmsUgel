@@ -19,6 +19,10 @@ class CompanyController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
 
+            echo '<pre>';
+            print_r($data);
+            die;
+
 
             $rulesData = [
                 'companyName' => 'required|regex:/^[A-Za-zá-úÁ-ÚñÑ0-9\-! ,&\'\"\/@\.:\(\)]+$/',
@@ -139,7 +143,7 @@ class CompanyController extends Controller
 
             Company::where('code', env('CODE_COMPANY'))->update([
                 'name' => $data['companyName'], 'companyInfo->url_logo' => $completePathCampaign,
-                'companyInfo->company_address' => $data['companyAddress'], 'companyInfo->company_phone' => $data['companyPhone'], 'companyInfo->url_company' => $completePathCompany, 'companyInfo->url_icon' => $completePathIcon, 'companySeo->title' => $data['companySeoTitle'], 'companySeo->description' => $data['companySeoDescription'], 'companySeo->url_image' => $completePathSeo, 'first_image' => $completePathModal, 'redirect_first_image' => $completeRedirect ?? '', 'companyInfo->year_name' => $data['yearName'] ?? ''
+                'companyInfo->company_address' => $data['companyAddress'], 'companyInfo->company_phone' => $data['companyPhone'], 'companyInfo->url_company' => $completePathCompany, 'companyInfo->url_icon' => $completePathIcon, 'companySeo->title' => $data['companySeoTitle'], 'companySeo->description' => $data['companySeoDescription'], 'companySeo->url_image' => $completePathSeo, 'first_image' => $completePathModal, 'redirect_first_image' => $completeRedirect ?? '', 'companyInfo->year_name' => $data['yearName'] ?? '', 'attention_time->presencial->from' => $data['fromPresencial'], 'attention_time->presencial->to' => $data['toPresencial'], 'attention_time->virtual->from' => $data['fromVirtual'], 'attention_time->presencial->to' => $data['toVirtual'], 'attention_time->wsp->from' => $data['fromWsp'], 'attention_time->wsp->to' => $data['toWsp']
             ]);
             Session::flash('success_message', 'Los datos se guardaron Correctamente');
             return redirect()->route('dashboard.company');

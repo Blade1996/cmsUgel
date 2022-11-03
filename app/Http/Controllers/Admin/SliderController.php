@@ -90,8 +90,8 @@ class SliderController extends Controller
             $slider->slug = $slug;
             $slider->route = $route;
             $slider->order = Slider::count() + 1;
-            $slider->created_at = new DateTime('now', new DateTimeZone('America/Lima'));
-            $slider->updated_at = new DateTime('now', new DateTimeZone('America/Lima'));
+            $slider->created_at = now('America/Lima');
+            $slider->updated_at = now('America/Lima');
 
             $slider->save();
             Session::flash('success_message', 'El slider se creo Correctamente');

@@ -11,7 +11,7 @@ class UsersTableSeeders extends Seeder
      */
     public function run()
     {
-        $fecha = new DateTime('now', new DateTimeZone('America/Lima'));
+        $fecha = now('America/Lima');
         DB::table('users')->delete();
         $userRecord = [
             [

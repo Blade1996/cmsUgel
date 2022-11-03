@@ -12,6 +12,7 @@ use App\Documents;
 use App\Normativity;
 use App\Announcements;
 use App\Contract;
+use App\Control;
 use App\DocumentTree;
 use App\InterestLink;
 use Illuminate\Http\Request;
@@ -158,6 +159,24 @@ class HomeController extends Controller
         return view('frontend.encargaturas')->with(compact('charges', 'companyData', 'sections', 'categories'));
     }
 
+    public function indexControl(Request $request)
+    {
+        if (!empty($request->categoryId)) {
+            $controls = Control::orderBy('modificado')->category($request->categoryId)->paginate(4);
+        } else if (!empty($request->search)) {
+            $controls = Control::orderBy('modificado')->title($request->search)->paginate(4);
+        } else {
+            $controls =  Control::orderBy('modificado')->paginate(4);
+        }
+        $categories = DB::table('dx_control_categoria')->where('estado', 1)->get(['id', 'titulo']);
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
+        $sections->each(function ($section) {
+            $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
+        });
+        $companyData = getCompanyData();
+        return view('frontend.internal_control')->with(compact('controls', 'companyData', 'sections', 'categories'));
+    }
+
     public function indexAnnouncements(Request $request)
     {
         $announcements = Announcements::all();
@@ -214,4 +233,30 @@ class HomeController extends Controller
         $companyData = getCompanyData();
         return view('frontend.article_detail')->with(compact('articleDetail', 'companyData', 'sections', 'treeDetail'));
     }
+
+    public function linkDetail($id)
+    {
+        $linkDetail = InterestLink::find($id);
+        $treeDetail = DocumentTree::where('parent_id', $linkDetail->tree_id)->get();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
+        $sections->each(function ($section) {
+            $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
+        });
+        $companyData = getCompanyData();
+        return view('frontend.link_detail')->with(compact('linkDetail', 'companyData', 'sections', 'treeDetail'));
+    }
+
+    public function controlDetail($id)
+    {
+        $controlDetail = Control::find($id);
+        $controlDetail = DocumentTree::where('parent_id', $controlDetail->tree_id)->get();
+        $sections = DB::table('dx_articulo_categoria')->select('id', 'titulo')->where([['id', '<>', 5], ['id', '<>', 9], ['id', '<>', 11], ['estado', '=', 1]])->get();
+        $sections->each(function ($section) {
+            $section->articles =  Article::select('id', 'titulo')->where('idarticulo_categoria', $section->id)->get();
+        });
+        $companyData = getCompanyData();
+        return view('frontend.control_detail')->with(compact('controlDetail', 'companyData', 'sections', 'treeDetail'));
+
+    }
+
 }

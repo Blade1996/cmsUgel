@@ -92,8 +92,8 @@ class ArticleController extends Controller
             $article->redireccion = $data['articleTextLink'] ?? '';
             $article->video = $data['articleUrlVideo'];
             $article->tree_id = $data['treeId'];
-            $article->creado = new DateTime('now', new DateTimeZone('America/Lima'));
-            $article->modificado = new DateTime('now', new DateTimeZone('America/Lima'));
+            $article->creado = now('America/Lima');
+            $article->modificado = now('America/Lima');
             $article->descripcion = htmlspecialchars_decode(e($data['articleContent']));
 
             $article->save();
@@ -160,7 +160,7 @@ class ArticleController extends Controller
             $article->tipo = $data['typelink'] ?? '';
             $article->redireccion = $data['articleTextLink'] ?? '';
             $article->video = $data['articleUrlVideo'];
-            $article->modificado = new DateTime('now', new DateTimeZone('America/Lima'));
+            $article->modificado = now('America/Lima');
             $article->descripcion = htmlspecialchars_decode(e($data['articleContent']));
 
             $article->update();

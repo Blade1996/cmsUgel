@@ -138,7 +138,7 @@ class InterestLinkController extends Controller
             $link->tipo = $data['typelink'] ?? '';
             $link->redireccion = $data['linkTextLink'] ?? '';
             $link->video = $data['linkUrlVideo'] ?? '';
-            $link->modificado = new DateTime('now', new DateTimeZone('America/Lima'));
+            $link->modificado = now('America/Lima');
             $link->descripcion = htmlspecialchars_decode(e($data['linkContent']));
 
             $link->update();

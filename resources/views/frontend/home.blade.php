@@ -77,8 +77,12 @@
                 @elseif ($link->tipo == 'pdf')
                 <a href="{{ $link->archivo }}" target="_blank"><i class="nav-icon fas {{ $link->icon_class }}"></i>{{
                     $link->titulo }}<i class="fas fa-chevron-right float-end align-middle"></i></a>
+                @elseif ($link->tipo == 'internal')
+                <a href="{{ route('home.link.detail', $link->id) }}" target="_blank"><i
+                        class="nav-icon fas {{ $link->icon_class }}"></i>{{
+                    $link->titulo }}<i class="fas fa-chevron-right float-end align-middle"></i></a>
                 @else
-                <a href="{{ route('home.article.detail', $link->id) }}" target="_blank"><i
+                <a href="{{ route('home.link.detail', $link->id) }}" target="_blank"><i
                         class="nav-icon fas {{ $link->icon_class }}"></i>{{
                     $link->titulo }}<i class="fas fa-chevron-right float-end align-middle"></i></a>
                 @endif
@@ -113,7 +117,8 @@
     <div class="row" style="margin: auto; max-width: 80%;">
         <div class="col-md-2 col-sm-6 text-center mb-2"><a href="{{ route('home.announcements') }}" class="btn"><i
                     class="fas fa-bullhorn"></i> Convocatorias CAS</a></div>
-        <div class="col-md-2 col-sm-6 text-center mb-2"><a href="#" class="btn"><i class="far fa-folder-open"></i>
+        <div class="col-md-2 col-sm-6 text-center mb-2"><a href="{{ route('home.controls') }}" class="btn"><i
+                    class="far fa-folder-open"></i>
                 Sistema de
                 control interno</a></div>
         <div class="col-md-2 col-sm-6 text-center mb-2"><a href="{{ route('home.contract') }}" class="btn"><i
@@ -163,7 +168,7 @@
                 @foreach ($normativities as $normativity)
                 <div class="col-lg-4 col-md-6 col-xs-12">
                     <div class="card-body">
-                        <div class="small text-muted">{{ $normativity->fecha }}</div>
+                        <div class="small text-muted">{{ $normativity->modificado }}</div>
                         <h2 class="card-title h4">{{ $normativity->nombre }}</h2>
                         <p class="card-text">{{ $normativity->descripcion }}</p>
                         <a href="{{ $normativity->archivo }}" class="stretched-link"><i class="bi bi-app"></i>

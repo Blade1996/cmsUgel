@@ -68,7 +68,7 @@
                                             <input type="radio" class="form-check-input" name="typelink" id="external"
                                                 value="external" <?php if($linkDetail->tipo == 'external' )
                                             echo 'checked' ; ?> >
-                                            Enlace Enterno
+                                            Enlace Externo
                                         </label>
                                     </div>
                                     <div class="form-check-inline">

@@ -1,4 +1,5 @@
 <?php
+
 use App\Article;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +13,7 @@ class ArticlesTableSeeder extends Seeder
     public function run()
     {
         /*
-        $fecha = new DateTime('now', new DateTimeZone('America/Lima'));
+        $fecha = now('America/Lima');
         DB::table('articles')->delete();
         $articlesRecords = [
             [
@@ -63,6 +64,5 @@ class ArticlesTableSeeder extends Seeder
         DB::table('articles')->insert($articlesRecords);
         */
         factory(Article::class, 10)->create();
-
     }
 }

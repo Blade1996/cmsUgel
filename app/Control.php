@@ -13,7 +13,20 @@ class Control extends Model
 
     protected $table = 'dx_control';
     public $timestamps = false;
-    protected $fillable = ['title', 'is_activated', 'content', 'course_id', 'order', 'url_image', 'url_video'];
+
+    protected $fillable = [
+        'id',
+        'title',
+        'subtitle',
+        'slug',
+        'route',
+        'admin_id',
+        'content',
+        'section_id',
+        'content',
+        'page_image',
+        'published_at'
+    ];
 
     /**
      * The "booting" method of the model.

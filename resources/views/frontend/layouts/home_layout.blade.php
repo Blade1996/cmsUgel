@@ -24,6 +24,12 @@
         rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/3809eab31a.js" crossorigin="anonymous"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/js/tempusdominus-bootstrap-4.min.js"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/css/tempusdominus-bootstrap-4.min.css"
+        crossorigin="anonymous" />
 </head>
 <style>
     .chatbot {
@@ -192,6 +198,7 @@
       responsive: true,
       order: [],
     });
+
   })
 
     </script>

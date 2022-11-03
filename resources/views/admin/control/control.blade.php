@@ -1,5 +1,5 @@
 @extends('layouts.admin_layout')
-@section('title', 'Lista de Control')
+@section('title', 'Lista de Control Interno')
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -8,12 +8,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Control</h1>
+                    <h1>Control Interno</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Control</li>
+                        <li class="breadcrumb-item active">Control Interno</li>
                     </ol>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     <!--Elegido-->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Tabla de Control</h3>
+                            <h3 class="card-title">Tabla de Control Interno</h3>
                             <a href="{{ route('dashboard.control.create') }}"
                                 style="max-width: 150px; float: right; display:inline-block;"
                                 class="btn btn-block btn-success">Agregar Control</a>
@@ -64,7 +64,7 @@
                                     @foreach ($controls as $control)
                                     <tr>
                                         <td>{{ $control->id }}</td>
-                                        <td>{{ $control->nombre }}</td>
+                                        <td>{{ $control->titulo }}</td>
                                         <td>
                                             @if ($control->estado == 1)
                                             <small class="badge badge-success update-status" style="cursor: pointer;"

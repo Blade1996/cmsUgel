@@ -199,7 +199,7 @@
                     <a href="{{ route('dashboard.control.index') }}" class="nav-link {{ $active }}">
                         <i class="nav-icon fas fa-newspaper"></i>
                         <p>
-                            Control
+                            Control Interno
                         </p>
                     </a>
                 </li>

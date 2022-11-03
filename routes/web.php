@@ -30,6 +30,8 @@ Route::get('/normatividad', 'HomeController@indexNormativity')->name('home.norma
 Route::get('/reasignacion', 'HomeController@indexReassign')->name('home.reassign');
 Route::get('/contratos', 'HomeController@indexContract')->name('home.contract');
 Route::get('/encargaturas', 'HomeController@indexCharges')->name('home.charges');
+Route::get('/controls', 'HomeController@indexControl')->name('home.controls');
+Route::get('/controls/{id}', 'HomeController@controlDetail')->name('home.controls.detail');
 Route::get('/normatividad/category/{id}', 'HomeController@indexNormativity')->name('home.normativity.category');
 Route::get('/reasignacion/category/{id}', 'HomeController@indexReassign')->name('home.reassign.category');
 Route::get('/contratos/category/{id}', 'HomeController@indexContract')->name('home.contract.category');
@@ -138,8 +140,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         //Control
         Route::get('dashboard/control', 'ControlController@index')->name('dashboard.control.index');
         Route::post('dashboard/upd-control-status', 'ControlController@updateControlStatus')->name('dashboard.upd-control-status');
-        Route::match(['get', 'post'], 'dashboard/control/create', 'ControlController@add')->name('dashboard.control.create');
-        Route::match(['get', 'post'], 'dashboard/control/edit/{id?}', 'ControlController@edit')->name('dashboard.control.edit');
+        Route::match(['get', 'post'], 'dashboard/control/create', 'ControlController@addControl')->name('dashboard.control.create');
+        Route::match(['get', 'post'], 'dashboard/control/edit/{id?}', 'ControlController@editControl')->name('dashboard.control.edit');
         Route::get('dashboard/control/delete/{id}', 'ControlController@destroy')->name('dashboard.control.delete');
 
 
